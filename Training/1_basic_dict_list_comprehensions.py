@@ -14,7 +14,7 @@ for k,v in b.items():
     print(f"key: {k}, value: {v}")
 
 
-list1 = [i for i in range(100)]
+list1 = [i for i in range(17) if i%2==0]
 
 print("=========")
 for i in range(0, 10, 2):
