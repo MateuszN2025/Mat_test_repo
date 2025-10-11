@@ -20,5 +20,39 @@ li_s = "abc"
 print(list(li_s))
 # any(lista)	True, jeśli dowolny element jest prawdziwy	any([0,1,0]) → True
 # all(lista)	True, jeśli wszystkie elementy są prawdziwe	all([1,2,3]) → True
-# kolejne tematy do poczytania to extend, 
+# kolejne tematy do poczytania to extend,
+
+print("#########")
+l1 = [23,43]
+l2 = [44,42]
+print(l1 + l2)
+l3 = [1]
+l3.extend(l1)
+print(l3)
+l3.extend(l2)
+print(l3)
+
+print("#########")
+l1.insert(0,909009)
+print(l1)
+
+print("#########")
+l1.pop()
+print(l1)
+
+print("###########")
+l1.remove(23)
+print(l1)
+
+
+print("###########")
+l1.append(23)
+print(l1)
+
+# index
+# count
+# sort
+print("###########")
+print(l1.index(909009))
+
 
