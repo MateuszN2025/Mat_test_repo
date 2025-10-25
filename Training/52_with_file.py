@@ -9,10 +9,25 @@ file_table = []
 i=0
 
 with open('file1.txt', 'w') as f2:
-    for line in range(1000):
-        # if line / 10 == 0:
-        #     f2.write(" " + str(line))
-        if line / 10 != 0:
-            f2.write(" " + str(line))
+    for number in range(101):
+        if number == 0:
+            f2.write(" " + str(number))
+            continue
+        if number > 0 and number <= 10:
+            f2.write("  " + str(number))
         else:
+            f2.write(" " + str(number))
+        if number % 10 == 0:
+            f2.write("\n")
+
+with open('file1.txt', 'w') as f2:
+    for number in range(101):
+        # if number == 0:
+        #     f2.write(" " + str(number))
+        #     continue
+        if number > 0 and number <= 10:
+            f2.write("  " + str(number))
+        else:
+            f2.write(" " + str(number))
+        if number % 10 == 0:
             f2.write("\n")
