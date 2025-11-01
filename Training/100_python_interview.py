@@ -153,9 +153,47 @@ print(s1[::-1])
 # ==========================
 
 # 11. Implement a simple if/elif/else example.
+print(f"a is less than 10")
 print("11 ###############################")
-
+a=10
+if a>5 and a<10:
+    print(f"a is  fron range (6,9)")
+elif a<5:
+    print(f"a is less than 5")
+else:
+    print("other")
 # 12. Demonstrate the difference between "is" and "==".
+print("12 ###############################")
+# Example 1: Using integers
+a = 1000
+b = 1000
+
+print(a == b)  # True — they have the same value
+print(a is b)  # False — they are stored at different memory locations
+
+# Example 2: Using small integers (cached by Python)
+x = 10
+y = 10
+
+print(x == y)  # True — same value
+print(x is y)  # True — Python caches small integers (-5 to 256)
+
+# Example 3: Using lists
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]
+
+print(list1 == list2)  # True — they contain the same elements
+print(list1 is list2)  # False — they are different objects in memory
+
+# Example 4: Assigning one list to another
+list3 = list1
+print(list3 == list1)  # True — same elements
+print(list3 is list1)  # True — same memory reference
+"""
+Explanation
+== -> Compares values (content equality).
+is → Compares identities (memory address or object identity).
+"""
 # 13. Use a for-loop to iterate through a dictionary.
 # 14. Show how to use a while loop with a break condition.
 # 15. Demonstrate the use of enumerate() and zip().
