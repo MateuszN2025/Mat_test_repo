@@ -195,9 +195,61 @@ Explanation
 is → Compares identities (memory address or object identity).
 """
 # 13. Use a for-loop to iterate through a dictionary.
+print("13 ###############################")
+dict = {"a":434, "b":789}
+for item in dict:
+    print(item)
+for k, v in dict.items():
+    print("key is %s, value is %d" % (k, v))
+    print(f"key is {k}, value is {v}")
+
+for k, v in d1.items():
+    print("key is {}, value is {}".format(k, v))
 # 14. Show how to use a while loop with a break condition.
-# 15. Demonstrate the use of enumerate() and zip().
+print("14 ###############################")
+a=100
+while(a):
+    print(a)
+    if a<50:
+        break
+    a -= 1
+# 15. Demonstrate the use of enumerate() and zip(). #0987
+print("15 ############# enumerate() ##################")
+# -------------------------------
+# Example 1: enumerate()
+# -------------------------------
+fruits = ["apple", "banana", "cherry"]
+print("Using enumerate():")
+for index, value in enumerate(fruits): #0987
+    print(index, value)
+print(enumerate(fruits))
+"""
+enumerate(iterable, start=0)
+Adds a counter to an iterable.
+Returns pairs like (index, value).
+"""
+print("15 ############# zip() ##################")
+# -------------------------------
+# Example 2: zip()
+# -------------------------------
+names = ["Alice", "Bob", "Charlie"]
+scores = [85, 92, 78]
+print("Using zip():")
+for name, score in zip(names, scores):
+    print(score, name)
+print(zip(names, scores))
+"""
+zip(iter1, iter2, …)
+Combines multiple iterables into tuples.
+Stops when the shortest iterable is exhausted.
+"""
 # 16. Write a generator function using "yield".
+print("16 ###############################")
+def gen1():
+    for jjj in range(10, 20, 2):
+        yield jjj
+for item in gen1():
+    print(item)
 # 17. Create a function that accepts variable numbers of arguments (*args, **kwargs).
 # 18. Demonstrate lambda, map(), filter(), and reduce() usage.
 # 19. Show how to use list comprehension with conditional logic.
