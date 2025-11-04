@@ -45,16 +45,16 @@ www = "example.com"
 # --- f-string ---
 print(f"a is {a}")  # modern, clean, fast
 # --- format() method ---
-print("Website: {}".format(www)) #0987
+print("Website: {}".format(www))  #0987
 # --- old-style % formatting ---
-print("Hello %s" % www) #0987
+print("Hello %s" % www)  #0987
 # 6. Show examples of list, tuple, set, and dict creation.
 print("6 ###############################")
 d = [1, 2, 3]
 e = {4, 5, 6}
 f = (9, 8, 7)
 g = {"a": 23, "b": 44}
-tab1 = [d,e,f,g]
+tab1 = [d, e, f, g]
 print(tab1)
 # 7. Explain list comprehensions and rewrite a for-loop using one.
 print("7 ###############################")
@@ -67,6 +67,7 @@ print([item for item in range(10) if item % 3 == 0])
 # 8. What is a shallow vs deep copy in Python?
 print("8 ###############################")
 import copy
+
 # Original nested list
 original = [[1, 2, 3], [4, 5, 6]]
 # Shallow copy – only top-level list is copied
@@ -120,11 +121,11 @@ config_variant["browser"] = "firefox"
 """
 # 9. Demonstrate unpacking of tuples and dictionaries.
 print("9 ###############################")
-t1 = (3,44,555)
+t1 = (3, 44, 555)
 t11, t12, t13 = t1
 print(t11, t12, t13)
 
-d1 = {"a":333, "b": 9999}
+d1 = {"a": 333, "b": 9999}
 d11, d12 = d1
 print(d11, d12)
 
@@ -144,7 +145,7 @@ print(d11_key, d11_value)
 print(d12_key, d12_value)
 # 10. Write code to reverse a string and a list.
 print("10 ###############################")
-l1 = [1,2,3,4]
+l1 = [1, 2, 3, 4]
 print(l1[::-1])
 s1 = "ghj"
 print(s1[::-1])
@@ -155,10 +156,10 @@ print(s1[::-1])
 # 11. Implement a simple if/elif/else example.
 print(f"a is less than 10")
 print("11 ###############################")
-a=10
-if a>5 and a<10:
+a = 10
+if a > 5 and a < 10:
     print(f"a is  fron range (6,9)")
-elif a<5:
+elif a < 5:
     print(f"a is less than 5")
 else:
     print("other")
@@ -196,7 +197,7 @@ is → Compares identities (memory address or object identity).
 """
 # 13. Use a for-loop to iterate through a dictionary.
 print("13 ###############################")
-dict = {"a":434, "b":789}
+dict = {"a": 434, "b": 789}
 for item in dict:
     print(item)
 for k, v in dict.items():
@@ -207,10 +208,10 @@ for k, v in d1.items():
     print("key is {}, value is {}".format(k, v))
 # 14. Show how to use a while loop with a break condition.
 print("14 ###############################")
-a=100
-while(a):
+a = 100
+while (a):
     print(a)
-    if a<50:
+    if a < 50:
         break
     a -= 1
 # 15. Demonstrate the use of enumerate() and zip(). #0987
@@ -220,7 +221,7 @@ print("15 ############# enumerate() ##################")
 # -------------------------------
 fruits = ["apple", "banana", "cherry"]
 print("Using enumerate():")
-for index, value in enumerate(fruits): #0987
+for index, value in enumerate(fruits):  #0987
     print(index, value)
 print(enumerate(fruits))
 """
@@ -245,13 +246,98 @@ Stops when the shortest iterable is exhausted.
 """
 # 16. Write a generator function using "yield".
 print("16 ###############################")
+
+
 def gen1():
     for jjj in range(10, 20, 2):
         yield jjj
+
+
+ll22 = []
 for item in gen1():
-    print(item)
+    ll22.append(item)
+print(ll22)
+
+print("16 ###############################")
+
+
+def gen2():
+    for jjj in range(10, 20, 3):
+        yield jjj
+
+
+print(list(gen2()))
 # 17. Create a function that accepts variable numbers of arguments (*args, **kwargs).
+print("17 ###############################")
+def funn333(*args, **kwargs):
+    for item_a in args:
+        print(f"item_a : {item_a}")
+    for item_k, item_v in kwargs.items():
+        print(f"item_k : {item_k}, item_v: {item_v}")
+print("============================")
+funn333(1, 3, (32, 43), [989, 898, 323], a=1, b=44)
+print("============================")
+funn333([9999,9999,"werwer"], it=32332, dd={"aaa":"aaaa", "bbb":"bbbb"})
+print("============================")
 # 18. Demonstrate lambda, map(), filter(), and reduce() usage.
+from functools import reduce
+print("18 ###############################")
+# ---------------------------------
+# 1️⃣ Lambda function
+print("=============lambda=====================")
+# ---------------------------------
+sum111 = lambda x, y: x + y
+print("Lambda sum111:", sum111(45, 45))   # simple anonymous function
+sf3 = lambda ii: ii ** 3
+# ---------------------------------
+# 2️⃣ map() — apply a function to each element
+print("==============map====================")
+# ---------------------------------
+nums = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x ** 2, nums)) #0987
+print("Squares using map():", squared)
+nums3 = [111, 222, 333, 444, 555]
+sr3 = list(map(sf3, nums3))
+print("s3 using map():", sr3)
+# ---------------------------------
+# 3️⃣ filter() — keep elements that satisfy a condition
+print("=============filter=====================")
+# ---------------------------------
+even_nums = list(filter(lambda x: x % 2 == 0, nums)) #0987
+print("Even numbers using filter():", even_nums)
+# ---------------------------------
+# 4️⃣ reduce() — apply a function cumulatively to reduce to a single value
+print("==============reduce====================")
+# ---------------------------------
+sum_all = reduce(lambda x, y: x + y, nums) #0987
+print("Sum using reduce():", sum_all)
+"""
+reduce() applies the function cumulatively from left to right.
+The first argument must be a function taking two parameters.
+The second argument is an iterable (like a list or tuple).
+"""
+print("Functional Pipeline Example ###############################")
+# Suppose we have a list of numbers
+nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# Step 1: Use filter() → keep only even numbers
+filtered = filter(lambda x: x % 2 == 0, nums)
+# Step 2: Use map() → square each even number
+mapped = map(lambda x: x ** 2, filtered)
+# Step 3: Use reduce() → sum all the squared even numbers
+result = reduce(lambda x, y: x + y, mapped)
+print("Sum of squares of even numbers:", result)
+print("==================================")
+nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+result = reduce(
+    lambda x, y: x + y,
+    map(lambda x: x ** 2, filter(lambda x: x % 2 == 0, nums))
+    )
+print(result)
+print("Functional Pipeline (List Comprehension) ###############################")
+nums2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# One line comprehension:
+result2 = sum([x ** 2 for x in nums2 if x % 2 == 0])
+print("Sum of squares of even numbers:", result2)
 # 19. Show how to use list comprehension with conditional logic.
 # 20. Handle exceptions with try/except/finally and custom exceptions.
 
