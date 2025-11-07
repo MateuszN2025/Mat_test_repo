@@ -339,7 +339,61 @@ nums2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 result2 = sum([x ** 2 for x in nums2 if x % 2 == 0])
 print("Sum of squares of even numbers:", result2)
 # 19. Show how to use list comprehension with conditional logic.
+print("19 ###############################")
+print([item for item in range(10) if item % 2 == 0])
+print([item if item % 2 == 0 else -1 for item in range(10)])
+# Output: [0, -1, 2, -1, 4, -1, 6, -1, 8, -1]
 # 20. Handle exceptions with try/except/finally and custom exceptions.
+print("20 ###############################")
+class DivisionByZeroError(Exception):
+    """Custom exception for division by zero."""
+    pass
+
+a = 1
+b = 0
+"""
+Why put ZeroDivisionError after except?
+Because:
+except = “catch this type of exception”
+ZeroDivisionError = specific exception class you want to catch
+If you don’t specify the type (just except:),
+it catches all exceptions, but that’s considered
+bad practice since it hides bugs you might not expect.
+"""
+try:
+    print(a / b)
+except ZeroDivisionError:
+# except:
+    # pass
+    print("Division by 0")
+    # raise DivisionByZeroError("You tried to divide by zero — not allowed!")
+else:
+    print("Division successful.")
+finally:
+    print("That's it anyway.")
+
+print("20 ###############################")
+import logging
+# Configure logging
+logging.basicConfig(
+    filename="/home/mateusz/repo/1_app_log/app.log",             # Log file name
+    # filename="1111_app.log",
+    level=logging.ERROR,            # Log only errors or worse
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+a = 1
+b = 0
+try:
+    print(a / b)
+except ZeroDivisionError as e:
+    # logging.error("Division by zero error occurred: %s", e)
+    logging.error(f"Division by 0: {e}")
+    print("An error occurred. Check the log file for details.")
+else:
+    print("Division successful.")
+finally:
+    print("That's it anyway.")
+
 
 # ==========================
 # SECTION 3 – Functions & OOP
