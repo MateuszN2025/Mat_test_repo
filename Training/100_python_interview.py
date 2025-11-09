@@ -400,8 +400,88 @@ finally:
 # ==========================
 
 # 21. Define a class with __init__, __str__, and __repr__ methods.
+print("21 ###############################")
+class Aaaaa:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def __str__(self):
+        return f"x is {self.x} and y is {self.y}"
+    def __repr__(self):
+        return f"Aaaaa({self.x}, {self.y})"
+a = Aaaaa(32,43)
+print(a)
+# explicitly prints __repr__ #0987
+print(repr(a))    # Aaaaa(32, 43)
+print("==================================")
+class Bbbbb:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def __str__(self):
+        return f"x is {self.x} and y is {self.y}"
+b = Bbbbb(9090,7878)
+print(b)
+print(repr(b)) # <__main__.Bbbbb object at 0x7b9d3187a180>
 # 22. Explain and demonstrate class vs instance variables.
+print("22 ###############################")
+class Car:
+    var = 999
+    def __init__(self, name, power):
+        self.name = name
+        self.power = power
+    def __str__(self):
+        return f"Car name is {self.name} and power is {self.power} HP"
+print("==================================")
+print(Car.var)
+print(type(Car.var))
+print("==================================")
+fiat = Car("tipo", 100)
+print(fiat)
+print(fiat.var)
+print(type(fiat.var))
+print("==================================")
+fiat.var = 123
+print(fiat.var)   # 123 (instance variable now shadows the class one)
+print(Car.var)    # 999 (unchanged)
 # 23. Show inheritance and method overriding.
+print("23 ###############################")
+class X():
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+    # def __str__(self):
+    #     return f"a is {self.a}, b is {self.b}"
+    def __str__(self):
+        # return super().__str__()
+        return A.__str__(self)
+        """
+        A.__str__(self)
+        This explicitly calls the __str__ method from class A.
+        It ignores the MRO and directly jumps to A.
+        If you change the parent class later (or use multiple inheritance), 
+        this might break or behave unexpectedly.
+        """
+    def fun1(self):
+        print(f"Let's NOT introduce: {self.a}, {self.b}")
+
+class A(X):
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+    def __str__(self):
+        return f"a is {self.a}, b is {self.b}"
+    # def fun1(self):
+    #     print(f"Let's introduce: {self.a}, {self.b}")
+
+a1 = A(2,2)
+x1 = X(3,3)
+
+print(a1)
+a1.fun1()
+print("==================================")
+print(x1)
+x1.fun1()
 # 24. Demonstrate encapsulation using private attributes.
 # 25. Explain and show an example of classmethod and staticmethod.
 # 26. Create an abstract base class and subclass it.
