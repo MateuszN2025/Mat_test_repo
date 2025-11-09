@@ -483,8 +483,157 @@ print("==================================")
 print(x1)
 x1.fun1()
 # 24. Demonstrate encapsulation using private attributes.
+print("24 ###############################")
+class team:
+    var = 10
+    _var = 20
+    __var = 30
+
+    def getter(cls):
+        return cls.__var
+
+t1 = team()
+print(t1.var)
+print(t1._var) # protected
+# print(t1.__var) # error
+print(t1._team__var) # workaround
+print(t1.getter())
+print("==================================")
+# Example: Name Mangling Prevents Accidental Override
+class Parent:
+    def __init__(self):
+        self.__secret = "Parent secret"
+    def show_secret(self):
+        print(self.__secret)
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        self.__secret = "Child secret"   # looks similar, but different!
+
+obj = Child()
+obj.show_secret()
+print(obj.__dict__) #0987
+
+print("==================================")
+class Parent:
+    def __init__(self):
+        print("Parent __init__ running")
+
+class Child(Parent):
+    def __init__(self):
+        print("Child __init__ running")
+        super().__init__()   # Explicitly call Parent's constructor
+
+obj = Child()
+print("==================================")
+class Parent:
+    def __init__(self):
+        print("Parent __init__ running")
+
+class Child(Parent):
+    def __init__(self):
+        print("Child __init__ running")
+
+obj = Child()
+print("==================================")
 # 25. Explain and show an example of classmethod and staticmethod.
+print("25 ###############################")
+class Methods:
+    a3 = 4
+    b3 = 5
+    c3 = 0
+    def __init__(self):
+        self.zzz = 100000000
+
+    @classmethod
+    def a_class_method(cls, self):
+        c3 = cls.a3 + cls.b3
+        print("This is a class method")
+        print(f"a: {cls.a3} + b: {cls.b3} = c: {c3}")
+        print(f"{self.zzz}") # it is not Pythonic
+
+    @staticmethod
+    def b_static_method():
+        print("This is a static method")
+
+m1 = Methods()
+print("==================================")
+Methods.a_class_method(m1)
+Methods.b_static_method()
+print("==================================")
+m1.a_class_method(m1)
+m1.b_static_method()
+print("==================================")
+
+'''
+| Type                | Decorator       | First Parameter | Can Access            | Called via        | Typical Use                         |
+| ------------------- | --------------- | --------------- | --------------------- | ----------------- | ----------------------------------- |
+| **Instance method** | none            | `self`          | instance + class data | instance only     | operate on instance data            |
+| **Class method**    | `@classmethod`  | `cls`           | class data only       | class or instance | factory methods, class-wide changes |
+| **Static method**   | `@staticmethod` | none            | neither               | class or instance | utility/helper methods              |
+'''
+print("==========Pythonic===========")
+class Example:
+    a3 = 10
+    b3 = 20
+
+    def __init__(self):
+        self.zzz = 100000000
+
+    @classmethod
+    def a_class_method(cls):
+        c3 = cls.a3 + cls.b3
+        print(f"This is a class method")
+        print(f"a: {cls.a3} + b: {cls.b3} = c: {c3}")
+
+    def an_instance_method(self):
+        print(f"This is an instance method — zzz = {self.zzz}")
+
+print("==================================")
+obj = Example()
+Example.a_class_method()
+obj.an_instance_method()
+print("==================================")
 # 26. Create an abstract base class and subclass it.
+print("26 ###############################")
+from abc import ABC, abstractmethod
+
+class Animal(ABC):  # Inherit from ABC to make it an abstract base class
+    @abstractmethod
+    def sound(self):
+        pass
+    # pass
+
+"""
+class Animal(ABC) → makes it an abstract class.
+@abstractmethod → says this method must be defined in subclasses.
+"""
+
+class Dog(Animal):
+    def sound(self):
+        print("Bark!")
+
+
+class Cat(Animal):
+    def sound(self):
+        print("Meow!")
+
+dog = Dog()
+# class Dog(Animal):
+#   pass
+# TypeError: Can't instantiate abstract class Dog without an implementation for abstract method 'sound'
+cat = Cat()
+
+dog.sound()
+cat.sound()
+"""
+Why use abstract classes?
+They’re useful when you want to:
+- Enforce that all subclasses share the same structure (like an interface).
+- Avoid forgetting to implement a key method.
+- Create a consistent pattern in a large project.
+"""
 # 27. Demonstrate multiple inheritance and MRO (method resolution order).
 # 28. What is duck typing in Python?
 # 29. Implement operator overloading (e.g., __add__).
