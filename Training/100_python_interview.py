@@ -209,11 +209,13 @@ for k, v in d1.items():
 # 14. Show how to use a while loop with a break condition.
 print("14 ###############################")
 a = 100
+list11 = []
 while (a):
-    print(a)
+    list11.append(a)
     if a < 50:
         break
     a -= 1
+print(list11)
 # 15. Demonstrate the use of enumerate() and zip(). #0987
 print("15 ############# enumerate() ##################")
 # -------------------------------
@@ -600,7 +602,7 @@ print("26 ###############################")
 from abc import ABC, abstractmethod
 
 class Animal(ABC):  # Inherit from ABC to make it an abstract base class
-    @abstractmethod
+    @abstractmethod #0987
     def sound(self):
         pass
     # pass
@@ -634,9 +636,112 @@ They’re useful when you want to:
 - Avoid forgetting to implement a key method.
 - Create a consistent pattern in a large project.
 """
-# 27. Demonstrate multiple inheritance and MRO (method resolution order).
+# 27. Demonstrate multiple inheritance and MRO (method resolution order). #0987
+print("27 ######################################")
+# Base classes
+class A:
+    def show(self):
+        print("Class A")
+
+class B(A):
+    def show(self):
+        print("Class B")
+
+class C(A):
+    def show(self):
+        print("Class C")
+
+# Derived class with multiple inheritance
+class D(B, C):
+    pass
+
+# Create object of D
+obj = D()
+obj.show()
+
+# Display MRO
+print(D.mro())  # or use help(D)
+print("=============================")
+class A:
+    def show(self):
+        print("A")
+
+class B(A):
+    def show(self):
+        print("B")
+        super().show()
+
+class C(A):
+    def show(self):
+        print("C")
+        super().show()
+
+class D(B, C):
+    def show(self):
+        print("D")
+        super().show()
+
+"""
+| Concept            | What Happens                                                   |
+| ------------------ | -------------------------------------------------------------- |
+| `super()`          | Calls the **next** method in the MRO chain automatically       |
+| Direct parent call | Skips the MRO — can cause duplicated or missing calls          |
+| MRO                | Defines **consistent order** across multiple inheritance paths |
+
+"""
+obj = D()
+obj.show()
+
 # 28. What is duck typing in Python?
+print("28 #######################")
+class Duck:
+    def quack(self):
+        print("Quack, quack!")
+
+class Person:
+    def quack(self):
+        print("I’m imitating a duck!")
+
+def make_it_quack(thing):
+    thing.quack()  # Works for anything that has a quack() method
+
+# Dynamic typed (Python)
+#   Checks at runtime if method exists
+
+# Using both
+duck = Duck()
+person = Person()
+
+make_it_quack(duck)
+make_it_quack(person)
+
 # 29. Implement operator overloading (e.g., __add__).
+print("29 #######################")
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    # Overloading the '+' operator
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    # For nice printing
+    def __repr__(self):
+        return f"Vector({self.x}, {self.y})"
+
+
+# Create two Vector objects
+v1 = Vector(2, 5)
+v2 = Vector(3, 7)
+
+# Use '+' operator
+v3 = v1 + v2
+
+print(v3)
+
+
+
 # 30. Create a singleton pattern using a class.
 
 # ==========================
