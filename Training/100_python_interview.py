@@ -703,7 +703,7 @@ class Person:
         print("I’m imitating a duck!")
 
 def make_it_quack(thing):
-    thing.quack()  # Works for anything that has a quack() method
+    thing.quack()  # Works for anything that has a quack() method #0987
 
 # Dynamic typed (Python)
 #   Checks at runtime if method exists
@@ -733,16 +733,65 @@ class Vector:
 
 # Create two Vector objects
 v1 = Vector(2, 5)
+print(v1)
 v2 = Vector(3, 7)
-
+print(v2)
 # Use '+' operator
 v3 = v1 + v2
-
 print(v3)
-
-
-
 # 30. Create a singleton pattern using a class.
+print("30 ##############################")
+class Singleton:
+    _instance = None
+
+    def __new__(cls):
+        print("Inside Singleton.__new__()")
+        if cls._instance is None:
+            print("Creating new object with super().__new__()")
+            cls._instance = super().__new__(cls)  # ← we must call this manually #memory allocation
+        return cls._instance
+
+    def __init__(self):
+        print("Running Singleton.__init__()")
+
+# Test
+a = Singleton()
+b = Singleton()
+
+print("a is b:", a is b)
+print("=================================")
+def singleton(cls): #0987
+    instances = {}
+
+    def get_instance(*args, **kwargs):
+        print("Calling get_instance()")
+        if cls not in instances:
+            print("Creating new instance with cls(*args, **kwargs)")
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+
+    return get_instance
+
+@singleton
+class Database:
+    def __init__(self):
+        print("Running Database.__init__()")
+
+# Test
+db1 = Database()
+db2 = Database()
+
+print("db1 is db2:", db1 is db2)
+
+print("=================================")
+"""
+When you make a new instance:
+x = MyClass()
+x = MyClass.__new__(MyClass)   # step 1 — allocate memory
+if isinstance(x, MyClass):
+    MyClass.__init__(x)        # step 2 — initialize it
+So, __new__() is where the object gets created (memory is allocated).
+"""
 
 # ==========================
 # SECTION 4 – Modules & Packages
