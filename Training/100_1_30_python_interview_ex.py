@@ -40,7 +40,19 @@ m = map(lambda x: x**2, range(5))
 for val in m:
     print(val)
 # filter
+print("--- filter ---")
+print(list2)
+list3 = list(filter(lambda x: x % 2==0,list2))
+print(list3)
 # reduce
+print("-------------")
+print(type(list3))
+# list3.remove(0)
+list3.pop(0)
+print(list3)
+from functools import reduce
+sum111 = reduce(lambda x,y: x*y, list3)
+print(sum111)
 #__repr__
 #__dict__
 #abstartmethod
