@@ -54,7 +54,103 @@ from functools import reduce
 sum111 = reduce(lambda x,y: x*y, list3)
 print(sum111)
 #__repr__
+print("--- __repr__ ---")
+class Costam:
+    def __init__(self, x:int):
+        self.x = x
+
+    def __repr__(self):
+         return f"This is a specific description of x which is: {self.x}"
+
+cosiek = Costam(2039482903482)
+print(cosiek)
+print(repr(cosiek))
+
+"""
+print(cosiek) calls cosiek.__str__() if available; if not, it falls back to __repr__()
+"""
+print("--- __repr__, __str__ not a good example ---")
+class Costam2:
+    def __init__(self, x:int):
+        self.x = x
+
+    def __str__(self):
+        return "This is x which is {}".format(self.x)
+
+    def __repr__(self):
+         return f"This is a specific description of x which is: {self.x}"
+
+cosiek2 = Costam2(89898989898982)
+print(cosiek2)
+print(repr(cosiek2))
+
+print("--- __repr__, __str__ a GOOD example ---")
+class Costam3:
+    def __init__(self, x: int):
+        self.x = x
+
+    def __repr__(self): # It’s for developers, not end users.
+        return f"{self.__class__.__name__}(x={self.x})"
+
+    def __str__(self): # It’s meant for humans, end users, logs, and pretty-printing.
+        return f"This is a specific description of x: {self.x}"
+
+cosik3 = Costam3("777")
+print(cosik3)
+print(repr(cosik3))
 #__dict__
+import json
+print("--- __dict__ ---")
+class Jol():
+    var1 = "var"
+    sss = "sss"
+    def hello(self):
+        print("Hello")
+
+    def __init__(self):
+        self.x = 42
+
+print(Jol.__dict__)
+j1 = Jol()
+print(j1.__dict__)
+j1.some_attr = 123
+print(j1.__dict__)
+dict1 = Jol.__dict__
+print(dict1)
+Jol.mmm = "mmm"
+dict1 = Jol.__dict__
+print(dict1)
+print(type(dict1)) #<class 'mappingproxy'>
+dict2 = dict(Jol.__dict__)
+print(dict2)
+print(type(dict2))
+# json_text = json.dumps(dict2, indent=4)
+# print(json_text)
+"""
+--- Because Jol.__dict__ contains non-JSON-serializable objects:
+functions (hello)
+descriptors (__weakref__, __dict__)
+module references
+class internals
+--- JSON can only handle:
+str
+int, float
+bool
+None
+list, dict of the above
+"""
+dict2 = {key: str(value) for key, value in Jol.__dict__.items()} #0987
+json_text = json.dumps(dict2, indent=4)
+print(json_text)
+
+print("--------------------")
+clean = {}
+for k, v in Jol.__dict__.items():
+    if isinstance(v, (str, int, float, bool, list, dict, type(None))):
+        clean[k] = v
+
+json_text = json.dumps(clean, indent=4)
+print(json_text)
 #abstartmethod
 # 27. Demonstrate multiple inheritance and MRO (method resolution order).
 # 28. What is duck typing in Python?
