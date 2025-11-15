@@ -151,9 +151,114 @@ for k, v in Jol.__dict__.items():
 
 json_text = json.dumps(clean, indent=4)
 print(json_text)
-#abstartmethod
+#abstractmethod
+print("--- abstract method ---")
+from abc import ABC,abstractmethod #0987
+
+class Abs1(ABC):
+    @abstractmethod
+    def sound(self):
+        print("Sound method")
+
+    @classmethod
+    def sound_class(cls):
+        print("Sound class method")
+
+    @staticmethod
+    def sound_static():
+        print("Sound STATIC method")
+
+class A1(Abs1):
+    x : int
+    y : str
+    def hihi(self):
+        print("hihi")
+    # def sound(self):
+    #     pass
+    # TypeError: Can't instantiate abstract class A1 without an implementation for abstract method 'sound'
+    def sound(self):
+        # print(f"Sound from instance: {self.__annotations__}")
+        #   AttributeError: 'A1' object has no attribute '__annotations__'
+        # self.__class__.__annotations__
+        print(f"Sound from instance: {self.__class__.__annotations__}")
+        pass
+
+aaa1 = A1()
+
+Abs1.sound_class()
+Abs1.sound_static()
+aaa1.hihi()
+aaa1.sound()
+
+
 # 27. Demonstrate multiple inheritance and MRO (method resolution order).
+print("----- multiple inheritance ------")
+class AAAA:
+    @staticmethod
+    def pr():
+        print("AAAA")
+
+class BBBB(AAAA):
+    @staticmethod
+    def pr():
+        print("BBBB")
+
+class CCCC(AAAA):
+    @staticmethod
+    def pr():
+        print("CCCC")
+
+class DDDD(CCCC, BBBB):
+    @staticmethod
+    def pr():
+        print("DDDD")
+
+AAAA.pr()
+BBBB.pr()
+CCCC.pr()
+DDDD.pr()
+print("-----------------")
+print(AAAA.mro())
+print(BBBB.mro())
+print(CCCC.mro())
+print(DDDD.mro())
+print("-----------------")
+print("----- multiple inheritance with super() ------")
+class AAAA:
+    @classmethod
+    def pr(cls):
+        print("AAAA")
+
+class BBBB(AAAA):
+    @classmethod
+    def pr(cls):
+        print("BBBB")
+        super().pr()
+
+class CCCC(AAAA):
+    @classmethod
+    def pr(cls):
+        print("CCCC")
+        super().pr()
+
+class DDDD(CCCC, BBBB):
+    @classmethod
+    def pr(cls):
+        print("DDDD")
+        super().pr()
+
+print(">>>>>")
+AAAA.pr()
+print(">>>>>")
+BBBB.pr()
+print(">>>>>")
+CCCC.pr()
+print(">>>>>")
+DDDD.pr()
+print(">>>>>")
+
 # 28. What is duck typing in Python?
+
 # 29. Implement operator overloading (e.g., __add__).
 # 30. Create a singleton pattern using a class.
 # singleton pattern with decorator
