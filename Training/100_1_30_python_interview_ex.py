@@ -95,16 +95,17 @@ class Costam3:
     def __str__(self): # It’s meant for humans, end users, logs, and pretty-printing.
         return f"This is a specific description of x: {self.x}"
 
-cosik3 = Costam3("777")
+cosik3 = Costam3(777)
 print(cosik3)
 print(repr(cosik3))
 #__dict__
 import json
 print("--- __dict__ ---")
-class Jol():
+class Jol:
     var1 = "var"
     sss = "sss"
-    def hello(self):
+    @staticmethod
+    def hello():
         print("Hello")
 
     def __init__(self):
@@ -171,7 +172,9 @@ class Abs1(ABC):
 class A1(Abs1):
     x : int
     y : str
-    def hihi(self):
+
+    @staticmethod
+    def hihi():
         print("hihi")
     # def sound(self):
     #     pass
