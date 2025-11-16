@@ -798,7 +798,9 @@ So, __new__() is where the object gets created (memory is allocated).
 # ==========================
 
 # 31. Explain the structure of a Python package.
+print("my_package_100.module1")
 # 32. Demonstrate importing specific functions from a module.
+print("my_package_100.module2")
 # 33. Explain the difference between absolute and relative imports.
 # 34. What happens when you execute a module directly vs import it?
 # 35. Use __name__ == "__main__" correctly.
