@@ -798,26 +798,130 @@ So, __new__() is where the object gets created (memory is allocated).
 # ==========================
 
 # 31. Explain the structure of a Python package.
-print("my_package_100.module1")
+print("31 ### my_package_100.module1")
 # 32. Demonstrate importing specific functions from a module.
-print("my_package_100.module2")
+print("32 ### my_package_100.module2")
 # 33. Explain the difference between absolute and relative imports.
-print("my_package_100.module2")
+print("33 ### my_package_100.module2")
 # 34. What happens when you execute a module directly vs import it?
-print("in module3 and module 4")
+print("34 ### in module3 and module 4")
 # 35. Use __name__ == "__main__" correctly.
-print("in module3 and module 4")
+print("35 ### in module3 and module 4")
 # 36. Write a simple script that reads configuration from a JSON file.
-
+print("36 ### module5_read_json.py")
 # ==========================
 # SECTION 5 – File Handling & OS
 # ==========================
 
 # 37. Read and write to a text file.
+print("37 ################")
+with open('mn1234.txt', 'w') as f:
+    f.write("This is the new file")
+print("-------------------")
+with open('mn1234_to_read.txt', 'r') as f2:
+    text_from_file = f2.read()
+print(text_from_file)
 # 38. Handle file exceptions safely.
+print("38 ################")
+filename = "mn1234_to_read.txt"
+try:
+    with open(filename, "r") as f:
+        content = f.read()
+except FileNotFoundError:
+    print(f"Error: '{filename}' does not exist.")
+except PermissionError:
+    print(f"Error: No permission to read '{filename}'.")
+else:
+    print("File loaded successfully!")
+    print(content)
+finally:
+    print("Done.")
 # 39. Parse a CSV file into a list of dictionaries.
+print("39 ################")
 # 40. Use pathlib for file operations.
+print("40 ################")
+from pathlib import Path #0987
+# Create a Path object
+file_path = Path("example8989.txt")
+# Write to the file
+file_path.write_text("Hello from pathlib!")
+# Read from the file
+content = file_path.read_text()
+print("File contains:", content)
+print("---------------------------")
+from pathlib import Path
+p = Path("data.txt")
+if p.exists():
+    print("File exists!")
+else:
+    print("File not found.")
+print("---------------------------")
+from pathlib import Path
+folder = Path("my_folder")
+folder.mkdir(exist_ok=True)
+print("---------------------------")
+list_dir = []
+from pathlib import Path
+for file in Path(".").iterdir():
+    list_dir.append(file)
+print(list_dir)
+print("---------------------------")
+from pathlib import Path
+p = Path("folder") / "subfolder" / "file.txt"
+print(p)
+'''
+SUPER SIMPLE SUMMARY
+Path("file.txt") → represents a file or folder
+.write_text() → writes a text file
+.read_text() → reads a text file
+.exists() → checks if a file exists
+.mkdir() → makes a folder
+.iterdir() → lists files
+'''
 # 41. Explain context managers and create a custom one.
+print("41 ################")
+'''
+A context manager is something that:
+✔ does something before a block of code
+✔ does something after the block of code
+✔ guarantees cleanup even if an error happens
+'''
+# with open("file.txt") as f:
+#     data = f.read()
+print("----------class----------")
+class MyContext: #0987
+    def __enter__(self):
+        print("Entering the block1")
+        return "Hello!1"
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Exiting the block1")
+# Use it
+with MyContext() as value:
+    print(value)
+'''
+Explanation:
+__enter__() runs when entering the with block
+__exit__() runs when leaving the block
+Whatever __enter__ returns becomes the value after as
+'''
+print("---------contextlib-----------")
+from contextlib import contextmanager #0987
+
+@contextmanager
+def my_context():
+    print("Before the block2")
+    yield "Hello again!2"
+    print("After the block2")
+
+with my_context() as msg:
+    print(msg)
+
+'''
+How it works:
+Code before yield = enter
+Code after yield = exit
+'''
+
 # 42. Use os and shutil for directory operations.
 # 43. Check if a file exists, and get its size.
 # 44. Write a script to search for a keyword in multiple files.
