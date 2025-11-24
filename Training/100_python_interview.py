@@ -923,7 +923,44 @@ Code after yield = exit
 '''
 
 # 42. Use os and shutil for directory operations.
+print("42 ###########################################")
+import os
+import shutil
+# ---- Creating a directory ----
+os.makedirs("example_dir/subfolder", exist_ok=True)
+print("Directories created!")
+# ---- Listing directory contents ----
+print("Contents of example_dir:", os.listdir("example_dir"))
+# ---- Renaming a directory ----
+os.rename("example_dir/subfolder", "example_dir/renamed_subfolder")
+print("Directory renamed!")
+# ---- Copying a directory ----
+shutil.copytree("example_dir", "example_dir_copy", dirs_exist_ok=True)
+print("Directory copied!")
+# ---- Deleting a directory ----
+shutil.rmtree("example_dir_copy")
+print("Copied directory removed!")
 # 43. Check if a file exists, and get its size.
+print("43 ###########################################")
+try:
+    with open("file1.txt") as f:
+        f1 = f.read()
+except FileNotFoundError:
+    print("No file")
+else:
+    print(f"file: {f1}")
+print("---------------------")
+import os
+
+print("43 ###########################################")
+filename = "file1.txt"
+if not os.path.exists(filename):
+    print("No file")
+else:
+    with open(filename) as f:
+        f1 = f.read()
+    print(f"file: {f1}")
+    print(f"file size: {os.path.getsize(filename)} bytes")
 # 44. Write a script to search for a keyword in multiple files.
 # 45. Use subprocess to run a shell command and capture output.
 
