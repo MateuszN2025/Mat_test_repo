@@ -962,6 +962,47 @@ else:
     print(f"file: {f1}")
     print(f"file size: {os.path.getsize(filename)} bytes")
 # 44. Write a script to search for a keyword in multiple files.
+print("44 ##########################")
+import os
+# os.rmdir("aaa_dir/aaa.txt") # remove a director (the last one)
+# open("aaa_dir/filename.txt", "w").close() # empty file creation
+
+def create_a_file(directory :str, text: str):
+    with open(directory, "w") as f:
+        f.write(text)
+
+create_a_file("aaa_dir/file1.txt","Hello world!")
+create_a_file("aaa_dir/file2.txt","World is nice.")
+create_a_file("aaa_dir/file3.txt","Just world.")
+
+print("44 ----------------------")
+def look_for_the_keyword(director1 :str, text_to_find : str):
+    dict1111 = {}
+    print(os.listdir(director1))
+    list1111 = os.listdir(director1)
+
+    for dir_item in list1111:
+        path_to_file = director1 + "/" + dir_item
+        print(path_to_file)
+        # print(type(path_to_file)) # str
+        with open(path_to_file, "r") as f:
+            f1111 = f.read()
+        # if text_to_find in f1111:
+        #     dict1111[path_to_file] = True
+        # {'aaa_dir/file.txt': True, 'aaa_dir/file1.txt': True, 'aaa_dir/file3.txt': True}
+
+        # case-insensitive search
+        if text_to_find.lower() in f1111.lower():
+            dict1111[path_to_file] = True
+    #     {'aaa_dir/file.txt': True, 'aaa_dir/file2.txt': True, 'aaa_dir/file1.txt': True, 'aaa_dir/file3.txt': True}
+
+    print(dict1111)
+    return dict1111
+
+look_for_the_keyword("aaa_dir", "world")
+
+
+
 # 45. Use subprocess to run a shell command and capture output.
 
 # ==========================
