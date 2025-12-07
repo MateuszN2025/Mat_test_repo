@@ -371,5 +371,44 @@ print((5).__add__(4000))
 print("--------------------------------")
 
 # 30. Create a singleton pattern using a class.
+print("30 ######################")
+class Singleton:
+    _instance = None
 
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+print("------------------------")
+print(Singleton._instance)
+print("-----------s1-------------")
+s1 = Singleton()
+print(Singleton._instance)
+print("-----------s2-------------")
+s2 = Singleton()
+print(Singleton._instance)
+print("----------s1 s2--------------")
+print(s1 is s2)
+print("------------------------")
+
+'''
+class Singleton(object):
+    ...
+Zwraca delegat umożliwiający wywołanie metody z klasy nadrzędnej
+Czyli:
+super().__new__ → wskazuje na object.__new__
+super().__new__(cls) → tworzy instancję klasy cls przy użyciu standardowego mechanizmu
+
+cls._instance = object.__new__(cls)
+jest równoważne:
+cls._instance = super().__new__(cls)
+
+---------------
+
+super().__new__(cls):
+wywołuje konstruktor z klasy bazowej (object)
+tworzy nową instancję klasy
+pozwala Ci przejąć kontrolę nad liczbą instancji
+jest kluczowe dla wzorca Singleton w Pythonie
+'''
 # singleton pattern with decorator

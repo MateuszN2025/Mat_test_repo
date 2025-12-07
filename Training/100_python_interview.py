@@ -1004,7 +1004,26 @@ look_for_the_keyword("aaa_dir", "world")
 
 
 # 45. Use subprocess to run a shell command and capture output.
-
+print("45 ########################")
+import subprocess
+output = subprocess.getoutput("pwd")
+print(output)
+print("-----------------------")
+command = "date"
+result = subprocess.run(
+    command,
+    capture_output=True,
+    text=True
+)
+print(result)
+print(result.stdout)
+print("-----------------------")
+output = subprocess.getoutput("echo 'hello' ")
+print(output)
+print("-----------------------")
+result = subprocess.run(["pwd"], capture_output=True, text=True)
+print(result.stdout)
+print("-----------------------")
 # ==========================
 # SECTION 6 – Python Advanced Topics
 # ==========================
