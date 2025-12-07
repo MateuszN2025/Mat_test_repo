@@ -271,32 +271,37 @@ def gen2():
 print(list(gen2()))
 # 17. Create a function that accepts variable numbers of arguments (*args, **kwargs).
 print("17 ###############################")
+
+
 def funn333(*args, **kwargs):
     for item_a in args:
         print(f"item_a : {item_a}")
     for item_k, item_v in kwargs.items():
         print(f"item_k : {item_k}, item_v: {item_v}")
+
+
 print("============================")
 funn333(1, 3, (32, 43), [989, 898, 323], a=1, b=44)
 print("============================")
-funn333([9999,9999,"werwer"], it=32332, dd={"aaa":"aaaa", "bbb":"bbbb"})
+funn333([9999, 9999, "werwer"], it=32332, dd={"aaa": "aaaa", "bbb": "bbbb"})
 print("============================")
 # 18. Demonstrate lambda, map(), filter(), and reduce() usage.
 from functools import reduce
+
 print("18 ###############################")
 # ---------------------------------
 # 1️⃣ Lambda function
 print("=============lambda=====================")
 # ---------------------------------
 sum111 = lambda x, y: x + y
-print("Lambda sum111:", sum111(45, 45))   # simple anonymous function
+print("Lambda sum111:", sum111(45, 45))  # simple anonymous function
 sf3 = lambda ii: ii ** 3
 # ---------------------------------
 # 2️⃣ map() — apply a function to each element
 print("==============map====================")
 # ---------------------------------
 nums = [1, 2, 3, 4, 5]
-squared = list(map(lambda x: x ** 2, nums)) #0987
+squared = list(map(lambda x: x ** 2, nums))  #0987
 print("Squares using map():", squared)
 nums3 = [111, 222, 333, 444, 555]
 sr3 = list(map(sf3, nums3))
@@ -305,13 +310,13 @@ print("s3 using map():", sr3)
 # 3️⃣ filter() — keep elements that satisfy a condition
 print("=============filter=====================")
 # ---------------------------------
-even_nums = list(filter(lambda x: x % 2 == 0, nums)) #0987
+even_nums = list(filter(lambda x: x % 2 == 0, nums))  #0987
 print("Even numbers using filter():", even_nums)
 # ---------------------------------
 # 4️⃣ reduce() — apply a function cumulatively to reduce to a single value
 print("==============reduce====================")
 # ---------------------------------
-sum_all = reduce(lambda x, y: x + y, nums) #0987
+sum_all = reduce(lambda x, y: x + y, nums)  #0987
 print("Sum using reduce():", sum_all)
 """
 reduce() applies the function cumulatively from left to right.
@@ -333,7 +338,7 @@ nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 result = reduce(
     lambda x, y: x + y,
     map(lambda x: x ** 2, filter(lambda x: x % 2 == 0, nums))
-    )
+)
 print(result)
 print("Functional Pipeline (List Comprehension) ###############################")
 nums2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -347,9 +352,12 @@ print([item if item % 2 == 0 else -1 for item in range(10)])
 # Output: [0, -1, 2, -1, 4, -1, 6, -1, 8, -1]
 # 20. Handle exceptions with try/except/finally and custom exceptions.
 print("20 ###############################")
+
+
 class DivisionByZeroError(Exception):
     """Custom exception for division by zero."""
     pass
+
 
 a = 1
 b = 0
@@ -365,7 +373,7 @@ bad practice since it hides bugs you might not expect.
 try:
     print(a / b)
 except ZeroDivisionError:
-# except:
+    # except:
     # pass
     print("Division by 0")
     # raise DivisionByZeroError("You tried to divide by zero — not allowed!")
@@ -376,11 +384,12 @@ finally:
 
 print("20 ###############################")
 import logging
+
 # Configure logging
 logging.basicConfig(
-    filename="/home/mateusz/repo/1_app_log/app.log",             # Log file name
+    filename="/home/mateusz/repo/1_app_log/app.log",  # Log file name
     # filename="1111_app.log",
-    level=logging.ERROR,            # Log only errors or worse
+    level=logging.ERROR,  # Log only errors or worse
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 a = 1
@@ -396,44 +405,60 @@ else:
 finally:
     print("That's it anyway.")
 
-
 # ==========================
 # SECTION 3 – Functions & OOP
 # ==========================
 
 # 21. Define a class with __init__, __str__, and __repr__ methods.
 print("21 ###############################")
+
+
 class Aaaaa:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+
     def __str__(self):
         return f"x is {self.x} and y is {self.y}"
+
     def __repr__(self):
         return f"Aaaaa({self.x}, {self.y})"
-a = Aaaaa(32,43)
+
+
+a = Aaaaa(32, 43)
 print(a)
 # explicitly prints __repr__ #0987
-print(repr(a))    # Aaaaa(32, 43)
+print(repr(a))  # Aaaaa(32, 43)
 print("==================================")
+
+
 class Bbbbb:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+
     def __str__(self):
         return f"x is {self.x} and y is {self.y}"
-b = Bbbbb(9090,7878)
+
+
+b = Bbbbb(9090, 7878)
 print(b)
-print(repr(b)) # <__main__.Bbbbb object at 0x7b9d3187a180>
+print(repr(b))  # <__main__.Bbbbb object at 0x7b9d3187a180>
 # 22. Explain and demonstrate class vs instance variables.
 print("22 ###############################")
+
+
 class Car:
     var = 999
+
     def __init__(self, name, power):
         self.name = name
         self.power = power
+
     def __str__(self):
         return f"Car name is {self.name} and power is {self.power} HP"
+
+
 print("==================================")
 print(Car.var)
 print(type(Car.var))
@@ -444,14 +469,17 @@ print(fiat.var)
 print(type(fiat.var))
 print("==================================")
 fiat.var = 123
-print(fiat.var)   # 123 (instance variable now shadows the class one)
-print(Car.var)    # 999 (unchanged)
+print(fiat.var)  # 123 (instance variable now shadows the class one)
+print(Car.var)  # 999 (unchanged)
 # 23. Show inheritance and method overriding.
 print("23 ###############################")
+
+
 class X():
     def __init__(self, a, b):
         self.a = a
         self.b = b
+
     # def __str__(self):
     #     return f"a is {self.a}, b is {self.b}"
     def __str__(self):
@@ -464,20 +492,24 @@ class X():
         If you change the parent class later (or use multiple inheritance), 
         this might break or behave unexpectedly.
         """
+
     def fun1(self):
         print(f"Let's NOT introduce: {self.a}, {self.b}")
+
 
 class A(X):
     def __init__(self, a, b):
         self.a = a
         self.b = b
+
     def __str__(self):
         return f"a is {self.a}, b is {self.b}"
     # def fun1(self):
     #     print(f"Let's introduce: {self.a}, {self.b}")
 
-a1 = A(2,2)
-x1 = X(3,3)
+
+a1 = A(2, 2)
+x1 = X(3, 3)
 
 print(a1)
 a1.fun1()
@@ -486,6 +518,8 @@ print(x1)
 x1.fun1()
 # 24. Demonstrate encapsulation using private attributes.
 print("24 ###############################")
+
+
 class team:
     var = 10
     _var = 20
@@ -494,57 +528,74 @@ class team:
     def getter(cls):
         return cls.__var
 
+
 t1 = team()
 print(t1.var)
-print(t1._var) # protected
+print(t1._var)  # protected
 # print(t1.__var) # error
-print(t1._team__var) # workaround
+print(t1._team__var)  # workaround
 print(t1.getter())
 print("==================================")
+
+
 # Example: Name Mangling Prevents Accidental Override
 class Parent:
     def __init__(self):
         self.__secret = "Parent secret"
+
     def show_secret(self):
         print(self.__secret)
+
 
 class Child(Parent):
     def __init__(self):
         super().__init__()
-        self.__secret = "Child secret"   # looks similar, but different!
+        self.__secret = "Child secret"  # looks similar, but different!
+
 
 obj = Child()
 obj.show_secret()
-print(obj.__dict__) #0987
+print(obj.__dict__)  #0987
 
 print("==================================")
+
+
 class Parent:
     def __init__(self):
         print("Parent __init__ running")
 
+
 class Child(Parent):
     def __init__(self):
         print("Child __init__ running")
-        super().__init__()   # Explicitly call Parent's constructor
+        super().__init__()  # Explicitly call Parent's constructor
+
 
 obj = Child()
 print("==================================")
+
+
 class Parent:
     def __init__(self):
         print("Parent __init__ running")
 
+
 class Child(Parent):
     def __init__(self):
         print("Child __init__ running")
+
 
 obj = Child()
 print("==================================")
 # 25. Explain and show an example of classmethod and staticmethod.
 print("25 ###############################")
+
+
 class Methods:
     a3 = 4
     b3 = 5
     c3 = 0
+
     def __init__(self):
         self.zzz = 100000000
 
@@ -553,11 +604,12 @@ class Methods:
         c3 = cls.a3 + cls.b3
         print("This is a class method")
         print(f"a: {cls.a3} + b: {cls.b3} = c: {c3}")
-        print(f"{self.zzz}") # it is not Pythonic
+        print(f"{self.zzz}")  # it is not Pythonic
 
     @staticmethod
     def b_static_method():
         print("This is a static method")
+
 
 m1 = Methods()
 print("==================================")
@@ -576,6 +628,8 @@ print("==================================")
 | **Static method**   | `@staticmethod` | none            | neither               | class or instance | utility/helper methods              |
 '''
 print("==========Pythonic===========")
+
+
 class Example:
     a3 = 10
     b3 = 20
@@ -592,6 +646,7 @@ class Example:
     def an_instance_method(self):
         print(f"This is an instance method — zzz = {self.zzz}")
 
+
 print("==================================")
 obj = Example()
 Example.a_class_method()
@@ -601,16 +656,19 @@ print("==================================")
 print("26 ###############################")
 from abc import ABC, abstractmethod
 
+
 class Animal(ABC):  # Inherit from ABC to make it an abstract base class
-    @abstractmethod #0987
+    @abstractmethod  #0987
     def sound(self):
         pass
     # pass
+
 
 """
 class Animal(ABC) → makes it an abstract class.
 @abstractmethod → says this method must be defined in subclasses.
 """
+
 
 class Dog(Animal):
     def sound(self):
@@ -620,6 +678,7 @@ class Dog(Animal):
 class Cat(Animal):
     def sound(self):
         print("Meow!")
+
 
 dog = Dog()
 # class Dog(Animal):
@@ -638,22 +697,28 @@ They’re useful when you want to:
 """
 # 27. Demonstrate multiple inheritance and MRO (method resolution order). #0987
 print("27 ######################################")
+
+
 # Base classes
 class A:
     def show(self):
         print("Class A")
 
+
 class B(A):
     def show(self):
         print("Class B")
+
 
 class C(A):
     def show(self):
         print("Class C")
 
+
 # Derived class with multiple inheritance
 class D(B, C):
     pass
+
 
 # Create object of D
 obj = D()
@@ -662,24 +727,30 @@ obj.show()
 # Display MRO
 print(D.mro())  # or use help(D)
 print("=============================")
+
+
 class A:
     def show(self):
         print("A")
+
 
 class B(A):
     def show(self):
         print("B")
         super().show()
 
+
 class C(A):
     def show(self):
         print("C")
         super().show()
 
+
 class D(B, C):
     def show(self):
         print("D")
         super().show()
+
 
 """
 | Concept            | What Happens                                                   |
@@ -694,16 +765,21 @@ obj.show()
 
 # 28. What is duck typing in Python?
 print("28 #######################")
+
+
 class Duck:
     def quack(self):
         print("Quack, quack!")
+
 
 class Person:
     def quack(self):
         print("I’m imitating a duck!")
 
+
 def make_it_quack(thing):
     thing.quack()  # Works for anything that has a quack() method #0987
+
 
 # Dynamic typed (Python)
 #   Checks at runtime if method exists
@@ -717,6 +793,8 @@ make_it_quack(person)
 
 # 29. Implement operator overloading (e.g., __add__).
 print("29 #######################")
+
+
 class Vector:
     def __init__(self, x, y):
         self.x = x
@@ -741,6 +819,8 @@ v3 = v1 + v2
 print(v3)
 # 30. Create a singleton pattern using a class.
 print("30 ##############################")
+
+
 class Singleton:
     _instance = None
 
@@ -754,13 +834,16 @@ class Singleton:
     def __init__(self):
         print("Running Singleton.__init__()")
 
+
 # Test
 a = Singleton()
 b = Singleton()
 
 print("a is b:", a is b)
 print("=================================")
-def singleton(cls): #0987
+
+
+def singleton(cls):  #0987
     instances = {}
 
     def get_instance(*args, **kwargs):
@@ -772,10 +855,12 @@ def singleton(cls): #0987
 
     return get_instance
 
+
 @singleton
 class Database:
     def __init__(self):
         print("Running Database.__init__()")
+
 
 # Test
 db1 = Database()
@@ -840,7 +925,8 @@ finally:
 print("39 ################")
 # 40. Use pathlib for file operations.
 print("40 ################")
-from pathlib import Path #0987
+from pathlib import Path  #0987
+
 # Create a Path object
 file_path = Path("example8989.txt")
 # Write to the file
@@ -850,6 +936,7 @@ content = file_path.read_text()
 print("File contains:", content)
 print("---------------------------")
 from pathlib import Path
+
 p = Path("data.txt")
 if p.exists():
     print("File exists!")
@@ -857,16 +944,19 @@ else:
     print("File not found.")
 print("---------------------------")
 from pathlib import Path
+
 folder = Path("my_folder")
 folder.mkdir(exist_ok=True)
 print("---------------------------")
 list_dir = []
 from pathlib import Path
+
 for file in Path(".").iterdir():
     list_dir.append(file)
 print(list_dir)
 print("---------------------------")
 from pathlib import Path
+
 p = Path("folder") / "subfolder" / "file.txt"
 print(p)
 '''
@@ -889,12 +979,17 @@ A context manager is something that:
 # with open("file.txt") as f:
 #     data = f.read()
 print("----------class----------")
-class MyContext: #0987
+
+
+class MyContext:  #0987
     def __enter__(self):
         print("Entering the block1")
         return "Hello!1"
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         print("Exiting the block1")
+
+
 # Use it
 with MyContext() as value:
     print(value)
@@ -905,13 +1000,15 @@ __exit__() runs when leaving the block
 Whatever __enter__ returns becomes the value after as
 '''
 print("---------contextlib-----------")
-from contextlib import contextmanager #0987
+from contextlib import contextmanager  #0987
+
 
 @contextmanager
 def my_context():
     print("Before the block2")
     yield "Hello again!2"
     print("After the block2")
+
 
 with my_context() as msg:
     print(msg)
@@ -926,6 +1023,7 @@ Code after yield = exit
 print("42 ###########################################")
 import os
 import shutil
+
 # ---- Creating a directory ----
 os.makedirs("example_dir/subfolder", exist_ok=True)
 print("Directories created!")
@@ -964,19 +1062,24 @@ else:
 # 44. Write a script to search for a keyword in multiple files.
 print("44 ##########################")
 import os
+
+
 # os.rmdir("aaa_dir/aaa.txt") # remove a director (the last one)
 # open("aaa_dir/filename.txt", "w").close() # empty file creation
 
-def create_a_file(directory :str, text: str):
+def create_a_file(directory: str, text: str):
     with open(directory, "w") as f:
         f.write(text)
 
-create_a_file("aaa_dir/file1.txt","Hello world!")
-create_a_file("aaa_dir/file2.txt","World is nice.")
-create_a_file("aaa_dir/file3.txt","Just world.")
+
+create_a_file("aaa_dir/file1.txt", "Hello world!")
+create_a_file("aaa_dir/file2.txt", "World is nice.")
+create_a_file("aaa_dir/file3.txt", "Just world.")
 
 print("44 ----------------------")
-def look_for_the_keyword(director1 :str, text_to_find : str):
+
+
+def look_for_the_keyword(director1: str, text_to_find: str):
     dict1111 = {}
     print(os.listdir(director1))
     list1111 = os.listdir(director1)
@@ -999,13 +1102,13 @@ def look_for_the_keyword(director1 :str, text_to_find : str):
     print(dict1111)
     return dict1111
 
+
 look_for_the_keyword("aaa_dir", "world")
-
-
 
 # 45. Use subprocess to run a shell command and capture output.
 print("45 ########################")
 import subprocess
+
 output = subprocess.getoutput("pwd")
 print(output)
 print("-----------------------")
@@ -1029,10 +1132,142 @@ print("-----------------------")
 # ==========================
 
 # 46. Explain decorators and write one for logging function calls.
+print("46 #####################")
+
+def func_dec(func):
+    def wrapper():
+        print("Before")
+        func()
+        print("After")
+    return wrapper
+
+@func_dec
+def say_hello():
+    print("Hello!")
+
+say_hello()
+
+print("-------------")
+def func_dec_add(func2):
+    def wrapper2(x1111, y11111):
+        print(f"The result is {func2(x1111, y11111)}")
+    return wrapper2
+
+@func_dec_add
+def adding(x, y):
+    return x + y
+
+
+adding(6,7)
+
+print("-----------------------")
+def log_calls(func):
+    def wrapper(*args, **kwargs):
+        print(f"[LOG] Calling {func.__name__} with args={args}, kwargs={kwargs}")
+        result33333 = func(*args, **kwargs)
+        print(f"[LOG] {func.__name__} returned: {result}")
+        return result33333
+    return wrapper
+
+@log_calls
+def adding(x, y):
+    return x + y
+
+adding(6, 7)
+
 # 47. Explain closures and demonstrate with a nested function.
+print("47 ########################")
+def outer(msg):
+    def inner():
+        print("Message is:", msg)
+    return inner  # returning the nested function
+
+say_hello = outer("Hello")
+say_hello()   # inner() still remembers msg
+print("-----------------")
+def outer(msg):
+    def inner():
+        print(msg)
+    return inner
+
+say_hi = outer("Hi")
+print(say_hi.__closure__)
+print(say_hi.__closure__[0].cell_contents)
+'''
+When Python creates a nested function, it also stores a hidden structure called the closure.
+This closure contains:
+the values of the variables from the outer function
+stored in a special hidden attribute called __closure__
+So even after the outer function is finished, the inner function carries those variables with it.
+'''
 # 48. What is a generator vs iterator?
+print("48 #####################")
+def gen1():
+    yield 1
+    yield 2
+    yield 3
+
+for item in gen1():
+    print(item)
+print("-----------------")
+print(iter([1,2,3]))
+print(iter("hello"))
+print("-----------------")
+ite = iter([1,2,3])
+print(next(ite))
+print(next(ite))
+print(next(ite))
+print("-----------------")
+print(next(gen1()))
+print("-------iter vs gen----------")
+def gen1():
+    yield 1
+    yield 2
+    yield 3
+
+for item in gen1():
+    print(item)
+print("-----------------")
+class RawIterator:
+    def __init__(self):
+        self.values = [1, 2, 3]
+        self.index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index >= len(self.values):
+            raise StopIteration
+        value = self.values[self.index]
+        self.index += 1
+        return value
+
+for item in RawIterator():
+    print(item)
+
+# print(next(ite)) # StopIteration
+'''
+One-line summary
+An iterator is any object you can loop over using next().
+A generator is a simpler way to create an iterator using yield.
+'''
 # 49. Use itertools for combinations and permutations.
+print("49 #####################") #0987
+
+import itertools # 0987
+
+items = ['A', 'B', 'C']
+
+print("Combinations of 2:")
+for combo in itertools.combinations(items, 2):
+    print(combo)
+
+print("\nPermutations of 2:")
+for perm in itertools.permutations(items, 2):
+    print(perm)
 # 50. Explain and demonstrate contextlib usage.
+# contextlib makes it easier to create your own context managers without writing a long class.
 # 51. What is the GIL (Global Interpreter Lock)?
 # 52. Demonstrate multithreading and multiprocessing differences.
 # 53. Use asyncio to run asynchronous tasks.
