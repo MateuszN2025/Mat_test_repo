@@ -1266,10 +1266,87 @@ for combo in itertools.combinations(items, 2):
 print("\nPermutations of 2:")
 for perm in itertools.permutations(items, 2):
     print(perm)
-# 50. Explain and demonstrate contextlib usage.
+# 50. Explain and demonstrate contextlib usage. #0987
 # contextlib makes it easier to create your own context managers without writing a long class.
+print("50 #################################")
+# ❌ Manual version (long, boilerplate)
+class MyContext:
+    def __enter__(self):
+        print("Entering...")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        print("Exiting...")
+
+print("Without contextlib:")
+with MyContext():
+    print("Inside block")
+print("-------------------------")
+# ✅ 2. Doing it WITH contextmanager (easy & clean)
+from contextlib import contextmanager
+@contextmanager
+def my_context():
+    print("Entering...")
+    yield   # pause here, run the body of the 'with'
+    print("Exiting...")
+
+print("With contextlib:")
+with my_context():
+    print("Inside block")
+
 # 51. What is the GIL (Global Interpreter Lock)?
+'''
+The GIL (Global Interpreter Lock) is a mechanism in CPython that allows only one thread
+to execute Python bytecode at a time.
+It simplifies memory management but prevents true parallelism in CPU-bound code.
+For CPU-heavy tasks we use multiprocessing; for I/O-bound tasks threads still work well.
+'''
 # 52. Demonstrate multithreading and multiprocessing differences.
+print("52 ###################")
+# ✅ CPU-Bound Task (Good for Demonstrating GIL Issues)
+import time
+def cpu_task(n):
+    # A deliberately heavy calculation
+    total = 0
+    for i in range(n):
+        total += i*i
+    return total
+print(cpu_task(10000))
+print("-----------------------")
+# 🚀 1. Multithreading Example (GIL prevents real speed-up)
+print("Multithreading demo")
+import threading
+start = time.time()
+threads = []
+for _ in range(4):
+    t = threading.Thread(target=cpu_task, args=(10_000_000,))
+    threads.append(t)
+    t.start()
+
+for t in threads:
+    t.join()
+
+print("Threads took:", time.time() - start)
+print("-----------------------")
+#🚀 2. Multiprocessing Example (True parallel CPU usage)
+print("\nMultiprocessing demo")
+from multiprocessing import Process
+
+start = time.time()
+
+processes = []
+for _ in range(4):
+    p = Process(target=cpu_task, args=(10_000_000,))
+    processes.append(p)
+    p.start()
+
+for p in processes:
+    p.join()
+
+print("Processes took:", time.time() - start)
+
+
+
 # 53. Use asyncio to run asynchronous tasks.
 # 54. Show how to use functools.lru_cache.
 # 55. Explain dataclasses and create one.
