@@ -1293,6 +1293,23 @@ def my_context():
 print("With contextlib:")
 with my_context():
     print("Inside block")
+print("---------!!! context !!!--------------")
+from contextlib import contextmanager
+import time
+
+@contextmanager
+def timer():
+    start = time.time()
+    print(f"start: {start}")
+    yield
+    end = time.time()
+    print("end:  ", end)
+    print("Time:", time.time() - start)
+
+with timer():
+    for i in range(10):
+        pass
+
 
 # 51. What is the GIL (Global Interpreter Lock)?
 '''
@@ -1311,15 +1328,15 @@ def cpu_task(n):
     for i in range(n):
         total += i*i
     return total
-print(cpu_task(10000))
+print(cpu_task(1000))
 print("-----------------------")
 # 🚀 1. Multithreading Example (GIL prevents real speed-up)
-print("Multithreading demo")
+print("Multithreading demo") #0987
 import threading
 start = time.time()
 threads = []
 for _ in range(4):
-    t = threading.Thread(target=cpu_task, args=(10_000_000,))
+    t = threading.Thread(target=cpu_task, args=(10_000,))
     threads.append(t)
     t.start()
 
@@ -1329,14 +1346,14 @@ for t in threads:
 print("Threads took:", time.time() - start)
 print("-----------------------")
 #🚀 2. Multiprocessing Example (True parallel CPU usage)
-print("\nMultiprocessing demo")
+print("\nMultiprocessing demo") #0987
 from multiprocessing import Process
 
 start = time.time()
 
 processes = []
 for _ in range(4):
-    p = Process(target=cpu_task, args=(10_000_000,))
+    p = Process(target=cpu_task, args=(10_000,))
     processes.append(p)
     p.start()
 
@@ -1344,11 +1361,96 @@ for p in processes:
     p.join()
 
 print("Processes took:", time.time() - start)
-
-
-
 # 53. Use asyncio to run asynchronous tasks.
+# asyncio runs tasks concurrently by switching
+# between them during awaits, making
+# Python efficient for I/O-bound operations.
+print("53 #############################")
+import asyncio
+
+async def task(name, delay):
+    print(f"{name} started")
+    await asyncio.sleep(delay)
+    print(f"{name} finished after {delay} seconds")
+
+async def main():
+    # Schedule tasks to run concurrently
+    t1 = asyncio.create_task(task("Task 1", 0.2))
+    t2 = asyncio.create_task(task("Task 2", 0.1))
+    t3 = asyncio.create_task(task("Task 3", 0.3))
+
+    # Wait for all tasks to complete
+    await t1
+    await t2
+    await t3
+
+asyncio.run(main())
+print("------------------------")
+import asyncio
+
+async def task(name, delay):
+    print(f"{name} started")
+    await asyncio.sleep(delay)
+    print(f"{name} finished")
+
+async def main():
+    await asyncio.gather(
+        task("Task A", 0.2),
+        task("Task B", 0.1),
+        task("Task C", 0.3),
+    )
+
+asyncio.run(main())
+'''
+This makes asyncio perfect for:
+network requests
+APIs
+database queries
+file/read operations
+web servers
+thousands of lightweight tasks
+'''
 # 54. Show how to use functools.lru_cache.
+print("54 ##########################")
+from functools import lru_cache
+import time
+
+@lru_cache(maxsize=None)
+def slow_add(x, y):
+    time.sleep(2)  # simulate slow work
+    return x + y
+t1 = time.time()
+print(t1)
+print("First call:", slow_add(3, 5))   # takes 2 seconds
+t2 = time.time()
+print(t2 - t1)
+print("Second call:", slow_add(3, 5))  # instant (cached)
+'''
+functools.lru_cache is a decorator that caches function results.
+If you call the same function again with the same arguments:
+the function does NOT run again
+the cached result is returned instantly
+this makes expensive functions much faster
+'''
+t3 = time.time()
+print(t3 - t2)
+print("----------------------------")
+'''
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+# fib(35) takes seconds.
+-------------------------------------------
+from functools import lru_cache
+@lru_cache(maxsize=None)
+def fib(n):
+    if n < 2:
+        return n
+    return fib(n-1) + fib(n-2)
+print(fib(40))  # instant
+
+'''
 # 55. Explain dataclasses and create one.
 
 # ==========================
