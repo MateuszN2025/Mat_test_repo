@@ -387,7 +387,7 @@ import logging
 
 # Configure logging
 logging.basicConfig(
-    filename="/home/mateusz/repo/1_app_log/app.log",  # Log file name
+    filename="/1_app_log/app.log",  # Log file name
     # filename="1111_app.log",
     level=logging.ERROR,  # Log only errors or worse
     format="%(asctime)s - %(levelname)s - %(message)s"
@@ -951,7 +951,7 @@ print("---------------------------")
 list_dir = []
 from pathlib import Path
 
-for file in Path(".").iterdir():
+for file in Path("..").iterdir():
     list_dir.append(file)
 print(list_dir)
 print("---------------------------")
@@ -1025,12 +1025,12 @@ import os
 import shutil
 
 # ---- Creating a directory ----
-os.makedirs("example_dir/subfolder", exist_ok=True)
+os.makedirs("t_100/example_dir/subfolder", exist_ok=True)
 print("Directories created!")
 # ---- Listing directory contents ----
 print("Contents of example_dir:", os.listdir("example_dir"))
 # ---- Renaming a directory ----
-os.rename("example_dir/subfolder", "example_dir/renamed_subfolder")
+os.rename("t_100/example_dir/subfolder", "example_dir/renamed_subfolder")
 print("Directory renamed!")
 # ---- Copying a directory ----
 shutil.copytree("example_dir", "example_dir_copy", dirs_exist_ok=True)

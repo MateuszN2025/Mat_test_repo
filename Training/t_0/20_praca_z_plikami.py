@@ -1,4 +1,4 @@
-with open('../txt_file.txt', 'r') as f:
+with open('../t_100/txt_file.txt', 'r') as f:
     zawartosc = f.read()
     print(zawartosc)
 
