@@ -12,6 +12,7 @@
 # 2. Declare variables of different data types and print their types.
 # 3. Explain the difference between mutable and immutable types.
 # 4. Convert a string to an integer safely (with exception handling).
+# Alt+Shift+LeftArror is BACK
 # 5. Demonstrate string formatting using f-strings, format(), and %.
 # 6. Show examples of list, tuple, set, and dict creation.
 # 7. Explain list comprehensions and rewrite a for-loop using one.
