@@ -7,6 +7,7 @@ api_url_users = 'http://127.0.0.1:5003/users'
 # when we import this file somewhere else
 
 print("------------------")
+print("------------------")
 print(__name__)
 # if I run this program here - it will be
 # __main__
