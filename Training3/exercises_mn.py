@@ -87,7 +87,10 @@ for li2, li3 in zip(li2,li3):
 print(lll)
 
 print("-----args-------")
-def funkcja(*args):
+def funkcja_args(*args):
+    # print("====")
+    # print(args)
+    # print("====")
     if isinstance(args[0],list):
         for item22 in args[0]:
             print(item22)
@@ -95,7 +98,54 @@ def funkcja(*args):
     else:
         print(args)
 
-funkcja([1,2,3])
-funkcja(9)
-funkcja("string")
-funkcja({45,67,89})
+funkcja_args([1,2,3])
+funkcja_args(9)
+funkcja_args("string")
+funkcja_args({45,67,89})
+
+
+print("-------------lambda & map-----------------")
+kwadracik = lambda x: x**2
+li4 = list((1,3,4,5))
+print(li4)
+li5 = list(map(kwadracik, li4))
+print(li5)
+
+
+print("------------kwargs------------------")
+def funkcja_kwargs(**kwargs):
+    print(kwargs)
+
+funkcja_kwargs(a=1)
+funkcja_kwargs(b=5,c=[1,3])
+funkcja_kwargs(s='sss', a={"a":1})
+
+"""
+| *args               | **kwargs          |
+| ------------------- | ----------------- |
+| tuple               | dict              |
+| argumenty pozycyjne | argumenty nazwane |
+| `f(1,2,3)`          | `f(a=1,b=2)`      |
+"""
+
+print("------------args + kwargs------------------")
+def funkcja_a_k(*args, **kwargs):
+    print(f"to jest args: {args}")
+    print(f"to jest kwargs: {kwargs}")
+
+funkcja_a_k(3,'sf',[3,'s'],a=2, bb={"dd":2343})
+funkcja_a_k(3, bb={"dd":2343})
+
+"""
+def create_user(username, *groups, **options):
+    print("Username:", username)
+    print("Groups:", groups)
+    print("Options:", options)
+
+create_user(
+    "mateusz",
+    "admin", "dev",
+    active=True,
+    email="mateusz@test.com"
+)
+"""
