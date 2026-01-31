@@ -1461,6 +1461,7 @@ print(fib(40))  # instant
 # 57. Use pytest fixtures for setup and teardown.
 # 58. Demonstrate fixture scope (function, module, session).
 # 59. Explain parameterized tests with @pytest.mark.parametrize.
+
 # 60. Mock external dependencies using unittest.mock or pytest-mock.
 # 61. Use tmp_path fixture for temporary file testing.
 # 62. Demonstrate pytest markers (e.g., smoke, regression).
