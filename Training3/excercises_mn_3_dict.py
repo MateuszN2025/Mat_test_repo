@@ -29,4 +29,17 @@ print("=========")
 for k,v in dict1.items():
     print(k,v)
 
-print("terators vs generators – differences and use cases,")
+print("=====unpack dict====")
+dict1 = dict(a=1,b=3,c=4)
+print(dict1)
+# WRONG !
+# dict2 = dict("3"=1,"s"=3,"4"=4)
+# print(dict2)
+
+k1, k2, k3 = dict1.keys()
+print(k1, k2, k3)
+v1, v2, v3 = dict1.values()
+print(v1, v2, v3)
+k1v1, k2v2, k3v3 = dict1.items()
+print(k1v1, k2v2, k3v3)
+
