@@ -15,15 +15,28 @@ Test dependencies
 Resource initialization (DB connections, files, APIs, etc.)
 '''
 
-@pytest.fixture(autouse=True, scope="session")
+# @pytest.fixture(autouse=True, scope="class")
+@pytest.fixture(scope="class")
 def p_fix():
     print("start test")
     yield print("in progress")
     print("stop test")
 
+# A yield fixture is:
+#
+# A pytest fixture that uses yield to separate setup and teardown
+# logic in a clean and automatic way.
+
+# @pytest.fixture
+# def p_fix2():
+#     return [2,3]
+
 @pytest.fixture
 def p_fix2():
-    return [2,3]
+    print(">>>>>>>>>>>")
+    yield [2,3]
+    print("<<<<<<<<<<<")
+
 
 '''
 | Scope    | Created             | Destroyed              |
@@ -42,4 +55,21 @@ class TestExample:
 | -------- | ------------------- | ---------------------- |
 | module   | Once per file       | After file finishes    |
 | session  | Once per test run   | After all tests finish |
+'''
+
+@pytest.fixture
+def first(): # higher fixture
+    print("First")
+
+@pytest.fixture
+def second(first): # lower fixture
+    print("Second")
+
+'''
+Pytest determines execution order based on dependencies, 
+not order of definition.
+Rules:
+Fixtures are executed before the test.
+If fixture A depends on fixture B → B runs first.
+Higher scope fixtures run before lower scope fixtures.
 '''
