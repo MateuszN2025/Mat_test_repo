@@ -25,8 +25,8 @@ json.dump() 👉 writes JSON to a file
 json.dumps() 👉 returns a string
 ----------------
 Function	Use case
-json.dumps()	JSON → string (for printing/logging)
-json.dump()	JSON → file
-json.loads()	string → Python object
-json.load()	file → Python object
+json.dumps() JSON   → string (for printing/logging)
+json.dump()	 JSON   → file
+json.loads() string → object Python
+json.load()	 file   → object Python
 """
