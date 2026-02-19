@@ -1,4 +1,3 @@
-# ship engines
 # black box
 # gathering info from sensors
 # software system
@@ -8,7 +7,6 @@
 # db flux, sgl, sql dynamodb, aws
 # aws green grass unique
 # fast api
-# multiprocessing multithreading
 
 # ==============================
 # multiprocessing
