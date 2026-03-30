@@ -20,7 +20,7 @@ print(Auto.name)  # Wyświetli "Auto"
 print(Auto.cena)  # Wyświetli 10000
 print("===================================")
 
-class Auto:
+class Auto2:
     name = "Auto"
     cena = 10000
 
@@ -30,10 +30,10 @@ class Auto:
         print(f"Cena: {Auto.cena}")
 
 # Wywołanie
-Auto.informacje()
+Auto2.informacje()
 
 print("===================================")
-class Auto:
+class Auto3:
     name = "Auto"
     cena = 10000
 
@@ -43,4 +43,8 @@ class Auto:
         print(f"Cena: {cls.cena}")
 
 # Wywołanie
-Auto.informacje()
+print("Auto3.informacje()")
+Auto3.informacje()
+print("a2.informacje()")
+a2 = Auto2()
+a2.informacje()

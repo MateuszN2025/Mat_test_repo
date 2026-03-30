@@ -28,4 +28,8 @@ print(sorted_by_name)
 
 print("===================================")
 a = 'yert'
-print(''.join([item for item in sorted(a, reverse=True)]))
+l1 = [item for item in sorted(a, reverse=True)]
+print("===================================")
+print(l1) # ['y', 't', 'r', 'e']
+print("===================================")
+print('|'.join(l1)) # y|t|r|e
