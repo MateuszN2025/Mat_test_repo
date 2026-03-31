@@ -59,3 +59,35 @@ class Matematyka:
 # Użycie
 print(Matematyka.podwoj_liczbe(5))  # 10
 print(Matematyka.dodaj(3, 4))  # 7
+
+
+'''
+    A normal instance method:
+When called as:
+Python automatically passes the instance as self.
+    A @classmethod:
+When called as:
+Python automatically passes the class as cls, not the instance.
+    A @staticmethod:
+When called as:
+Python passes nothing automatically.
+So these are semantic and behavioral differences, not just comments.
+Why not use only normal methods?
+Because a normal method requires an instance. 
+If the logic does not depend on instance state, forcing self is the wrong model.
+'''
+print("===================================")
+class User:
+    def is_valid_name(self, name):
+        return len(name) >= 3
+
+    @staticmethod
+    def is_valid_name2(name):
+        return len(name) >= 3
+
+u = User()
+print(u.is_valid_name("Aa"))
+print(u.is_valid_name("Aann"))
+print(User.is_valid_name2("pppp"))
+
+
