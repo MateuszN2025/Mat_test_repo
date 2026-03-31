@@ -81,7 +81,7 @@ try: 1/0
 except ZeroDivisionError: print("err")
 
 # 5. File I/O
-with open("f.txt","r") as f: data=f.read()
+# with open("f.txt","r") as f: data=f.read()
 
 # 6. Classes
 class A:
@@ -95,11 +95,13 @@ import math; from datetime import datetime
 # 8. Comprehensions
 sq=[n**2 for n in range(5)]
 ev={n for n in range(10) if n%2==0}
+print("================")
 m={n:n**2 for n in range(5)}
-
+print(m)
+print("================")
 # 9. Generators
 def gen():
     for i in range(3): yield i
 
-# 10. Testing (pytest)
-def test_f(): assert f(2,3)==5
+# # 10. Testing (pytest)
+# def test_f(): assert f(2,3)==5

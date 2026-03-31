@@ -55,4 +55,13 @@ print(l1)
 print("###########")
 print(l1.index(909009))
 
+l1 = [1,2]
+l2 = [4,5]
+print("----------")
+print(type(l1.append(11)))
+print(l1)
+l1.extend(l2)
+print(l1)
+l1.extend(["b","c"])
+print(l1)
 

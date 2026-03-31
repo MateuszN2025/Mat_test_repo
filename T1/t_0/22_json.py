@@ -19,11 +19,11 @@
 """
 import json
 
-# Konwersja Python -> JSON
+# Konwersja Python object -> JSON
 # dumps() - do stringa
 # dump() - do pliku
 
-# Konwersja JSON -> Python
+# Konwersja JSON -> Python object
 # loads() - z stringa
 # load() - z pliku
 

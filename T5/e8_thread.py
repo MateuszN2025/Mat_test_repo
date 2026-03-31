@@ -26,3 +26,22 @@ t1.join()
 t2.join()
 
 print("All threads done!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

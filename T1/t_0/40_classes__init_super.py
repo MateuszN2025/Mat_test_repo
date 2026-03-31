@@ -16,6 +16,9 @@ class Hasky(Animal):
     def __str__(self):
         return super().__str__() + f">>>{self.level}"
 
+    def __repr__(self):
+        return super().__repr__() + f"  >>>{self.level}"
+
 print("=================")
 dog = Animal("dog1", 1)
 print(dog.name)
@@ -25,4 +28,5 @@ print(dog) # without __str__ it gives: <__main__.Animal object at 0x000001F6361E
 print("=================")
 dog222 = Hasky("doggy", 2, 4000)
 print(dog222)
+print(repr(dog222))
 print("=================")

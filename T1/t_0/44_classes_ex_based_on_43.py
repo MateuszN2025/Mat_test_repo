@@ -25,8 +25,8 @@ class Boeing(Plain):
                 super().__init__(name, age)  # tutaj!
                 self.student_id = student_id
         
-        to super().__init__(name, age) jest w praktyce równoważne:        
-        Person.__init__(self, name, age)        
+        to    super().__init__(name, age)      jest w praktyce równoważne:        
+              Person.__init__(self, name, age)        
         czyli self już jest przekazany automatycznie przez mechanizm super()
         """
         self.flight_hours = flight_hours

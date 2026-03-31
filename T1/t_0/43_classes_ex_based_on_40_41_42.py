@@ -35,3 +35,5 @@ print(f3._fruit)
 #print(f3.__fruit) # AttributeError: 'Pricer' object has no attribute '__fruit'
 print(f3._Fruit__fruit)
 print(f3.getter_of_ff())
+
+

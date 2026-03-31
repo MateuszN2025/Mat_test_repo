@@ -28,6 +28,8 @@ class Car:
         return self.__brand
 
 c = Car("Tesla")
+print("--------------")
 print(c.get_brand())   # ✅ Tesla
+print("--------------")
 # print(c.__brand)     # ❌ AttributeError
 print(c._Car__brand)   # ⚠️ possible (name mangling)

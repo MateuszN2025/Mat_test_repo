@@ -22,6 +22,7 @@ class Fabryka:
     @classmethod
     def utworz_premium(cls, dodatek):
         # 'cls' wskazuje na samą klasę
+        print(f"cls: {cls}")
         return cls(cls.bazowa_cena + dodatek)
 
     def __init__(self, cena):
@@ -32,7 +33,7 @@ produkt_premium = Fabryka.utworz_premium(50)
 print(produkt_premium.cena)  # 150
 
 print("===================================")
-class klasa1:
+class Klasa1:
     wartosc_klasy = 10
 
     # Metoda statyczna
@@ -55,7 +56,12 @@ class klasa1:
         # Dostęp do atrybutów instancji
         print("Metoda instancji")
 
-ooo = klasa1()
+ooo = Klasa1()
 
 ooo.metoda_statyczna()
-klasa1.metoda_statyczna()
+Klasa1.metoda_statyczna()
+ooo.metoda_klasy()
+
+Klasa1.metoda_klasy()
+# Klasa1.metoda_instancji() # TypeError: metoda_instancji() missing 1 required positional argument: 'self'
+ooo.metoda_instancji()

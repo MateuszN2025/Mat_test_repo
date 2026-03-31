@@ -8,4 +8,4 @@ def dekorator_z_argumentami(funkcja):
 def suma(a, b):
     return a + b
 
-print(suma(3, 5))  # Wypisze argumenty i wynik
+print(suma(3, 5)) # Wypisze argumenty i wynik

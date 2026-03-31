@@ -47,8 +47,8 @@ finally:
 
 # 5. File Handling
 # ----------------
-with open("file.txt", "r") as f:
-    data = f.read()
+# with open("file.txt", "r") as f:
+#     data = f.read()
 
 # 6. OOP
 # -------
@@ -87,7 +87,7 @@ def gen():
 import itertools
 pairs = list(itertools.combinations([1,2,3], 2))
 
-# 10. Testing (Pytest-style)
-# --------------------------
-def test_add():
-    assert add(2, 3) == 5
+# # 10. Testing (Pytest-style)
+# # --------------------------
+# def test_add():
+#     assert add(2, 3) == 5

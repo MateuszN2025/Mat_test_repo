@@ -5,7 +5,7 @@ def generator():
     while i<100:
         yield i
         i+=1
-        sleep(0.1)
+        time.sleep(0.1)
 
 gen = generator()
 
