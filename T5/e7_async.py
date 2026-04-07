@@ -43,58 +43,88 @@ import time
 #
 
 
-print("<<<<<<<<<<<<>>>>>>>>>>>>>>")
+# print("<<<<<<<<<<<<>>>>>>>>>>>>>>")
+#
+# async def io_fun(io_num):
+#     print(f"Connection to io num {io_num} started.")
+#     # t1 = random.randint(1,10)
+#     t1 = 3
+#     print(f" === Time of the connection: |{t1}sec| for io num {io_num} === ")
+#     await asyncio.sleep(t1) # let to switch to tasks while waiting
+#
+#     '''
+#     <<<<<<<<<<<<>>>>>>>>>>>>>>
+#     Connection to io num 323 started.
+#      === Time of the connection: |3sec| for io num 323 ===
+#     Connection to io num 443 started.
+#      === Time of the connection: |3sec| for io num 443 ===
+#     Connection to io num 777 started.
+#      === Time of the connection: |3sec| for io num 777 ===
+#      Connection to io num 323 finished.
+#      Connection to io num 443 finished.
+#      Connection to io num 777 finished.
+#
+#     Execution time: 3.0031001567840576
+#     '''
+#
+#     # time.sleep(t1)
+#     '''
+#     <<<<<<<<<<<<>>>>>>>>>>>>>>
+#     Connection to io num 323 started.
+#      === Time of the connection: |3sec| for io num 323 ===
+#      Connection to io num 323 finished.
+#     Connection to io num 443 started.
+#      === Time of the connection: |3sec| for io num 443 ===
+#      Connection to io num 443 finished.
+#     Connection to io num 777 started.
+#      === Time of the connection: |3sec| for io num 777 ===
+#      Connection to io num 777 finished.
+#
+#     Execution time: 9.002005100250244
+#     '''
+#
+#
+#
+#     print(f" Connection to io num {io_num} finished.")
+#
+# async def procced_with_io():
+#     await asyncio.gather(io_fun(323),io_fun(443),io_fun(777))
+#
+#
+# tx = time.time()
+# asyncio.run(procced_with_io())
+# ty = time.time()
+# print(f"Execution time: {ty-tx}")
 
-async def io_fun(io_num):
-    print(f"Connection to io num {io_num} started.")
-    # t1 = random.randint(1,10)
-    t1 = 3
-    print(f" === Time of the connection: |{t1}sec| for io num {io_num} === ")
-    await asyncio.sleep(t1) # let to switch to tasks while waiting
-
-    '''
-    <<<<<<<<<<<<>>>>>>>>>>>>>>
-    Connection to io num 323 started.
-     === Time of the connection: |3sec| for io num 323 === 
-    Connection to io num 443 started.
-     === Time of the connection: |3sec| for io num 443 === 
-    Connection to io num 777 started.
-     === Time of the connection: |3sec| for io num 777 === 
-     Connection to io num 323 finished.
-     Connection to io num 443 finished.
-     Connection to io num 777 finished.
-     
-    Execution time: 3.0031001567840576
-    '''
-
-    # time.sleep(t1)
-    '''
-    <<<<<<<<<<<<>>>>>>>>>>>>>>
-    Connection to io num 323 started.
-     === Time of the connection: |3sec| for io num 323 === 
-     Connection to io num 323 finished.
-    Connection to io num 443 started.
-     === Time of the connection: |3sec| for io num 443 === 
-     Connection to io num 443 finished.
-    Connection to io num 777 started.
-     === Time of the connection: |3sec| for io num 777 === 
-     Connection to io num 777 finished.
-     
-    Execution time: 9.002005100250244
-    '''
 
 
 
-    print(f" Connection to io num {io_num} finished.")
-
-async def procced_with_io():
-    await asyncio.gather(io_fun(323),io_fun(443),io_fun(777))
 
 
-tx = time.time()
-asyncio.run(procced_with_io())
-ty = time.time()
-print(f"Execution time: {ty-tx}")
+
+
+
+import asyncio, random
+
+async def io_conn(i:int):
+    print(f"Connecting to io num {i}")
+    await asyncio.sleep(random.randint(1,5))
+    print(f"Finishing connection to io num {i}")
+
+async def perform_connection():
+    await asyncio.gather(io_conn(87),io_conn(98))
+
+
+asyncio.run(perform_connection())
+
+
+
+
+
+
+
+
+
 
 
 
