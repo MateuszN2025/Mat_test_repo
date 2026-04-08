@@ -1,0 +1,20 @@
+﻿Level	Date and Time	Source	Event ID	Task Category
+Information	07.04.2026 09:45:26	Microsoft-Windows-Security-SPP	16384	None	Successfully scheduled Software Protection service for re-start at 2126-03-14T07:45:26Z. Reason: RulesEngine.
+Information	07.04.2026 09:44:55	Microsoft-Windows-Security-SPP	16394	None	Offline downlevel migration succeeded.
+Information	07.04.2026 09:44:54	Microsoft-Windows-Security-SPP	16384	None	Successfully scheduled Software Protection service for re-start at 2126-03-14T07:44:54Z. Reason: RulesEngine.
+Information	07.04.2026 09:44:23	Microsoft-Windows-Security-SPP	16394	None	Offline downlevel migration succeeded.
+Information	07.04.2026 09:39:06	Microsoft-Windows-AppXDeploymentServer/Operational	2562	None	"The description for Event ID 2562 from source Microsoft-Windows-AppXDeploymentServer/Operational cannot be found. Either the component that raises this event is not installed on your local computer or the installation is corrupted. You can install or repair the component on the local computer.
+
+If the event originated on another computer, the display information had to be saved with the event.
+
+The following information was included with the event:
+
+MSIXDeployment
+windows.applicationData
+DeleteMachineFolder
+Package EsetContextMenu_12.1.2076.0_neutral__f55j32bkf4yvt removed machine folder C:\ProgramData\Microsoft\Windows\AppRepository\Families\ApplicationData\EsetContextMenu_f55j32bkf4yvt: System nie może odnaleźć określonej ścieżki.
+
+The message resource is present but the message was not found in the message table
+"
+Information	07.04.2026 09:35:10	Microsoft-Windows-Security-SPP	16384	None	Successfully scheduled Software Protection service for re-start at 2126-03-14T07:35:10Z. Reason: RulesEngine.
+Information	07.04.2026 09:34:40	Microsoft-Windows-Security-SPP	16394	None	Offline downlevel migration succeeded.

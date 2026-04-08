@@ -35,11 +35,11 @@ def gen3(file_name):
                 # TypeError: cannot unpack non-iterable int object
 
 
-# for ln, l1 in gen3("win_logs.txt"):
+# for ln, l1 in gen3("1_win_logs.txt"):
 #     print(ln, l1)
 
 
-p1 = gen3("win_logs.txt")
+p1 = gen3("1_win_logs.txt")
 print(p1) # <generator object gen3 at 0x00000243D3B62580>
 # for iii1, jjj1 in p1:
 #     print(iii1, jjj1)
@@ -118,7 +118,7 @@ print("*****************")
 #         return f2_line
 #
 #
-# it_f2 = IterFile("win_logs.txt")
+# it_f2 = IterFile("1_win_logs.txt")
 # print(next(it_f2).rstrip())
 # print(next(it_f2).rstrip('\n'))
 
@@ -149,7 +149,7 @@ class IterFile:
 
 
 
-it_f2 = IterFile("win_logs.txt")
+it_f2 = IterFile("1_win_logs.txt")
 print(next(it_f2))
 print(next(it_f2))
 

@@ -79,7 +79,7 @@
 #         for line in f:
 #             yield line
 #
-# g2 = gen2("win_logs.txt")
+# g2 = gen2("1_win_logs.txt")
 # print(next(g2))
 # print("============")
 # for i, j in enumerate(g2):
@@ -128,7 +128,7 @@
 #             raise StopIteration
 #         return line
 #
-# i2 = Iter2("win_logs.txt")
+# i2 = Iter2("1_win_logs.txt")
 #
 #
 # print("=====Iter 2=======")
@@ -171,7 +171,7 @@ class Iter3:
         if not self.file.closed:
             self.file.close()
 
-i3 = Iter3("win_logs.txt")
+i3 = Iter3("1_win_logs.txt")
 
 print(next(i3))
 print(next(i3))
