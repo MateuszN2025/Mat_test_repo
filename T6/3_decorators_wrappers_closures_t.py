@@ -340,8 +340,6 @@ print(f(10))  # 50
 # multiplier(5) → creates multiply(y) that already “knows x=5”
 # # f(10) → “Ok multiply, your y=10. Multiply with your remembered x=5.”
 
-
-
 # 😊😊😊
 
 
