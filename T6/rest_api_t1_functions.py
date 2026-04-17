@@ -1,6 +1,6 @@
 import requests, json
 
-def get_available_pokemons_list () -> dict:
+def get_available_pokemons_list () -> list:
 
     url_p = f"https://pokeapi.co/api/v2/pokemon"
     poke_info = requests.request(method='GET', url=url_p)
@@ -12,7 +12,6 @@ def get_available_pokemons_list () -> dict:
     for item in ava_poke_list:
         item = item["name"]
         ava_poke_list_less.append(item)
-
     # ava_poke_json_str = json.dumps(ava_poke_list_less, indent=4) # dump: python obj -> str
     # return ava_poke_json_str
     return ava_poke_list_less
