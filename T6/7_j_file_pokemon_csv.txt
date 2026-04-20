@@ -1,0 +1,11 @@
+name id order weight base_experience 
+bulbasaur 1 1 69 64 
+ivysaur 2 2 130 142 
+venusaur 3 3 1000 236 
+charmander 4 5 85 62 
+charmeleon 5 6 190 142 
+charizard 6 7 905 240 
+squirtle 7 10 90 63 
+wartortle 8 11 225 142 
+blastoise 9 12 855 239 
+caterpie 10 14 29 39 
