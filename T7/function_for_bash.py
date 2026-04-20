@@ -37,3 +37,5 @@ class Basher:
             items.append(nsss)
 
         return items
+
+# sshpass -p changeme1@ ssh vboxuser1@192.168.0.152
