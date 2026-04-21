@@ -40,7 +40,7 @@ response = subprocess.run(
 # print(list[response.stdout])
 result = response.stdout
 # print(result)
-
+# 
 match = re.search(r"=\s*(-?\d+\.\d+)$", result)
 if match:
     print(match.group(1))
