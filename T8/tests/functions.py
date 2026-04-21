@@ -1,12 +1,16 @@
-import subprocess, re
+import re
+import subprocess
+from pathlib import Path
 
-path = "/mnt/c/Users/mniedziolka/PycharmProjects/Mat_test_repo/T8/project/application/"
-# path = "C:\\Users\\mniedziolka\\PycharmProjects\\Mat_test_repo\\T8"
+
+APPLICATION_DIR = Path(__file__).resolve().parents[1] / "project" / "application"
+
 
 def run_operation(
-        operation :str,
-        number_a: float,
-        number_b: float) -> str:
+    operation: str,
+    number_a: float,
+    number_b: float,
+) -> float | None:
 
     test_data = [
         operation,
@@ -16,7 +20,7 @@ def run_operation(
 
     command_data = [
         "bash",
-        f"./calc.bash"
+        "./calc.bash",
     ]
     input_data = f"{test_data[0]}\n{test_data[1]}\n{test_data[2]}\n"
 
@@ -25,12 +29,12 @@ def run_operation(
         input=input_data,
         text=True,
         capture_output=True,
-        cwd = path,
-        check=True
+        cwd=APPLICATION_DIR,
+        check=True,
     )
 
     match = re.search(r"=\s*(-?\d+\.\d+)$", request.stdout)
     if match:
         return float(match.group(1))
-    else:
-        return None
+
+    return None
