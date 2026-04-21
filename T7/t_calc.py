@@ -1,6 +1,6 @@
-import subprocess, re
+import subprocess  # noqa: E401
+import re
 
-# import subprocess
 
 # process = subprocess.Popen(
 #     ["bash", "./calc.bash"],
