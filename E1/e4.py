@@ -1,12 +1,12 @@
 # year = int(input("Enter the year: "))
-# notice_month = input("Enter the last month (number or first 3 letter): ")
+notice_month = input("Enter the last month (number or first 3 letter): ")
 # notice_period = int(input("Length of your notice period: "))
 # allowance_period = int(input("Length of your allowance period: "))
 # period_70 = int(input(f"Length of your 70% benefit period: "))
 
 year = 2026
-print(f"Enter the year: {year}")
-notice_month = "4"
+# print(f"Enter the year: {year}")
+# notice_month = "4"
 print(f"Enter the NOTICE month (number or first 3 letter): {notice_month}")
 notice_period = 3
 print(f"Length of your notice period: {notice_period}")
