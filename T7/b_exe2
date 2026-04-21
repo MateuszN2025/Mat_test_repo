@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# echo clear # a text
+clear
+echo ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+COUNTER=5
+
+while [ $COUNTER -gt 0 ]; do
+    date
+    sleep 1
+    # ((COUNTER--))
+    # ((COUNTER-=2))
+    ((COUNTER = COUNTER - 2))
+done
+
+
+
+
+
+
+echo ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

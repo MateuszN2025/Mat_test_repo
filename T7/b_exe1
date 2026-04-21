@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# echo clear # a text
+clear
+echo ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+
+
+
+
+VAR=1
+
+echo Hello today $1 $2
+echo VAR = $VAR
+echo $@
+echo $#
+
+
+# read -p "Give the temp: " TEMP
+echo "Give the temp: ${TEMP=19}" 
+echo Temp is: $TEMP
+
+if [ $TEMP -lt 20 ]; then
+    echo COLD
+else
+    echo HOT
+fi
+
+echo $((1+3))
+
+echo A = ${A=5}
+B=30
+echo B = $B
+echo B = ${B}
+echo A + B = $((A+B))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# echo clear # a text
+clear
+echo ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+
+cat 1_win_logs.txt | grep win > 1_win.txt
+
+
+
+echo ➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
