@@ -53,7 +53,7 @@ class Pokemon:
         
         dict4 = {}         
         
-        for poke in list1[:2]:   
+        for poke in list1[:3]:   
             dict1 = {} # ℹ️    
             dict4_ = {}
             poke_url = f"https://pokeapi.co/api/v2/pokemon/{poke}"
