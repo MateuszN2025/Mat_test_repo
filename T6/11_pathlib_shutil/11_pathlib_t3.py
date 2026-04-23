@@ -36,7 +36,7 @@ list1 = [str(i)+"\n" for i in range(5)]
 # f.write(f"{item}\n")
 print(f"{list1}")
 # [new_file.write_text(str(item)) for item in list1]
-with new_file.open("a", encoding="utf-8") as f:
+with new_file.open("w", encoding="utf-8") as f:
     # for item in list1:
     f.writelines(list1)
     # f.write(list1) # TypeError: write() argument must be str, not list
