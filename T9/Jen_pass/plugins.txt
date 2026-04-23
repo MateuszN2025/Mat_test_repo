@@ -1,0 +1,14 @@
+configuration-as-code
+workflow-aggregator
+pipeline-stage-view
+git
+github
+credentials-binding
+junit
+ws-cleanup
+timestamper
+ansicolor
+build-timeout
+ssh-agent
+ssh-credentials
+mailer

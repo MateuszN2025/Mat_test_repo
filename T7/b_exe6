@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Hello, World!"
+printf "Hi\n"
+
+
+add() {
+    local a="$1"
+    local b="$2"
+    printf '%s\n' "$((a + b))"
+}
+
+add 3 4

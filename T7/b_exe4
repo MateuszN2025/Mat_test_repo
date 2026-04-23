@@ -1,0 +1,286 @@
+#!/usr/bin/env bash
+# Uses the user's bash from PATH instead of hardcoding /bin/bash.
+
+# Bash reference for Python automation engineers.
+# Run: bash b_exe4
+
+set -Eeuo pipefail
+# Enables safer script behavior and makes failures visible earlier.
+
+# -E: inherit ERR trap in functions/subshells
+# -e: exit on error
+# -u: fail on unset variables
+# -o pipefail: fail pipeline if any command fails
+
+readonly SCRIPT_NAME="$(basename "$0")"
+# Stores only the script filename, for example b_exe4.
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Resolves the absolute directory of this script, even when launched from elsewhere.
+
+log() {
+	printf '[%s] %s\n' "$1" "$2"
+}
+
+info() {
+	log INFO "$1"
+}
+
+die() {
+	log ERROR "$1"
+	exit 1
+}
+
+cleanup() {
+	info "cleanup hook executed"
+}
+
+trap cleanup EXIT
+# Runs cleanup automatically when the script exits, whether success or failure.
+trap 'die "command failed at line $LINENO"' ERR
+# Sends a readable error when a command fails under set -e.
+
+show_header() {
+	cat <<'EOF'
+Common Bash syntax examples for automation work:
+- variables and quoting
+- arguments and defaults
+- arrays
+- conditions
+- loops
+- functions
+- file and directory checks
+- command existence checks
+- pipelines and redirection
+- case statements
+- curl and wget
+- find patterns
+EOF
+}
+
+variables_demo() {
+	info "variables"
+
+	local name="python-automation"
+	# Normal variable assignment. No spaces around =.
+	local default_env="${ENV_NAME:-dev}"
+	# If ENV_NAME is unset or empty, use dev.
+	local first_arg="${1:-no-arg-provided}"
+	# First function argument, with a fallback default.
+
+	printf 'name=%s\n' "$name"
+	printf 'ENV_NAME or default=%s\n' "$default_env"
+	printf 'first positional arg=%s\n' "$first_arg"
+}
+
+arrays_demo() {
+	info "arrays"
+
+	local files=("requirements.txt" "pyproject.toml" "README.md")
+	# Bash arrays use parentheses.
+	printf 'first element=%s\n' "${files[0]}"
+	printf 'all elements=%s\n' "${files[*]}"
+
+	for file in "${files[@]}"; do
+		# "${files[@]}" keeps each array element separate and preserves spaces.
+		printf 'array item -> %s\n' "$file"
+	done
+}
+
+conditions_demo() {
+	info "conditions"
+
+	local path="$SCRIPT_DIR"
+
+	if [[ -d "$path" ]]; then
+		# -d checks whether the path is a directory.
+		printf '%s is a directory\n' "$path"
+	fi
+
+	if [[ -f "$SCRIPT_DIR/simple.bash" ]]; then
+		# -f checks whether the path is a regular file.
+		printf 'simple.bash exists\n'
+	else
+		printf 'simple.bash missing\n'
+	fi
+
+	if [[ -n "${HOME:-}" && -w "$HOME" ]]; then
+		printf 'HOME is set and writable\n'
+	fi
+
+	if [[ "$SCRIPT_NAME" == b_* ]]; then
+		# Inside [[ ]], == supports shell pattern matching.
+		printf 'script name matches pattern b_*\n'
+	fi
+}
+
+loops_demo() {
+	info "loops"
+
+	for item in alpha beta gamma; do
+		printf 'for item=%s\n' "$item"
+	done
+
+	local counter=1
+	while [[ $counter -le 3 ]]; do
+		printf 'while counter=%s\n' "$counter"
+		((counter++))
+		# ((...)) is arithmetic evaluation.
+	done
+}
+
+commands_demo() {
+	info "command checks"
+
+	if command -v python3 >/dev/null 2>&1; then
+		# command -v checks whether a command exists in PATH.
+		python3 --version
+	else
+		printf 'python3 not found\n'
+	fi
+
+	if command -v rg >/dev/null 2>&1; then
+		printf 'rg is available\n'
+	fi
+}
+
+files_and_pipelines_demo() {
+	info "files and pipelines"
+
+	printf 'listing .py files under script dir if any\n'
+	find "$SCRIPT_DIR" -maxdepth 1 -type f | sort | sed 's#^.*/##'
+	# find discovers files, sort orders them, sed removes the leading path.
+
+	printf 'count of entries in script dir: '
+	find "$SCRIPT_DIR" -maxdepth 1 | wc -l
+
+	printf 'filtered files containing bash in name:\n'
+	find "$SCRIPT_DIR" -maxdepth 1 -type f | grep 'bash' || true
+	# || true prevents grep with no matches from failing the whole script.
+}
+
+find_examples_demo() {
+	info "find examples"
+
+	printf 'find all .py files:\n'
+	find "$SCRIPT_DIR" -type f -name '*.py' | sort
+
+	printf 'find files modified in last 7 days:\n'
+	find "$SCRIPT_DIR" -type f -mtime -7 | sort
+
+	printf 'find empty files:\n'
+	find "$SCRIPT_DIR" -type f -empty | sort || true
+
+	printf 'find and execute ls on each result:\n'
+	find "$SCRIPT_DIR" -maxdepth 1 -type f -name 'b_*' -exec ls -l {} \;
+}
+
+case_demo() {
+	info "case statement"
+
+	local env_name="${1:-dev}"
+	case "$env_name" in
+		dev)
+			printf 'development mode\n'
+			;;
+		test|qa)
+			printf 'test mode\n'
+			;;
+		prod)
+			printf 'production mode\n'
+			;;
+		*)
+			printf 'unknown mode: %s\n' "$env_name"
+			;;
+	esac
+}
+
+args_demo() {
+	info "arguments"
+
+	printf 'script name: %s\n' "$0"
+	printf 'arg count: %s\n' "$#"
+	printf 'all args: %s\n' "$*"
+
+	local arg
+	for arg in "$@"; do
+		printf 'arg -> %s\n' "$arg"
+	done
+}
+
+parse_flags_demo() {
+	info "simple flag parsing"
+
+	local dry_run=false
+	local env_name="dev"
+
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+			--dry-run)
+				dry_run=true
+				shift
+				;;
+			--env)
+				env_name="${2:-}"
+				[[ -n "$env_name" ]] || die "--env requires a value"
+				shift 2
+				;;
+			--)
+				shift
+				break
+				;;
+			*)
+				printf 'unparsed arg: %s\n' "$1"
+				shift
+				;;
+		esac
+	done
+
+	printf 'dry_run=%s env_name=%s\n' "$dry_run" "$env_name"
+}
+
+http_examples_demo() {
+	info "curl and wget examples"
+
+	printf 'curl GET example: curl -fsSL https://example.com\n'
+	printf 'curl download example: curl -fsSL -o page.html https://example.com\n'
+	printf 'curl JSON POST example:\n'
+	printf "%s\n" "curl -fsSL -X POST https://api.example.com/items \\
+  -H 'Content-Type: application/json' \\
+  -d '{\"name\":\"job\"}'"
+
+	printf 'wget download example: wget -O page.html https://example.com\n'
+	printf 'wget continue example: wget -c https://example.com/file.zip\n'
+	printf 'wget recursive example: wget --mirror --no-parent https://example.com/docs/\n'
+}
+
+python_automation_examples() {
+	info "python automation patterns"
+
+	printf 'run module: python3 -m pytest -q\n'
+	printf 'create venv: python3 -m venv .venv\n'
+	printf 'activate venv: source .venv/bin/activate\n'
+	printf 'safe loop over files:\n'
+
+	local file
+	while IFS= read -r file; do
+		printf 'python file -> %s\n' "$file"
+	done < <(find "$SCRIPT_DIR" -maxdepth 1 -type f -name '*.py' | sort)
+}
+
+main() {
+	show_header
+	args_demo "$@"
+	variables_demo "${1:-}"
+	arrays_demo
+	conditions_demo
+	loops_demo
+	commands_demo
+	files_and_pipelines_demo
+	find_examples_demo
+	case_demo "${1:-dev}"
+	parse_flags_demo "$@"
+	http_examples_demo
+	python_automation_examples
+}
+
+main "$@"

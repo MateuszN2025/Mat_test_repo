@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+# Top 20 Bash cheat sheet for Python automation work.
+
+cat <<'EOF'
+Top 20 useful Bash patterns
+
+1. Shebang
+   #!/usr/bin/env bash
+
+2. Safe mode
+   set -Eeuo pipefail
+
+3. Variable assignment
+   name="value"
+
+4. Read variable with default
+   env_name="${ENV_NAME:-dev}"
+
+5. Positional args
+   echo "$0" "$1" "$#" "$@"
+
+6. Quote variables
+   cp "$src" "$dst"
+
+7. Command exists check
+   command -v python3 >/dev/null 2>&1
+
+8. If statement
+   if [[ -f "$file" ]]; then echo yes; fi
+
+9. Directory check
+   if [[ -d "$dir" ]]; then echo dir; fi
+
+10. Pattern match
+    if [[ "$name" == *.py ]]; then echo python; fi
+
+11. For loop
+    for file in *.py; do echo "$file"; done
+
+12. While read loop
+    while IFS= read -r line; do echo "$line"; done < file.txt
+
+13. Arrays
+    items=(a b c)
+    echo "${items[@]}"
+
+14. Functions
+    greet() { echo "hello $1"; }
+
+15. Case statement
+    case "$env" in dev) echo dev ;; prod) echo prod ;; esac
+
+16. Pipelines
+    ps aux | grep python | grep -v grep
+
+17. Find files
+    find . -type f -name '*.py'
+
+18. Curl API call
+    curl -fsSL https://example.com
+
+19. Wget download
+    wget -O out.html https://example.com
+
+20. Run Python tools
+    python3 -m pytest -q
+    python3 -m venv .venv
+    source .venv/bin/activate
+
+Rules of thumb
+- Always quote variables: "$var"
+- Prefer [[ ... ]] over [ ... ]
+- Use $(...) instead of backticks
+- Use functions to group repeated logic
+- Use find, grep, sort, sed, awk, xargs in pipelines
+EOF

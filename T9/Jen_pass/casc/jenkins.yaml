@@ -1,0 +1,26 @@
+jenkins:
+  systemMessage: "Local Jenkins for automation practice, managed by Docker and Configuration as Code."
+  mode: NORMAL
+  numExecutors: 2
+  slaveAgentPort: 50000
+  securityRealm:
+    local:
+      allowsSignup: false
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  crumbIssuer:
+    standard: {}
+  remotingSecurity:
+    enabled: true
+
+unclassified:
+  location:
+    url: "${JENKINS_URL}"
+    adminAddress: "${JENKINS_ADMIN_EMAIL}"
+
+tool:
+  git:
+    installations:
+      - name: "Default"
+        home: "git"
