@@ -11,8 +11,6 @@ jenkins:
       allowAnonymousRead: false
   crumbIssuer:
     standard: {}
-  remotingSecurity:
-    enabled: true
 
 unclassified:
   location:

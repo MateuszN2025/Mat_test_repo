@@ -11,4 +11,5 @@ ansicolor
 build-timeout
 ssh-agent
 ssh-credentials
+ssh-slaves
 mailer
