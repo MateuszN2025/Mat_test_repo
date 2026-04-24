@@ -132,7 +132,7 @@ reset() {
 	if podman volume exists "$VOLUME_NAME"; then
 		podman volume rm "$VOLUME_NAME"
 	fi
-	echo "Jenkins state reset. Run './manage.sh up' to start fresh."
+	echo "Jenkins state reset. Run './run_local_jenkins.sh up' to start fresh."
 }
 
 status() {
@@ -157,7 +157,7 @@ case "${1:-}" in
 		status
 		;;
 	*)
-		echo "Usage: ./manage.sh {up|down|logs|reset|status}"
+		echo "Usage: ./run_local_jenkins.sh {up|down|logs|reset|status}"
 		exit 1
 		;;
 esac

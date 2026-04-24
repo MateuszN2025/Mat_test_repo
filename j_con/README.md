@@ -41,7 +41,7 @@ cp .env.example .env
 Default path on this machine:
 
 ```bash
-./manage.sh up
+./run_local_jenkins.sh up
 ```
 
 Alternative if you have a working Compose implementation:
@@ -69,14 +69,14 @@ There is no unlock wizard because Configuration as Code disables it.
 ## Stop and start
 
 ```bash
-./manage.sh down
-./manage.sh up
+./run_local_jenkins.sh down
+./run_local_jenkins.sh up
 ```
 
 ## View logs
 
 ```bash
-./manage.sh logs
+./run_local_jenkins.sh logs
 ```
 
 ## Reset Jenkins completely
@@ -84,7 +84,7 @@ There is no unlock wizard because Configuration as Code disables it.
 This removes all jobs, users, and history stored in the named volume.
 
 ```bash
-./manage.sh reset
+./run_local_jenkins.sh reset
 ```
 
 ## Recommended next step
@@ -100,7 +100,7 @@ After Jenkins starts, create a Pipeline job and point it at your automation repo
 
 - `JENKINS_URL` should match the URL you actually open in the browser.
 - If port `8080` is already in use, change `JENKINS_HTTP_PORT` in `.env`.
-- If you already have a manually started Jenkins container on `8080`, stop or remove it before using `./manage.sh up`.
+- If you already have a manually started Jenkins container on `8080`, stop or remove it before using `./run_local_jenkins.sh up`.
 - If you later expose Jenkins over a real network, add HTTPS and stronger access control.
 - This configuration is intentionally unsecured and should stay local-only.
 - `compose.yaml` is still included for Docker Compose users, but this environment does not currently have a working compose subcommand.
