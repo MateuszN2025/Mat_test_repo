@@ -4,6 +4,7 @@ This setup gives you a reproducible local Jenkins instance with:
 
 - a custom Jenkins image
 - preinstalled plugins for pipeline and test reporting
+- Allure report support through the Jenkins Allure plugin
 - Configuration as Code instead of the first-run wizard
 - an unsecured local-only setup so the UI opens without a login page
 - a named volume for persistent Jenkins state
@@ -95,6 +96,47 @@ After Jenkins starts, create a Pipeline job and point it at your automation repo
 - install Python dependencies
 - run `pytest`
 - publish `JUnit` XML reports
+- publish `Allure` results
+
+## Enable Allure reports
+
+The custom Jenkins image now installs the `allure-jenkins-plugin`, so Jenkins
+can publish Allure reports. One controller-side step is still required after the
+first restart: configure the Allure commandline tool in the Jenkins UI.
+
+1. Rebuild and restart Jenkins so the plugin is installed:
+
+```bash
+./run_local_jenkins.sh down
+./run_local_jenkins.sh up
+```
+
+2. In Jenkins, go to `Manage Jenkins` -> `Tools`.
+
+3. Find the `Allure Commandline` section and add one installation.
+
+4. Keep `Install automatically` enabled and choose the latest Allure 2 version.
+
+5. Save the tool configuration.
+
+After that, pipeline jobs can publish Allure results with a step like:
+
+```groovy
+post {
+	always {
+		allure(
+			includeProperties: false,
+			results: [[path: 'allure-results']]
+		)
+	}
+}
+```
+
+Python tests also need to generate Allure result files, for example by running:
+
+```bash
+pytest --alluredir=allure-results
+```
 
 ## Notes
 

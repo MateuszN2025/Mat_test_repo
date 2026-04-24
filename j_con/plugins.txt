@@ -1,10 +1,12 @@
 configuration-as-code
+locale
 workflow-aggregator
 pipeline-stage-view
 git
 github
 credentials-binding
 junit
+allure-jenkins-plugin
 ws-cleanup
 timestamper
 ansicolor

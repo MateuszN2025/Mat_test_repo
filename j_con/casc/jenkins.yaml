@@ -12,6 +12,12 @@ jenkins:
   crumbIssuer:
     standard: {}
 
+appearance:
+  locale:
+    systemLocale: "en"
+    ignoreAcceptLanguage: true
+    allowUserPreferences: false
+
 unclassified:
   location:
     url: "${JENKINS_URL}"
