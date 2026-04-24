@@ -4,7 +4,7 @@ This directory stores the files needed to recreate a local Jenkins inbound agent
 
 What is versioned here:
 
-- `jenkins_agent_creation.sh`: downloads `agent.jar` and runs the agent.
+- `run_jenkins_agent.sh`: downloads `agent.jar` and runs the local inbound agent process.
 - `.env.example`: template for controller URL and agent credentials.
 - `.gitignore`: keeps runtime files and secrets out of git.
 
@@ -14,32 +14,46 @@ What stays outside git:
 - `agent.jar`: downloaded from the controller.
 - `remoting/` and `logs/`: runtime state created by the agent.
 
-## Recreate the agent
+## Connect the agent
 
-1. Copy the environment template.
+1. Create the agent definition in Jenkins first.
 
-   ```bash
+   In the Jenkins controller UI:
+
+   - go to `Manage Jenkins`
+   - open `Nodes`
+   - click `New Node`
+   - create a node, for example `local-agent`
+   - choose the inbound-agent launch style
+   - during agent creation in section Remote File System put e.g /home/mniedziolka/jenkins-agent/workspace
+
+   Jenkins creates the node entry and shows a launch command containing the
+   generated `-name` and `-secret` values.
+
+2. Copy the environment template.
+
+   ```bash 
    cp .env.example .env
    ```
 
-2. Fill in `.env`.
+3. Fill in `.env`.
 
    Required values:
 
    - `JENKINS_URL`: controller URL, for example `http://127.0.0.1:8080/`
-   - `AGENT_NAME`: node name created in Jenkins
-   - `AGENT_SECRET`: secret from the node page in Jenkins
+   - `AGENT_NAME`: node name created in Jenkins, for example `local-agent`
+   - `AGENT_SECRET`: secret shown in the Jenkins agent launch command
 
-3. Download the matching remoting jar from the controller.
+4. Download the matching remoting jar from the controller.
 
-   ```bash
-   ./jenkins_agent_creation.sh download-jar
+   ```bash 
+   ./run_jenkins_agent.sh download-jar
    ```
 
-4. Start the agent.
+5. Start the agent.
 
-   ```bash
-   ./jenkins_agent_creation.sh run
+   ```bash 
+   ./run_jenkins_agent.sh run
    ```
 
 The agent runs in the foreground. Stop it with `Ctrl+C`.
@@ -47,9 +61,9 @@ The agent runs in the foreground. Stop it with `Ctrl+C`.
 ## Useful commands
 
 ```bash
-./jenkins_agent_creation.sh status
-./jenkins_agent_creation.sh clean
-./jenkins_agent_creation.sh reset
+./run_jenkins_agent.sh status
+./run_jenkins_agent.sh clean
+./run_jenkins_agent.sh reset
 ```
 
 - `status`: shows the configured controller URL and whether runtime files exist.
@@ -58,4 +72,7 @@ The agent runs in the foreground. Stop it with `Ctrl+C`.
 
 ## Jenkins side
 
-Create a node in Jenkins using the inbound-agent style connection. Then copy the generated agent name and secret into `.env`.
+Create a node in Jenkins using the inbound-agent style connection. Jenkins will
+generate the launch command for that node. Copy the `-name` value into
+`AGENT_NAME` and the `-secret` value into `AGENT_SECRET`, then run the local
+script from this directory.

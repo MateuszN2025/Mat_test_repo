@@ -118,7 +118,7 @@ case "${1:-}" in
 		reset
 		;;
 	*)
-		echo "Usage: ./jenkins_agent_creation.sh {download-jar|run|status|clean|reset}"
+		echo "Usage: ./run_jenkins_agent.sh {download-jar|run|status|clean|reset}"
 		exit 1
 		;;
 	esac
