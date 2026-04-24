@@ -8,6 +8,10 @@ readonly IMAGE_NAME="local/jenkins-automation-pass:lts"
 readonly CONTAINER_NAME="jenkins-local-pass"
 readonly VOLUME_NAME="jenkins_home_local_pass"
 readonly INIT_DIR="$SCRIPT_DIR/init.groovy.d"
+readonly AGENT_DIR="$(cd "$SCRIPT_DIR/../j_ag" && pwd)"
+readonly AGENT_SCRIPT="$AGENT_DIR/run_jenkins_agent.sh"
+readonly AGENT_PID_FILE="$AGENT_DIR/run_jenkins_agent.pid"
+readonly AGENT_LOG_FILE="$AGENT_DIR/run_jenkins_agent.log"
 
 load_env() {
 	if [[ ! -f "$ENV_FILE" ]]; then
@@ -33,8 +37,88 @@ container_exists() {
 	podman container exists "$CONTAINER_NAME"
 }
 
+agent_is_running() {
+	if [[ ! -f "$AGENT_PID_FILE" ]]; then
+		return 1
+	fi
+
+	local agent_pid
+	agent_pid="$(<"$AGENT_PID_FILE")"
+	if [[ -z "$agent_pid" ]]; then
+		rm -f "$AGENT_PID_FILE"
+		return 1
+	fi
+
+	if kill -0 "$agent_pid" 2>/dev/null; then
+		return 0
+	fi
+
+	rm -f "$AGENT_PID_FILE"
+	return 1
+}
+
 build_image() {
 	podman build -t "$IMAGE_NAME" "$SCRIPT_DIR"
+}
+
+wait_for_jenkins() {
+	local attempt
+	for attempt in $(seq 1 60); do
+		if curl -fsS "$JENKINS_URL/login" >/dev/null 2>&1; then
+			return 0
+		fi
+		sleep 2
+	done
+
+	echo "Timed out waiting for Jenkins at $JENKINS_URL"
+	return 1
+}
+
+start_agent_background() {
+	if [[ ! -x "$AGENT_SCRIPT" ]]; then
+		echo "Skipping agent autostart: missing executable $AGENT_SCRIPT"
+		return 0
+	fi
+
+	if [[ ! -f "$AGENT_DIR/.env" ]]; then
+		echo "Skipping agent autostart: missing $AGENT_DIR/.env"
+		return 0
+	fi
+
+	if agent_is_running; then
+		echo "Jenkins agent is already running in the background."
+		return 0
+	fi
+
+	require_command curl
+	(
+		set -Eeuo pipefail
+		wait_for_jenkins
+		cd "$AGENT_DIR"
+		exec "$AGENT_SCRIPT" run >> "$AGENT_LOG_FILE" 2>&1
+	) &
+	echo "$!" > "$AGENT_PID_FILE"
+	echo "Started Jenkins agent launcher in background. pid=$(<"$AGENT_PID_FILE")"
+	echo "Agent log: $AGENT_LOG_FILE"
+}
+
+stop_agent_background() {
+	if ! agent_is_running; then
+		return 0
+	fi
+
+	local agent_pid
+	agent_pid="$(<"$AGENT_PID_FILE")"
+	kill "$agent_pid" 2>/dev/null || true
+	rm -f "$AGENT_PID_FILE"
+	echo "Stopped Jenkins agent background process."
+}
+
+require_command() {
+	if ! command -v "$1" >/dev/null 2>&1; then
+		echo "Missing required command: $1"
+		exit 1
+	fi
 }
 
 write_init_script() {
@@ -113,11 +197,14 @@ up() {
 		-v "$INIT_DIR:/var/jenkins_home/init.groovy.d:Z" \
 		"$IMAGE_NAME"
 
+	start_agent_background
+
 	echo "Jenkins is starting at $JENKINS_URL"
 	echo "Login with username '$JENKINS_ADMIN_ID' and the password from $ENV_FILE"
 }
 
 down() {
+	stop_agent_background
 	if container_exists; then
 		podman rm -f "$CONTAINER_NAME"
 	fi
@@ -138,6 +225,11 @@ reset() {
 status() {
 	podman ps -a --filter "name=$CONTAINER_NAME"
 	podman volume ls --filter "name=$VOLUME_NAME"
+	if agent_is_running; then
+		echo "Agent background process: running (pid $(<"$AGENT_PID_FILE"))"
+	else
+		echo "Agent background process: stopped"
+	fi
 }
 
 case "${1:-}" in
