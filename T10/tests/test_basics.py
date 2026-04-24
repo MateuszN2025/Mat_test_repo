@@ -1,11 +1,9 @@
-import helpers.helpers_functions as h
+from pathlib import Path
+
+from .helpers import execute_command
 
 
-def test_1_addition():
-    path = "/home/mniedziolka/PP/Mat_test_repo/T10/application/"
-    b_script = "b_calc"
-    oper = "+"
-    a = "343"
-    b = "898"
-    assert h.execute_command(path, b_script, oper, a, b)
-    
+def test_1_addition(calculator_script: Path):
+    result = execute_command(calculator_script, "+", "343", "898")
+
+    assert result == "1241.0000"
