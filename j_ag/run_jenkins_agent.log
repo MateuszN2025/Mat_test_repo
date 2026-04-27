@@ -2331,3 +2331,96 @@ Apr 24, 2026 3:57:01 PM hudson.remoting.Launcher$CuiListener status
 INFO: Failed to connect: Handshake error.
 Apr 24, 2026 3:57:01 PM hudson.remoting.Launcher$CuiListener status
 INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:08 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:08 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:08 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:11 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:11 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:11 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:18 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:21 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:21 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:21 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:28 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:28 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:28 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:31 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:31 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:31 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:38 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:38 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:38 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:41 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:41 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:41 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:48 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:48 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:48 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:51 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:51 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:51 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:57:58 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:57:58 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:57:58 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:58:01 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:58:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:58:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Apr 24, 2026 3:58:08 PM hudson.remoting.Engine$1HeaderHandler afterResponse
+WARNING: Did not receive X-Remoting-Capability header
+Apr 24, 2026 3:58:08 PM hudson.remoting.Launcher$CuiListener status
+INFO: Failed to connect: Handshake error.
+Apr 24, 2026 3:58:08 PM hudson.remoting.Launcher$CuiListener status
+INFO: Waiting 10 seconds before retry
+Starting Jenkins agent 'local-mn-pc-agent' against http://172.28.221.58:8080/
+Apr 27, 2026 7:40:35 AM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/mniedziolka/PP/Mat_test_repo/j_ag/remoting/remoting as a remoting work directory
+Apr 27, 2026 7:40:35 AM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/mniedziolka/PP/Mat_test_repo/j_ag/remoting/remoting
+Apr 27, 2026 7:40:35 AM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: local-mn-pc-agent
+Apr 27, 2026 7:40:35 AM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3355.v388858a_47b_33
+Apr 27, 2026 7:40:35 AM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/mniedziolka/PP/Mat_test_repo/j_ag/remoting/remoting as a remoting work directory
+Apr 27, 2026 7:40:37 AM hudson.remoting.Launcher$CuiListener status
+INFO: WebSocket connection open
+Apr 27, 2026 7:40:37 AM hudson.remoting.Launcher$CuiListener status
+INFO: Connected

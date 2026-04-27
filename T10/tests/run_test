@@ -3,12 +3,31 @@
 set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# echo ---------------------
+# echo SCRIPT_DIR = $SCRIPT_DIR
+
+
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-ALLURE_RESULTS_DIR="$PROJECT_ROOT/allure-results"
+# echo ---------------------
+# echo PROJECT_ROOT = $PROJECT_ROOT
+
+
+WORKSPACE_DIR="${WORKSPACE:-/home/mniedziolka/jenkins-agent/workspace/at_1}"
+# echo ---------------------
+# echo WORKSPACE_DIR = $WORKSPACE_DIR
+
+ALLURE_RESULTS_DIR="${ALLURE_RESULTS_DIR:-$WORKSPACE_DIR/allure-results}"
+# echo ---------------------
+# echo ALLURE_RESULTS_DIR = $ALLURE_RESULTS_DIR
+
+
 PYTHON_BIN="${PYTHON_BIN:-python3}"
+# echo ---------------------
+# echo PYTHON_BIN = $PYTHON_BIN
+# echo ---------------------
 
 rm -rf "$ALLURE_RESULTS_DIR"
 mkdir -p "$ALLURE_RESULTS_DIR"
 cd "$PROJECT_ROOT"
 
-"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -s
+"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s
