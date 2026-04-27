@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ALLURE_REPORT=/home/mniedziolka/jenkins-agent/workspace/at_1/allure-report/
+
+cd $ALLURE_REPORT
+
+python3 -m http.server 8888
+

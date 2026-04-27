@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ALLURE_PATH=/mnt/c/Users/mniedziolka/qa/allure/allure-2.35.1/bin/allure
+ALLURE_RESULTS=/home/mniedziolka/jenkins-agent/workspace/at_1/allure-results/
+ALLURE_REPORT=/home/mniedziolka/jenkins-agent/workspace/at_1/allure-report/
+
+bash $ALLURE_PATH generate $ALLURE_RESULTS --clean -o $ALLURE_REPORT
+

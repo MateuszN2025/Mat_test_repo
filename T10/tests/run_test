@@ -16,6 +16,13 @@ WORKSPACE_DIR="${WORKSPACE:-/home/mniedziolka/jenkins-agent/workspace/at_1}"
 # echo ---------------------
 # echo WORKSPACE_DIR = $WORKSPACE_DIR
 
+# ${VAR:-x}	use x if VAR unset or empty (no assignment)
+# ${VAR-x}	use x only if VAR unset (empty stays empty)
+# ${VAR:=x}	same as :- but also assigns x to VAR
+# ${VAR:?msg}	error out with msg if unset/empty
+# ${VAR:+x}	use x if VAR is set & non-empty, else empty
+# It's the standard idiom for "configurable with a default."
+
 ALLURE_RESULTS_DIR="${ALLURE_RESULTS_DIR:-$WORKSPACE_DIR/allure-results}"
 # echo ---------------------
 # echo ALLURE_RESULTS_DIR = $ALLURE_RESULTS_DIR

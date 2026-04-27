@@ -1,0 +1,38 @@
+#!/bin/bash
+ALLURE_REPORT=/home/mniedziolka/jenkins-agent/workspace/at_1/allure-report/
+LOG=/tmp/allure-server.log
+PIDFILE=/tmp/allure-server.pid
+
+# Change into the directory that holds the generated Allure HTML report.
+# `python3 -m http.server` serves files from the *current* working directory,
+# so we must `cd` there before starting it. Quotes protect against spaces in
+# the path. If the directory doesn't exist, `cd` fails and the script aborts
+# (well, it would abort only with `set -e`; consider adding it at the top).
+cd "$ALLURE_REPORT"
+
+# Start the built-in Python HTTP server on port 8888, fully detached:
+#   nohup ............ ignore SIGHUP, so the server keeps running even after
+#                      the launching terminal/SSH session is closed.
+#   python3 -m http.server 8888
+#                      run the stdlib module that serves the current dir on :8888.
+#   > "$LOG"           redirect stdout to the log file (truncates it on each run;
+#                      use ">>" if you want to append instead).
+#   2>&1               redirect stderr to the same place stdout points to (the log).
+#   &                  put the whole pipeline in the background so the shell
+#                      returns immediately instead of waiting for the server.
+nohup python3 -m http.server 8888 > "$LOG" 2>&1 &
+
+# `$!` is a special bash variable holding the PID of the most recently
+# backgrounded process — i.e. the http.server we just started.
+# We persist it to a PID file so we can stop the server later with:
+#     kill "$(cat /tmp/allure-server.pid)"
+echo $! > "$PIDFILE"
+
+# Friendly confirmation message for the user, showing:
+#   - the PID we just wrote (read back from the file as a sanity check),
+#   - where the server's stdout/stderr is being logged.
+# `$(cat $PIDFILE)` is command substitution: it runs `cat` and inlines the output.
+echo "Server started, PID=$(cat $PIDFILE), log=$LOG"
+
+# we can stop the server later with
+# kill "$(cat /tmp/allure-server.pid)"
