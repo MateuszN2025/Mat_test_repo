@@ -1,0 +1,62 @@
+[
+  {
+    "team1_name": "Tomek S",
+    "team1_level": "1.0",
+    "team2_name": "Marcin M",
+    "team2_level": "2.5"
+  },
+  {
+    "team1_name": "Marcin Sz",
+    "team1_level": "1.0",
+    "team2_name": "Mateusz N",
+    "team2_level": "5.0"
+  },
+  {
+    "team1_name": "Milosz",
+    "team1_level": "1.0",
+    "team2_name": "Lukasz Is",
+    "team2_level": "5.0"
+  },
+  {
+    "team1_name": "Bogus",
+    "team1_level": "1.0",
+    "team2_name": "Rafal",
+    "team2_level": "5.0"
+  },
+  {
+    "team1_name": "Sebastian",
+    "team1_level": "2.5",
+    "team2_name": "Michal S",
+    "team2_level": "10.0"
+  },
+  {
+    "team1_name": "Obecny",
+    "team1_level": "3.0",
+    "team2_name": "Mateusz K",
+    "team2_level": "10.0"
+  },
+  {
+    "team1_name": "",
+    "team1_level": "",
+    "team2_name": "",
+    "team2_level": ""
+  },
+  {
+    "team1_name": "",
+    "team1_level": "",
+    "team2_name": "",
+    "team2_level": ""
+  },
+  {
+    "team1_name": "",
+    "team1_level": "",
+    "team2_name": "",
+    "team2_level": ""
+  },
+  {
+    "team1_name": "",
+    "team1_level": "",
+    "team2_name": "",
+    "team2_level": ""
+  }
+]

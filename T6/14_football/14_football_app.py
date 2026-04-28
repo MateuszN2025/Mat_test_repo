@@ -2,6 +2,9 @@ import tkinter as tk
 from itertools import combinations
 from tkinter import messagebox
 from tkinter import ttk
+import json
+import os
+import sys
 
 
 class FootballTeamApp:
@@ -13,6 +16,16 @@ class FootballTeamApp:
 		self.button_font = ("Arial", 12, "bold")
 		self.level_values = [""] + [str(value) for value in self._build_level_values()]
 		self.level_columns_visible = True
+		self.colors_swapped = False
+		self.saved_state = None
+		# Determine the directory to save state file (works for both exe and script)
+		if getattr(sys, 'frozen', False):
+			# Running as exe
+			base_dir = os.path.dirname(sys.executable)
+		else:
+			# Running as script
+			base_dir = os.path.dirname(os.path.abspath(__file__))
+		self.state_file = os.path.join(base_dir, "team_state.json")
 		self.default_players = [
 			("Tomek S", "", "Marcin M", ""),
 			("Marcin Sz", "", "Mateusz N", ""),
@@ -26,6 +39,7 @@ class FootballTeamApp:
 		self.create_table()
 		self.create_process_button()
 		self.create_sum_labels()
+		self.load_saved_state_from_file()
 
 	def _build_level_values(self):
 		return [step / 2 for step in range(2, 21)]
@@ -35,7 +49,7 @@ class FootballTeamApp:
 		style.configure("Header.TLabel", font=self.bold_font, background="#e0e0e0", anchor="center")
 		style.configure("Id.TLabel", font=self.base_font, background="#f0f0ff", anchor="center")
 		style.configure("Info.TLabel", font=self.bold_font, anchor="center")
-		style.configure("Big.TButton", font=self.button_font, padding=(7, 5), anchor="center")
+		style.configure("Big.TButton", font=self.button_font, padding=(5, 4), anchor="center")
 		style.configure(
 			"Team1.TCombobox",
 			font=self.base_font,
@@ -119,6 +133,12 @@ class FootballTeamApp:
 		self.process_btn.grid(row=11, column=1, columnspan=1, pady=(8, 2), sticky="w")
 		self.toggle_levels_btn = ttk.Button(self.root, text="Hide Levels", command=self.toggle_level_columns, style="Big.TButton", width=14)
 		self.toggle_levels_btn.grid(row=12, column=1, columnspan=1, pady=(4, 2), sticky="w")
+		self.toggle_colors_btn = ttk.Button(self.root, text="Toggle Colors", command=self.toggle_team_colors, style="Big.TButton", width=14)
+		self.toggle_colors_btn.grid(row=13, column=1, columnspan=1, pady=(4, 2), sticky="w")
+		self.save_state_btn = ttk.Button(self.root, text="Save State", command=self.save_state, style="Big.TButton", width=14)
+		self.save_state_btn.grid(row=14, column=1, columnspan=1, pady=(4, 2), sticky="w")
+		self.restore_state_btn = ttk.Button(self.root, text="Restore State", command=self.restore_state, style="Big.TButton", width=14)
+		self.restore_state_btn.grid(row=15, column=1, columnspan=1, pady=(4, 2), sticky="w")
 
 	def create_sum_labels(self):
 		self.sum1_label = ttk.Label(self.root, text="Sum:", style="Info.TLabel")
@@ -151,6 +171,75 @@ class FootballTeamApp:
 
 		self.level_columns_visible = not self.level_columns_visible
 
+	def toggle_team_colors(self):
+		if not self.colors_swapped:
+			# Swap colors: Team1 becomes yellow, Team2 becomes blue
+			for row_entries in self.entries:
+				row_entries[1].config(bg="#fff9cc")  # Team 1 name to yellow
+				row_entries[3].config(bg="#d0eaff")  # Team 2 name to blue
+			style = ttk.Style()
+			style.configure("Team1.TCombobox", fieldbackground="#fff9cc", background="#fff9cc")
+			style.configure("Team2.TCombobox", fieldbackground="#d0eaff", background="#d0eaff")
+			self.colors_swapped = True
+		else:
+			# Swap back: Team1 becomes blue, Team2 becomes yellow
+			for row_entries in self.entries:
+				row_entries[1].config(bg="#d0eaff")  # Team 1 name to blue
+				row_entries[3].config(bg="#fff9cc")  # Team 2 name to yellow
+			style = ttk.Style()
+			style.configure("Team1.TCombobox", fieldbackground="#d0eaff", background="#d0eaff")
+			style.configure("Team2.TCombobox", fieldbackground="#fff9cc", background="#fff9cc")
+			self.colors_swapped = False
+
+	def save_state(self):
+		"""Save the current state of all teams to memory and file."""
+		self.saved_state = []
+		for row_entries in self.entries:
+			team1_name = row_entries[1].get()
+			team1_level = row_entries[2].get()
+			team2_name = row_entries[3].get()
+			team2_level = row_entries[4].get()
+			self.saved_state.append({
+				'team1_name': team1_name,
+				'team1_level': team1_level,
+				'team2_name': team2_name,
+				'team2_level': team2_level
+			})
+		# Save to file for persistence
+		try:
+			with open(self.state_file, 'w') as f:
+				json.dump(self.saved_state, f, indent=2)
+			messagebox.showinfo("Success", "Team state saved successfully!")
+		except Exception as e:
+			messagebox.showerror("Error", f"Failed to save state: {str(e)}")
+
+	def restore_state(self):
+		"""Restore the previously saved state of all teams."""
+		if self.saved_state is None:
+			messagebox.showwarning("No Saved State", "No team state has been saved yet. Click 'Save State' first.")
+			return
+		for row_index, row_entries in enumerate(self.entries):
+			if row_index < len(self.saved_state):
+				state = self.saved_state[row_index]
+				row_entries[1].delete(0, tk.END)
+				row_entries[1].insert(0, state['team1_name'])
+				row_entries[2].set(state['team1_level'])
+				row_entries[3].delete(0, tk.END)
+				row_entries[3].insert(0, state['team2_name'])
+				row_entries[4].set(state['team2_level'])
+		self.update_sums()
+		messagebox.showinfo("Success", "Team state restored successfully!")
+
+	def load_saved_state_from_file(self):
+		"""Load saved state from file if it exists."""
+		if os.path.exists(self.state_file):
+			try:
+				with open(self.state_file, 'r') as f:
+					self.saved_state = json.load(f)
+			except Exception as e:
+				print(f"Failed to load saved state: {str(e)}")
+				self.saved_state = None
+
 	def update_sums(self, event=None):
 		sum1 = 0.0
 		sum2 = 0.0
@@ -164,6 +253,17 @@ class FootballTeamApp:
 		self.sum1_val.config(text=f"{sum1:.2f}")
 		self.sum2_val.config(text=f"{sum2:.2f}")
 		self.diff_val.config(text=f"{abs(sum1 - sum2):.2f}")
+		
+		# Color code sums based on which team is stronger
+		if sum1 > sum2:
+			self.sum1_val.config(foreground="red")
+			self.sum2_val.config(foreground="#6666ff")  # Weaker blue
+		elif sum2 > sum1:
+			self.sum2_val.config(foreground="red")
+			self.sum1_val.config(foreground="#6666ff")  # Weaker blue
+		else:
+			self.sum1_val.config(foreground="black")
+			self.sum2_val.config(foreground="black")
 
 	def get_player_data(self):
 		players = []
