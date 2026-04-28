@@ -1,0 +1,14 @@
+#!/bin/bash
+
+OPER=$1
+A=$2
+B=$3
+
+if [[ "$OPER" == "x" ]]; then
+    OPER="*"
+fi
+
+
+RESULT=$(awk "BEGIN { printf \"%.4f\", $A $OPER $B }")
+
+echo $RESULT

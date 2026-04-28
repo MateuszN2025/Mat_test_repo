@@ -2,6 +2,7 @@ from pathlib import Path
 import allure
 
 from .helpers import execute_command
+# . Relative — look in the current package (same folder)
 
 def step_assert_eq(actual, expected, label):
     print(f"\n[CHECK] {label}: expected={expected!r}, actual={actual!r} -> "
