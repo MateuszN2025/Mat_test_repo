@@ -64,6 +64,7 @@ def threading_example() -> None:
         threading.Thread(target=blocking_io_task, args=("thread-1", 1.5)),
         threading.Thread(target=blocking_io_task, args=("thread-2", 1.0)),
         threading.Thread(target=blocking_io_task, args=("thread-3", 0.5)),
+        # multiprocessing.Process(target=worker, args=(i,))
     ]
 
     for thread in threads:

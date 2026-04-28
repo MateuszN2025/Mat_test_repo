@@ -23,13 +23,25 @@ def main():
     # 1 thread 
     # th1 = threading.Thread(target=api_call, args=(1,))
     # th1.start()
-    # th1.join()
+    # th1.join()    
+    threads = []
     
-    threads = [threading.Thread(target=api_call, args=(i,)) for i in range(10)]
+    # for i in range(10):
+    #     threads.append(threading.Thread(target=api_call, args=(i,)))
+    threads = [threading.Thread(target=api_call, args=(i,)) for i in range(10)]    
+    
+        
     for thread in threads:
         thread.start()
+    
     for thread in threads:
         thread.join()
+
+    # threads = [threading.Thread(target=api_call, args=(i,)) for i in range(10)]
+    # for thread in threads:
+    #     thread.start()
+    # for thread in threads:
+    #     thread.join()
     
     pass
     
