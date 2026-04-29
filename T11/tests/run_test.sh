@@ -47,4 +47,5 @@ cd "$SCRIPT_DIR" # T11/tests/
 
 source "$SCRIPT_DIR/.env.sh"
 # "$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s
-"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s -m optimal
+"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s -k "div or mul"
+# "$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s -m optimal pytest 
