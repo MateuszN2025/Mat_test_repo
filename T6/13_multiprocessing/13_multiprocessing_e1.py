@@ -103,4 +103,24 @@ def run_all():
 
 
 if __name__ == "__main__":
+    # Task type threading	          multiprocessing	   asyncio
+    # I/O-bound	✅ real concurrency	✅ overkill	        ✅ best choice
+    # CPU-bound	❌ GIL blocks	    ✅ real parallelism	❌ single thread
+    
+    # # I/O-bound — waiting for network
+    # requests.get("https://pokeapi.co/api/v2/")  # CPU idle while waiting
+
+    # CPU-bound — pure computation
+    # sum(i**2 for i in range(10_000_000))  # CPU working the whole time
+    
+    # >>> I/O-bound <<< — the bottleneck is waiting for something external:
+    # Network requests, database queries, file reads/writes, user input
+    # CPU sits idle most of the time
+    # Solution: concurrency (threading, asyncio) — overlap the waiting
+    
+    # >>> CPU-bound <<< — the bottleneck is computation:
+    # Math, image processing, sorting large datasets, encryption
+    # CPU is maxed out doing actual work
+    # Solution: parallelism (multiprocessing) — use multiple cores
+    
     run_all()
