@@ -36,13 +36,15 @@ echo ---------------------
 rm -rf "$ALLURE_RESULTS_DIR"
 mkdir -p "$ALLURE_RESULTS_DIR"
 
-cd "$PROJECT_ROOT" # T11/
+# cd "$PROJECT_ROOT" # T11/
 # from .helpers import execute_command ✅
 # from helpers import execute_command  ❌
 
 
-# cd "$SCRIPT_DIR" T11/tests/
+cd "$SCRIPT_DIR" # T11/tests/
 # from helpers import execute_command  ✅
 # from .helpers import execute_command ✅
 
-"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s
+source "$SCRIPT_DIR/.env.sh"
+# "$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s
+"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s -m optimal

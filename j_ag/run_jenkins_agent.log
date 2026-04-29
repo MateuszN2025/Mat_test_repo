@@ -2424,3 +2424,18 @@ Apr 27, 2026 7:40:37 AM hudson.remoting.Launcher$CuiListener status
 INFO: WebSocket connection open
 Apr 27, 2026 7:40:37 AM hudson.remoting.Launcher$CuiListener status
 INFO: Connected
+Starting Jenkins agent 'local-mn-pc-agent' against http://172.28.221.58:8080/
+Apr 29, 2026 3:32:24 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/mniedziolka/PP/Mat_test_repo/j_ag/remoting/remoting as a remoting work directory
+Apr 29, 2026 3:32:24 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/mniedziolka/PP/Mat_test_repo/j_ag/remoting/remoting
+Apr 29, 2026 3:32:24 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: local-mn-pc-agent
+Apr 29, 2026 3:32:24 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3355.v388858a_47b_33
+Apr 29, 2026 3:32:24 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/mniedziolka/PP/Mat_test_repo/j_ag/remoting/remoting as a remoting work directory
+Apr 29, 2026 3:32:24 PM hudson.remoting.Launcher$CuiListener status
+INFO: WebSocket connection open
+Apr 29, 2026 3:32:24 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected

@@ -1,34 +1,36 @@
-from pathlib import Path
 import allure
 from .helpers import execute_command
-# subprocess.run(args="clear")
-print("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n")
+import subprocess
+import pytest
 
-pwd = "changeme1@"
-user = "vboxuser1"
-ip = "192.168.0.152"
-path = "/home/vboxuser1/calc2/b_calc"
+def step_assert_eq(result, expected, label):
+    result = float(result)
+    expected = float(expected)
+    print(f"\n[CHECK] {label}: expected={expected!r}, actual={result!r} -> "
+          f"{'OK' if result == expected else 'FAIL'}")
+    with allure.step(f"{label}: expected={expected!r}, actual={result!r}"):
+        assert result == expected
 
-command = ["sshpass",
-           "-p",
-           pwd,
-           "ssh",
-           f"{user}@{ip}",
-           path]
-
-
-def step_assert_eq(actual, expected, label):
-    print(f"\n[CHECK] {label}: expected={expected!r}, actual={actual!r} -> "
-          f"{'OK' if actual == expected else 'FAIL'}")
-    with allure.step(f"{label}: expected={expected!r}, actual={actual!r}"):
-        assert actual == expected
+# When pytest runs it as a package (via run_test):
+#   pytest is invoked from T11/ (the cd "$PROJECT_ROOT" in your script).
+#   tests/ is a PACKAGE because tests/__init__.py exists.
+#   from helpers import execute_command would fail because 
+#       helpers is not on sys.path from that working directory.
+#   from .helpers import execute_command works because 
+#       it resolves within the tests package.
 
 @allure.step
-def test_1_addition():
-    print(f"\ncalculator_script:{command}")
-    expected = "1241.0000"
-    print(f"\nPath(__file__):{Path(__file__)}")
-    result = execute_command(*command, "+", "343", "898")
+@pytest.mark.parametrize(argnames=["oper", "a", "b", "expected"],
+                         argvalues=[("+", 343, 898, 1241),
+                                    (r"\*", 10, 20, 200),
+                                    ("-", 10, 3, 7),
+                                    ("/", 10, 4, 2.5)])
+def test_1(remote_calc_command, oper, a, b, expected):
+    try:
+        result = execute_command(*remote_calc_command, oper, a, b)
+    except subprocess.CalledProcessError as e:      
+        print(f"⚠️ {e}") 
+        result = None 
     step_assert_eq(result, expected, "addition result")
 
 
@@ -49,10 +51,16 @@ def test_1_addition():
 # print("------------------------------------------")
 
 # ####################################################
+# When you run python test_basics.py directly:
+#   Python adds the file's directory (tests/) to sys.path automatically.
+#   So from helpers import execute_command finds tests/helpers.py as a top-level module.
+#   No package context exists, so the relative .helpers would fail.
+
+# from pathlib import Path
 # PROJECT_ROOT = Path(__file__).resolve().parents[1]
 # APPLICATION_DIR = PROJECT_ROOT / "application" / "b_calc"
 # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 # print(execute_command(APPLICATION_DIR, "+", "343", "898"))
 # ####################################################
 
-print("\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")  # noqa: E303
+
