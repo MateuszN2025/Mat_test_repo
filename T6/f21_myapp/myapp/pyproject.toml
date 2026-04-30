@@ -1,0 +1,20 @@
+[build-system]
+# Setuptools is enough for this small pure-Python example project.
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "f20-imports-demo"
+version = "0.1.0"
+description = "Small example project that demonstrates package-friendly imports."
+requires-python = ">=3.10"
+
+[project.scripts]
+# Installing the project would expose a small command-line entry point that
+# forwards to the package entry function.
+f20-imports-demo = "myapp.main:main"
+
+[tool.setuptools.packages.find]
+# Discover the main package and all of its subpackages from the project root.
+where = ["."]
+include = ["myapp*"]
