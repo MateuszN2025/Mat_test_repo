@@ -1,0 +1,5 @@
+sshpass -p "changeme1@" ssh vboxuser1@192.168.0.152
+calculator_script:/home/mniedziolka/PP/Mat_test_repo/T11/application/b_calc
+calculator_script:/home/mniedziolka/PP/Mat_test_repo/T11/application/b_calc 
+sshpass -p "changeme1@" scp /home/mniedziolka/PP/Mat_test_repo/T11/application/b_calc vboxuser1@192.168.0.152:/home/vboxuser1/calc2/
+sshpass -p "changeme1@" ssh vboxuser1@192.168.0.152 /home/vboxuser1/calc2/b_calc + 343 898
