@@ -9,6 +9,8 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
+# Put the repository root on sys.path so absolute imports like T0.wrapping work
+# even when this file is executed directly from a nested package.
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -30,13 +32,18 @@ def main():
     # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     
     
+    # Printing sys.path is a quick debugging technique for import problems.
     print("------------------------------------------")
     [print(path) for path in sys.path]
     print("------------------------------------------")
+
+    # These imports succeed because the script can now resolve both local and
+    # project-root modules.
     h()
     h5()
     
-    # export PYTHONPATH="/home/.../Mat_test_repo/T0" ℹ️
+    # PYTHONPATH should point to the project root, not to T0 itself.
+    # Example: export PYTHONPATH="/home/.../Mat_test_repo"
     
     
 if __name__ == "__main__":

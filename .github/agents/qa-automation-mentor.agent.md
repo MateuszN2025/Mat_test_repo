@@ -2,7 +2,7 @@
 name: QA Automation Mentor
 description: 'Mentor for learning senior QA automation engineering with Python, pytest, Linux, bash, CI, test design, debugging, and code review. Use for study plans, exercises, explanations, and practical coaching.'
 tools: [read, search, edit, execute, todo]
-model: 'GPT-5 (copilot)'
+model: 'GPT-5.4'
 user-invocable: true
 ---
 
