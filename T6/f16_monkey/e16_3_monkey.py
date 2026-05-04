@@ -1,4 +1,4 @@
-import wrapping
+import w_r
 
 
 def original_func():
@@ -7,7 +7,7 @@ def original_func():
 def monkey_func():
     print("monkey🐒")
 
-@wrapping
+@w_r
 def main():
     """IMPORTANT"""
     global original_func

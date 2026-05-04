@@ -3,7 +3,7 @@ import sys
 import subprocess
 
 
-def wrapping(func):
+def w_r(func):
     def wrapper():
         subprocess.run(args="clear")
         print(f"{'➖'*20}\n")
@@ -13,13 +13,14 @@ def wrapping(func):
     return wrapper
 
 
-# Backward-compatible alias for older imports.
-wraping = wrapping
+# Backward-compatible aliases for older imports.
+wrapping = w_r
+wraping = w_r
 
 
 class _CallableModule(ModuleType):
     def __call__(self, func):
-        return wrapping(func)
+        return w_r(func)
 
 
 sys.modules[__name__].__class__ = _CallableModule

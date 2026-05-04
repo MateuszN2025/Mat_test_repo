@@ -1,4 +1,4 @@
-import wrapping
+import w_r
 from functools import wraps
 
 COUNTER = 0
@@ -26,7 +26,7 @@ class Car:
 def monkey():
     return "MONKEY"
 
-@wrapping
+@w_r
 def main():
     # ##################################
     
