@@ -1,7 +1,7 @@
 import sys
 from folder_funcs import file_funcs as f
 
-from T0.wrapping import wraping as w
+from Mat_test_repo.T6.T0.wrapping2 import wraping as w
 @w
 def main():
     

@@ -22,7 +22,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 
 
-from T0.wrapping import wraping as w
+from Mat_test_repo.T6.T0.wrapping2 import wraping as w
 
 @w
 def main():

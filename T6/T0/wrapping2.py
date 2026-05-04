@@ -1,8 +1,8 @@
-def wraping(func):
+def wraping2(func):
     def wraping_():
         import subprocess
         # subprocess.run(args="clear")
-        print("🟦"*20 + "\n")
+        print("❌❌❌❌\n")
         func()
-        print("\n" + "🟦" * 20)  # noqa: E303
+        print("\n❌❌❌❌")  # noqa: E303
     return wraping_
