@@ -2,3 +2,4 @@
 agent.jar
 logs/
 remoting/
+run_jenkins_agent.log
