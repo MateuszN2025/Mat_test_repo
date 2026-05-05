@@ -11,7 +11,7 @@ set -Eeuo pipefail
 # This makes the wrapper independent from the caller's current working directory,
 # so the repository always dispatches to the same pinned test runner.
 # ################################################################
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # ################################################################
 #!/usr/bin/env bash
 

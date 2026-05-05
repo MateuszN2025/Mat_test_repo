@@ -1,0 +1,53 @@
+@startuml
+title Jenkins Test Flow For T11
+
+start
+
+:Jenkins server starts job;
+:Jenkins assigns build to agent or executor machine;
+:Agent checks out repo into workspace;
+note right
+Example workspace:
+/home/mniedziolka/jenkins-agent/workspace/at_1
+end note
+
+:Jenkins runs bash_helper.sh from the checked out repo;
+:bash_helper.sh resolves its own directory;
+note right
+SCRIPT_DIR is derived from BASH_SOURCE[0]
+end note
+
+:bash_helper.sh runs T11/tests/run_test.sh;
+:run_test.sh prepares environment;
+note right
+WORKSPACE_DIR
+ALLURE_RESULTS_DIR
+PYTHON_BIN
+end note
+
+:run_test.sh sources T11/tests/.env.sh;
+:run_test.sh runs pytest with -k div or mul;
+:pytest discovers tests and loads tests/conftest.py;
+:remote_calc_command fixture reads SSH env vars;
+note right
+CALC_SSH_PASSWORD
+CALC_SSH_USER
+CALC_SSH_HOST
+CALC_REMOTE_PATH
+end note
+
+:test file calls execute_command with operator args;
+:tests/helpers.py runs subprocess.run(...);
+note right
+The fixture builds the SSH command.
+The helper executes it.
+end note
+
+:sshpass and ssh connect to remote machine;
+:Remote machine runs calculator binary;
+:stdout result returns to pytest;
+:test asserts expected result and Allure stores report data;
+
+stop
+
+@enduml

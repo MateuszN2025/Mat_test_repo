@@ -1,5 +1,7 @@
 __pycache__/
 *.py[cod]
 *.egg-info/
+.env.sh
+ssh_vbox.sh
 build/
 dist/
