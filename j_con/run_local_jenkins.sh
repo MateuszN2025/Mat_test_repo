@@ -61,6 +61,19 @@ build_image() {
 	podman build -t "$IMAGE_NAME" "$SCRIPT_DIR"
 }
 
+trust_github_host_key() {
+	podman exec "$CONTAINER_NAME" sh -lc '
+		# Seed known_hosts in the container so SSH can trust GitHub during git clone/fetch.
+		mkdir -p "$HOME/.ssh"
+		chmod 700 "$HOME/.ssh"
+		touch "$HOME/.ssh/known_hosts"
+		chmod 600 "$HOME/.ssh/known_hosts"
+		# Add GitHub only once to keep repeated restarts idempotent.
+		ssh-keygen -F github.com -f "$HOME/.ssh/known_hosts" >/dev/null || \
+			ssh-keyscan -H -t ed25519 github.com >> "$HOME/.ssh/known_hosts"
+	'
+}
+
 wait_for_jenkins() {
 	local attempt
 	for attempt in $(seq 1 60); do
@@ -197,6 +210,7 @@ up() {
 		-v "$INIT_DIR:/var/jenkins_home/init.groovy.d:Z" \
 		"$IMAGE_NAME"
 
+	trust_github_host_key
 	start_agent_background
 
 	echo "Jenkins is starting at $JENKINS_URL"
