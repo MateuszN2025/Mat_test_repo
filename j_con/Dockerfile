@@ -2,7 +2,7 @@ FROM docker.io/jenkins/jenkins:lts-jdk21
 
 USER root
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates curl jq \
+    && apt-get install -y --no-install-recommends ca-certificates curl jq python3 python3-pip python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 USER jenkins
