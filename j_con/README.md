@@ -98,6 +98,24 @@ After Jenkins starts, create a Pipeline job and point it at your automation repo
 - publish `JUnit` XML reports
 - publish `Allure` results
 
+This repository now includes an example pipeline in `j_con/Jenkinsfile` with a build parameter named `TEST`.
+
+In Jenkins:
+
+1. Create a Pipeline job.
+2. Point it at this repository and use script path `j_con/Jenkinsfile`.
+3. Run `Build with Parameters`.
+4. Fill `TEST` only when you want to limit what `pytest` runs.
+
+Examples for `TEST`:
+
+- `T11/tests`
+- `T11/tests/test_example.py`
+- `-k smoke`
+- `-k api and not slow`
+
+The pipeline exports the `TEST` build parameter as an environment variable and prepends it to the `pytest` command.
+
 ## Enable Allure reports
 
 The custom Jenkins image now installs the `allure-jenkins-plugin`, so Jenkins

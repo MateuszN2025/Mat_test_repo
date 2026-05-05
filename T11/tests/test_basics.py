@@ -32,6 +32,20 @@ def test_1(remote_calc_command, oper, a, b, expected):
         print(f"⚠️ {e}") 
         result = None 
     step_assert_eq(result, expected, "addition result")
+    
+@allure.step
+@pytest.mark.parametrize(argnames=["oper", "a", "b", "expected"],
+                         argvalues=[("+", 343, 898, 1241),
+                                    (r"\*", 10, 20, 200),
+                                    ("-", 10, 3, 7),
+                                    ("/", 10, 4, 2.5)])
+def test_2(remote_calc_command, oper, a, b, expected):
+    try:
+        result = execute_command(*remote_calc_command, oper, a, b)
+    except subprocess.CalledProcessError as e:      
+        print(f"⚠️ {e}") 
+        result = None 
+    step_assert_eq(result, expected, "addition result")
 
 
 

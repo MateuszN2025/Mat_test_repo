@@ -1,0 +1,63 @@
+pipeline {
+	agent any
+
+	parameters {
+		string(
+			name: 'TEST',
+			defaultValue: '',
+			description: 'Optional pytest target or selector, for example: T11/tests or -k smoke'
+		)
+	}
+
+	environment {
+		TEST = "${params.TEST}"
+		VENV_DIR = '.venv'
+	}
+
+	stages {
+		stage('Checkout') {
+			steps {
+				checkout scm
+			}
+		}
+
+		stage('Install Dependencies') {
+			steps {
+				sh '''#!/usr/bin/env bash
+					set -euo pipefail
+					python3 -m venv "$VENV_DIR"
+					. "$VENV_DIR/bin/activate"
+					python -m pip install --upgrade pip
+					pip install -r r/requirements.txt
+				'''
+			}
+		}
+
+		stage('Run Tests') {
+			steps {
+				sh '''#!/usr/bin/env bash
+					set -euo pipefail
+					. "$VENV_DIR/bin/activate"
+
+					pytest_args=(--junitxml=pytest-report.xml --alluredir=allure-results)
+					if [[ -n "$TEST" ]]; then
+						read -r -a selected_args <<< "$TEST"
+						pytest_args=("${selected_args[@]}" "${pytest_args[@]}")
+					fi
+
+					pytest "${pytest_args[@]}"
+				'''
+			}
+		}
+	}
+
+	post {
+		always {
+			junit allowEmptyResults: true, testResults: 'pytest-report.xml'
+			allure(
+				includeProperties: false,
+				results: [[path: 'allure-results']]
+			)
+		}
+	}
+}
