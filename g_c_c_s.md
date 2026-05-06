@@ -268,10 +268,29 @@ Show differences between your branch and `main` for one file:
 git diff main -- j_con/Jenkinsfile
 ```
 
+Compare two branches:
+
+```bash
+git diff main..feature_mn
+git diff --stat main..feature_mn
+git diff --name-only main..feature_mn
+git log main..feature_mn --oneline
+git log feature_mn..main --oneline
+git log main...feature_mn --oneline --left-right
+git rev-list --left-right --count main...feature_mn
+```
+
 Comments:
 
 - `blame` helps answer who changed a line and in which commit.
 - `diff main -- file` limits comparison to one file.
+- `diff main..feature_mn` shows code changes that are in `feature_mn` compared to `main`.
+- `--stat` shows changed files with insert/delete counts.
+- `--name-only` shows only file names.
+- `log main..feature_mn` shows commits only in `feature_mn`.
+- `log feature_mn..main` shows commits only in `main`.
+- `log main...feature_mn --left-right` shows commits unique to each branch on both sides.
+- `rev-list --left-right --count` prints how many commits are unique to each branch.
 
 ## GitHub UI note
 

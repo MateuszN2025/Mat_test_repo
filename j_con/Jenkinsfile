@@ -20,7 +20,7 @@ pipeline {
 		string(
 			name: 'BRANCH',
 			defaultValue: 'main',
-			description: 'Other e.g. feature'
+			description: 'Other e.g. feature_mn'
 		)
 	}
 
