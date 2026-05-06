@@ -24,10 +24,40 @@ Show local and remote branches:
 git branch --all
 ```
 
+Refresh local knowledge of remote branches, then list them again:
+
+```bash
+git fetch --all --prune
+git branch --all
+```
+
+Refresh only `origin`, then list branches again:
+
+```bash
+git fetch origin --prune
+git branch --all
+```
+
+Show only remote-tracking branches:
+
+```bash
+git branch --remotes
+```
+
+Check which remote URLs Git is using:
+
+```bash
+git remote -v
+```
+
 Comments:
 
 - `branch` lists branches.
 - `--all` includes remote-tracking branches such as `origin/main`.
+- `fetch` updates your local knowledge about remote branches without merging into your current branch.
+- `--prune` removes remote-tracking branches that no longer exist on the server.
+- `--remotes` shows only remote-tracking branches.
+- `remote -v` shows the fetch and push URLs for each remote.
 
 Switch to `main`:
 

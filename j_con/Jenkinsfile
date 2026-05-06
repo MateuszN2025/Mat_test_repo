@@ -44,12 +44,51 @@ pipeline {
 
 		stage('Install Dependencies') {
 			steps {
+				// every run recreates or rewrites the virtual environment structure.
+				// on every run checks and installs dependencies every time.
+				// That is safe, but it costs time on every build even when nothing changed.
+				// 
+				// sh '''#!/usr/bin/env bash
+				// 	set -euo pipefail
+				// 	python3 -m venv "$VENV_DIR"
+				// 	. "$VENV_DIR/bin/activate"
+				// 	python -m pip install --upgrade pip
+				// 	pip install -r r/requirements.txt
+				// '''
+
+				// A practical better version is to create the venv only if it does not exist:
+				// but still installs requirements every run.
+				// 
+				// sh '''#!/usr/bin/env bash
+				// set -euo pipefail
+
+				// if [[ ! -d "$VENV_DIR" ]]; then
+				// 	python3 -m venv "$VENV_DIR"
+				// fi
+
+				// . "$VENV_DIR/bin/activate"
+				// python -m pip install --upgrade pip
+				// pip install -r r/requirements.txt
+				// '''
+
 				sh '''#!/usr/bin/env bash
-					set -euo pipefail
+				set -euo pipefail
+
+				if [[ ! -d "$VENV_DIR" ]]; then
 					python3 -m venv "$VENV_DIR"
-					. "$VENV_DIR/bin/activate"
+				fi
+
+				. "$VENV_DIR/bin/activate"
+
+				req_hash_file="$VENV_DIR/.requirements.hash"
+				current_hash="$(sha256sum r/requirements.txt | awk '{print $1}')"
+				previous_hash="$(cat "$req_hash_file" 2>/dev/null || true)"
+
+				if [[ "$current_hash" != "$previous_hash" ]]; then
 					python -m pip install --upgrade pip
 					pip install -r r/requirements.txt
+					printf '%s\n' "$current_hash" > "$req_hash_file"
+				fi
 				'''
 			}
 		}
