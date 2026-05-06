@@ -9,14 +9,14 @@ pipeline {
 		)
 
 		string(
-			name: 'TEST',
+			name: 'TESTS',
 			defaultValue: '',
 			description: 'For example: test_3'
 		)
 	}
 
 	environment {
-		TEST = "${params.TEST}"
+		TESTS = "${params.TESTS}"
 		FOLDER = "${params.FOLDER}"
 		VENV_DIR = '.venv'
 	}
