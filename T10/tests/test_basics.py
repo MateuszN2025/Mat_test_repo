@@ -47,3 +47,11 @@ def test_5(calculator_script: Path):
     result = execute_command(calculator_script, "/", "15", "15")
 
     step_assert_eq(result, expected, "addition result")
+    
+
+@allure.step
+def test_8(calculator_script: Path):
+    expected = "2.0000"
+    result = execute_command(calculator_script, "/", "30", "15")
+
+    step_assert_eq(result, expected, "addition result")
