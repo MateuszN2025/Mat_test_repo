@@ -55,6 +55,7 @@ pipeline {
 				// 	pytest "${pytest_args[@]}"
 				// '''
 				sh '''
+				. "$VENV_DIR/bin/activate"
 				bash bash_helper.sh $FOLDER $TESTS
 				'''
 			}
