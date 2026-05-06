@@ -4,7 +4,7 @@ pipeline {
 	parameters {
 		string(
 			name: 'FOLDER',
-			defaultValue: 'T11',
+			defaultValue: 'T10',
 			description: 'For example: T11'
 		)
 
