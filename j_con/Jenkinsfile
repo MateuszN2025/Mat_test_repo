@@ -3,14 +3,21 @@ pipeline {
 
 	parameters {
 		string(
+			name: 'FOLDER',
+			defaultValue: '',
+			description: 'For example: T11'
+		)
+
+		string(
 			name: 'TEST',
 			defaultValue: '',
-			description: 'Optional pytest target or selector, for example: T11/tests -vv -rP -s -k test_3'
+			description: 'For example: test_3'
 		)
 	}
 
 	environment {
 		TEST = "${params.TEST}"
+		FOLDER = "${params.FOLDER}"
 		VENV_DIR = '.venv'
 	}
 
@@ -35,17 +42,20 @@ pipeline {
 
 		stage('Run Tests') {
 			steps {
-				sh '''#!/usr/bin/env bash
-					set -euo pipefail
-					. "$VENV_DIR/bin/activate"
+				// sh '''#!/usr/bin/env bash
+				// 	set -euo pipefail
+				// 	. "$VENV_DIR/bin/activate"
 
-					pytest_args=(--junitxml=pytest-report.xml --alluredir=allure-results)
-					if [[ -n "$TEST" ]]; then
-						read -r -a selected_args <<< "$TEST"
-						pytest_args=("${selected_args[@]}" "${pytest_args[@]}")
-					fi
+				// 	pytest_args=(--junitxml=pytest-report.xml --alluredir=allure-results)
+				// 	if [[ -n "$TEST" ]]; then
+				// 		read -r -a selected_args <<< "$TEST"
+				// 		pytest_args=("${selected_args[@]}" "${pytest_args[@]}")
+				// 	fi
 
-					pytest "${pytest_args[@]}"
+				// 	pytest "${pytest_args[@]}"
+				// '''
+				sh '''
+				bash bash_helper.sh $FOLDER $TESTS
 				'''
 			}
 		}
