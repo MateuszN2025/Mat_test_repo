@@ -5,7 +5,23 @@
 		}
 	],
 	"settings": {
+		"workbench.colorCustomizations": {
+			"contrastBorder": "#ffffff",
+			"activityBar.border": "#ffffff",
+			"editor.background": "#000000",
+			"editorGroup.border": "#ffffff",
+			"editorGroupHeader.tabsBackground": "#181818",
+			"panel.border": "#ffffff",
+			"sideBar.border": "#ffffff",
+			"sideBySideEditor.horizontalBorder": "#ffffff",
+			"sideBySideEditor.verticalBorder": "#ffffff",
+			"sash.hoverBorder": "#ffffff",
+			"statusBar.border": "#ffffff",
+			"tab.activeBackground": "#1f1f1f",
+			"tab.unfocusedActiveBackground": "#1f1f1f",
+			"titleBar.border": "#ffffff"
+		},
 		"workbench.colorTheme": "Dark Modern",
-		"window.zoomLevel": 0.80
+		"window.zoomLevel": 0.85
 	}
 }
