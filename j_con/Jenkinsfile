@@ -1,6 +1,10 @@
 pipeline {
 	agent { label 'local-mn-pc-agent' }
 
+	options {
+		buildDiscarder(logRotator(numToKeepStr: '5'))
+	}
+
 	parameters {
 		string(
 			name: 'FOLDER',
