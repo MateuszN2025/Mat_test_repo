@@ -52,7 +52,7 @@ echo "4. final SCRIPT_DIR= $SCRIPT_DIR"
 # Replace the current shell process with the real test entrypoint.
 # Using exec avoids leaving this tiny wrapper process running and guarantees
 # that exit codes come directly from the underlying test script.
-exec bash "$SCRIPT_DIR/T11/tests/run_test.sh"
+exec bash "$SCRIPT_DIR/$1/tests/run_test.sh $2"
 # 1
 # "$SCRIPT_DIR/T11/tests/run_test.sh"
 #   /home/mniedziolka/PP/Mat_test_repo   /T11/tests/run_test.sh

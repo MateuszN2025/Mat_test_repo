@@ -46,6 +46,13 @@ cd "$SCRIPT_DIR" # T11/tests/
 # from .helpers import execute_command ✅
 
 source "$SCRIPT_DIR/.env.sh"
-# "$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s
-"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s -k "div or mul"
-# "$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s -m optimal pytest 
+
+PYTEST_TARGET="${1:-${PYTEST_TARGET:-}}"
+PYTEST_ARGS=(--alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s)
+
+# Pass a full pytest node id, e.g. test_basics.py::test_1[/-10-4-2.5]
+if [[ -n "$PYTEST_TARGET" ]]; then
+	"$PYTHON_BIN" -m pytest "${PYTEST_ARGS[@]}" "$PYTEST_TARGET"
+else
+	"$PYTHON_BIN" -m pytest "${PYTEST_ARGS[@]}"
+fi

@@ -37,4 +37,4 @@ rm -rf "$ALLURE_RESULTS_DIR"
 mkdir -p "$ALLURE_RESULTS_DIR"
 cd "$PROJECT_ROOT"
 
-"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s
+"$PYTHON_BIN" -m pytest --alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s -k $1
