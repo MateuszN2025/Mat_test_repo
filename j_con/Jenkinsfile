@@ -13,18 +13,32 @@ pipeline {
 			defaultValue: 'test_3',
 			description: 'For example: test_3'
 		)
+		string(
+			name: 'BRANCH',
+			defaultValue: 'main',
+			description: 'Other e.g. feature'
+		)
 	}
 
 	environment {
 		TESTS = "${params.TESTS}"
 		FOLDER = "${params.FOLDER}"
+		BRANCH = "${params.BRANCH}"
 		VENV_DIR = '.venv'
 	}
 
 	stages {
 		stage('Checkout') {
 			steps {
-				checkout scm
+				// checkout scm
+				checkout([
+				$class: 'GitSCM',
+				branches: [[name: "*/${params.BRANCH}"]],
+				doGenerateSubmoduleConfigurations: false,
+				extensions: [],
+				userRemoteConfigs: scm.userRemoteConfigs
+        		])
+
 			}
 		}
 
