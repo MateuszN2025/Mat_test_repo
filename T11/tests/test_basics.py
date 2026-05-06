@@ -35,10 +35,7 @@ def test_1(remote_calc_command, oper, a, b, expected):
     
 @allure.step
 @pytest.mark.parametrize(argnames=["oper", "a", "b", "expected"],
-                         argvalues=[("+", 343, 898, 1241),
-                                    (r"\*", 10, 20, 200),
-                                    ("-", 10, 3, 7),
-                                    ("/", 10, 4, 2.5)])
+                         argvalues=[("+", 100, 200, 300)])
 def test_2(remote_calc_command, oper, a, b, expected):
     try:
         result = execute_command(*remote_calc_command, oper, a, b)

@@ -13,7 +13,7 @@ from .helpers import execute_command
     ],
     ids=["add", "mul", "sub", "div"],
 )
-def test_calculator_operations(remote_calc_command, oper, a, b, expected):
+def test_3(remote_calc_command, oper, a, b, expected):
     result = execute_command(*remote_calc_command, oper, a, b)
     with allure.step(f"{a} {oper} {b} == {expected}"):
         assert float(result) == pytest.approx(expected)

@@ -31,7 +31,6 @@ echo ALLURE_RESULTS_DIR = $ALLURE_RESULTS_DIR
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 echo ---------------------
 echo PYTHON_BIN = $PYTHON_BIN
-echo ---------------------
 
 rm -rf "$ALLURE_RESULTS_DIR"
 mkdir -p "$ALLURE_RESULTS_DIR"
@@ -47,12 +46,26 @@ cd "$SCRIPT_DIR" # T11/tests/
 
 source "$SCRIPT_DIR/.env.sh"
 
-PYTEST_TARGET="${1:-${PYTEST_TARGET:-}}"
-PYTEST_ARGS=(--alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s)
+# PYTEST_TARGET="${1:-${PYTEST_TARGET:-}}"
+# echo ------------------------------
+# echo $PYTEST_TARGET
+#TESTS=$1 #with set -u, using $1 directly can fail when no argument is passed. A safer pattern is:
+TESTS="${1:-}" # That sets TESTS to empty if argument 1 was not provided.
+echo ---------------------
+echo $TESTS 
+
 
 # Pass a full pytest node id, e.g. test_basics.py::test_1[/-10-4-2.5]
-if [[ -n "$PYTEST_TARGET" ]]; then
-	"$PYTHON_BIN" -m pytest "${PYTEST_ARGS[@]}" "$PYTEST_TARGET"
-else
-	"$PYTHON_BIN" -m pytest "${PYTEST_ARGS[@]}"
+# if [[ -n "$PYTEST_TARGET" ]]; then
+
+OPTION=""
+
+if [[ -n "$TESTS" ]]; then
+    OPTION="-k"
 fi
+
+PYTEST_ARGS=(--alluredir="$ALLURE_RESULTS_DIR" -vv -rP -s $OPTION)
+"$PYTHON_BIN" -m pytest "${PYTEST_ARGS[@]}" "$TESTS"
+
+# $OPTION means “read the variable” ❗❗
+# OPTION=... means “assign the variable” ❗❗
