@@ -10,7 +10,7 @@ pipeline {
 
 		string(
 			name: 'TESTS',
-			defaultValue: 'test_3',
+			defaultValue: 'test_4',
 			description: 'For example: test_3'
 		)
 		string(
