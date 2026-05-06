@@ -47,3 +47,43 @@ def test_5(calculator_script: Path):
     result = execute_command(calculator_script, "/", "15", "15")
 
     step_assert_eq(result, expected, "addition result")
+    
+@allure.step
+@pytest.mark.fix
+def test_11(f_function, calculator_script: Path):
+    expected = "225.0000"
+    result = execute_command(calculator_script, "*", "15", "15")
+
+    step_assert_eq(result, expected, "addition result")
+    
+@allure.step
+@pytest.mark.fix
+def test_12(f_class, calculator_script: Path):
+    expected = "240.0000"
+    result = execute_command(calculator_script, "*", "16", "15")
+
+    step_assert_eq(result, expected, "addition result")
+    
+@allure.step
+@pytest.mark.fix
+def test_13(f_module, calculator_script: Path):
+    expected = "255.0000"
+    result = execute_command(calculator_script, "*", "17", "15")
+
+    step_assert_eq(result, expected, "addition result")
+    
+@allure.step
+@pytest.mark.fix
+def test_14(f_package, calculator_script: Path):
+    expected = "270.0000"
+    result = execute_command(calculator_script, "*", "18", "15")
+
+    step_assert_eq(result, expected, "addition result")
+    
+@allure.step
+@pytest.mark.fix
+def test_15(f_session, calculator_script: Path):
+    expected = "285.0000"
+    result = execute_command(calculator_script, "*", "19", "15")
+
+    step_assert_eq(result, expected, "addition result")
