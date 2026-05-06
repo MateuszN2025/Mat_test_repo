@@ -5,7 +5,7 @@ pipeline {
 		string(
 			name: 'TEST',
 			defaultValue: '',
-			description: 'Optional pytest target or selector, for example: T11/tests or -k smoke'
+			description: 'Optional pytest target or selector, for example: T11/tests -vv -rP -s -k test_3'
 		)
 	}
 
