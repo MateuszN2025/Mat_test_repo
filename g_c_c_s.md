@@ -77,10 +77,17 @@ Create and switch to a new branch:
 git checkout -b jenkinsfile-only
 ```
 
+Publish a newly created branch to the remote:
+
+```bash
+git push -u origin jenkinsfile-only
+```
+
 Comments:
 
 - `checkout` switches branch or file state.
 - `-b` creates the branch first, then switches to it.
+- `push -u origin <branch>` publishes the local branch and sets upstream tracking.
 
 ## Update your branch
 
