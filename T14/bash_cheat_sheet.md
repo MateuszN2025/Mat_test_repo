@@ -254,6 +254,116 @@ pytest tests/ -m smoke --tb=short
 - Use `bash -n` before debugging logic.
 - Use `set -euo pipefail` in more serious scripts.
 
+## Flags That Matter Most (Quick Reference)
+
+### `if` with `[[ ... ]]` file/string checks
+
+Important note: `if` itself has no flags. The checks below are test operators used inside `[[ ... ]]`.
+
+```bash
+[[ -e path ]]   # path exists
+[[ -f path ]]   # regular file
+[[ -d path ]]   # directory
+[[ -s path ]]   # file exists and is not empty
+[[ -r path ]]   # readable
+[[ -w path ]]   # writable
+[[ -x path ]]   # executable
+[[ -L path ]]   # symbolic link
+[[ -z "$var" ]] # string is empty
+[[ -n "$var" ]] # string is not empty
+```
+
+QA example:
+
+```bash
+if [[ -f "results.xml" && -s "results.xml" ]]; then
+    echo "Report exists and has content"
+else
+    echo "Missing or empty report"
+    exit 1
+fi
+```
+
+### `ls`
+
+```bash
+ls -la   # long format + show hidden files
+ls -lh   # human-readable sizes
+ls -lt   # sort by newest modification time
+```
+
+### `grep`
+
+```bash
+grep -i "error" app.log     # case-insensitive search
+grep -n "timeout" app.log   # show line numbers
+grep -r "TODO" .            # recursive search
+grep -E "warn|error" app.log # extended regex
+```
+
+### `find`
+
+```bash
+find . -name "*.log" -type f      # files by name pattern
+find . -maxdepth 2 -type d         # directories up to depth 2
+find . -name "*.xml" -mtime -1    # changed in last 24h
+find . -name "*.log" -exec rm {} \; # run action per result
+```
+
+### `head` / `tail`
+
+```bash
+head -n 20 run.log      # first 20 lines
+tail -n 50 run.log      # last 50 lines
+tail -f run.log         # follow live log updates
+```
+
+### `cat`
+
+```bash
+cat -n file.txt         # show line numbers
+cat -A file.txt         # show hidden chars (tabs/endings)
+```
+
+### `read`
+
+```bash
+read -p "Env: " env    # prompt + input
+read -r line            # raw read (no backslash escaping)
+read -s -p "Token: " token # silent input (secrets)
+```
+
+### `mkdir`, `cp`, `mv`, `rm`
+
+```bash
+mkdir -p reports/archive      # create nested dirs if missing
+cp -r artifacts backup_dir    # recursive copy
+cp -n source.txt target.txt   # do not overwrite existing file
+mv -n old.txt new.txt         # move/rename without overwrite
+rm -r old_dir                 # remove directory recursively
+rm -f temp.txt                # force remove without prompt
+```
+
+Safety tip: avoid `rm -rf` unless you are 100% sure about the path.
+
+### `bash` (script checks and debugging)
+
+```bash
+bash -n script.sh   # syntax check only
+bash -x script.sh   # trace execution line by line
+```
+
+### `pytest` (common QA run flags)
+
+```bash
+pytest -q                    # quieter output
+pytest -k "smoke"           # run tests matching expression
+pytest -m "api and not slow" # marker selection
+pytest -x                    # stop after first failure
+pytest --maxfail=2           # stop after N failures
+pytest --tb=short            # shorter traceback
+```
+
 ## Senior-Level Insight
 
 Most Bash bugs in automation are not syntax problems. They come from unquoted variables, weak error handling, and assumptions about files that do not exist. If you build the habit of quoting variables and checking exit paths early, your scripts become much more reliable.
