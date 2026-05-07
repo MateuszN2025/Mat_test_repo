@@ -6,13 +6,13 @@
 	],
 	"settings": {
 		"workbench.colorCustomizations": {
-			"contrastBorder": "#b7de0c",
+			"contrastBorder": "#f8f8f7",
 			"activityBar.border": "#ffffff",
 			"editor.background": "#000000",
 			"editorGroup.border": "#ffffff",
 			"editorGroupHeader.tabsBackground": "#181818",
-			"panel.border": "#b7de0c",
-			"sideBar.border": "#b7de0c",
+			"panel.border": "#f8f8f7",
+			"sideBar.border": "#f8f8f7",
 			"sideBySideEditor.horizontalBorder": "#ffffff",
 			"sideBySideEditor.verticalBorder": "#ffffff",
 			"sash.hoverBorder": "#ffffff",
