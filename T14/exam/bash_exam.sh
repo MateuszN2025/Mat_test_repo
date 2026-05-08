@@ -45,46 +45,46 @@
 # File and directory commands
 # =========================
 
+# 1. ls - Exercise 1:
+# Show all files in the current directory, including hidden ones, in long format.
 sol1() {
     :
-    # 1. ls - Exercise 1:
-    # Show all files in the current directory, including hidden ones, in long format.
     ls -al
 }
 
 
+# 2. ls - Exercise 2:
+# List files in a target directory sorted by size from largest to smallest.
 sol2() {
     :
-    # 2. ls - Exercise 2:
-    # List files in a target directory sorted by size from largest to smallest.
     ls -lS | grep '^-'
 }
 
+# 3. cd - Exercise 1:
+# Move from your current directory into T14.
 sol3() {
     :
-    # 3. cd - Exercise 1:
-    # Move from your current directory into T14.
     cd /home/mniedziolka/PP/Mat_test_repo/T14/
 }
 
+# 4. cd - Exercise 2:
+# Move back to the previous directory without typing its full path again.
 sol4() {
     :
-    # 4. cd - Exercise 2:
-    # Move back to the previous directory without typing its full path again.
     cd ..
 }
 
+# 5. pwd - Exercise 1:
+# Print the absolute path of your current working directory.
 sol5() {
     :
-    # 5. pwd - Exercise 1:
-    # Print the absolute path of your current working directory.
     pwd
 }
 
+# 6. pwd - Exercise 2:
+# Confirm that you are inside the expected project folder before running a script.
 sol6() {
     :
-    # 6. pwd - Exercise 2:
-    # Confirm that you are inside the expected project folder before running a script.
     expected="/home/mniedziolka/PP/Mat_test_repo/T14/exam"
     if [[ "$(pwd)" == "$expected" ]]; then
         # "$(pwd)" means: run the pwd command first,
@@ -95,219 +95,218 @@ sol6() {
     fi
 }
 
-
+# 7. mkdir - Exercise 1:
+# Create a directory named exam_practice.
 sol7() {
     :
-    # 7. mkdir - Exercise 1:
-    # Create a directory named exam_practice.
     mkdir exam_practice
 }
 
+# 8. mkdir - Exercise 2:
+# Create nested directories logs/archive/2026 in one command.
+# mkdir creates directories.
+# -p is the main flag you will use most often.
+# -m is useful when permissions matter from the start.
+# -v helps while learning or debugging scripts.
 sol8() {
     :
-    # 8. mkdir - Exercise 2:
-    # Create nested directories logs/archive/2026 in one command.
-    # mkdir creates directories.
-    # -p is the main flag you will use most often.
-    # -m is useful when permissions matter from the start.
-    # -v helps while learning or debugging scripts.
     mkdir -p logs/archive/2026
 }
 
+# 9. rmdir - Exercise 1:
+# Remove an empty directory named temp_empty.
 sol9() {
     :
-    # 9. rmdir - Exercise 1:
-    # Remove an empty directory named temp_empty.
 }
 
+# 10. rmdir - Exercise 2:
+# Remove two empty directories with one command.
 sol10() {
     :
-    # 10. rmdir - Exercise 2:
-    # Remove two empty directories with one command.
 }
 
+# 11. cp - Exercise 1:
+# Copy file1.txt to file1_backup.txt.
 sol11() {
     :
-    # 11. cp - Exercise 1:
-    # Copy file1.txt to file1_backup.txt.
 }
 
+# 12. cp - Exercise 2:
+# Copy all .sh files from one directory into another directory.
 sol12() {
     :
-    # 12. cp - Exercise 2:
-    # Copy all .sh files from one directory into another directory.
 }
 
+# 13. mv - Exercise 1:
+# Rename notes.txt to notes_old.txt.
 sol13() {
     :
-    # 13. mv - Exercise 1:
-    # Rename notes.txt to notes_old.txt.
 }
 
+# 14. mv - Exercise 2:
+# Move all .log files into a directory named logs.
 sol14() {
     :
-    # 14. mv - Exercise 2:
-    # Move all .log files into a directory named logs.
 }
 
+# 15. rm - Exercise 1:
+# Remove a file named old_report.txt.
 sol15() {
     :
-    # 15. rm - Exercise 1:
-    # Remove a file named old_report.txt.
 }
 
+# 16. rm - Exercise 2:
+# Remove a directory with all its contents.
 sol16() {
     :
-    # 16. rm - Exercise 2:
-    # Remove a directory with all its contents.
 }
 
+# 17. touch - Exercise 1:
+# Create an empty file named todo.txt.
 sol17() {
     :
-    # 17. touch - Exercise 1:
-    # Create an empty file named todo.txt.
 }
 
+# 18. touch - Exercise 2:
+# Create three empty files in one command.
 sol18() {
     :
-    # 18. touch - Exercise 2:
-    # Create three empty files in one command.
 }
 
+# 19. find - Exercise 1:
+# Find all .sh files under the current directory.
 sol19() {
     :
-    # 19. find - Exercise 1:
-    # Find all .sh files under the current directory.
 }
 
+# 20. find - Exercise 2:
+# Find directories modified in the last 2 days.
 sol20() {
     :
-    # 20. find - Exercise 2:
-    # Find directories modified in the last 2 days.
 }
 
+# 21. locate - Exercise 1:
+# Search for a file named compose.yaml using the locate database.
 sol21() {
     :
-    # 21. locate - Exercise 1:
-    # Search for a file named compose.yaml using the locate database.
 }
 
+# 22. locate - Exercise 2:
+# Find all paths containing the word jenkins.
 sol22() {
     :
-    # 22. locate - Exercise 2:
-    # Find all paths containing the word jenkins.
 }
 
+# 23. tree - Exercise 1:
+# Show the directory tree of T14.
 sol23() {
     :
-    # 23. tree - Exercise 1:
-    # Show the directory tree of T14.
 }
 
+# 24. tree - Exercise 2:
+# Show only directories up to depth 2 in the current path.
 sol24() {
     :
-    # 24. tree - Exercise 2:
-    # Show only directories up to depth 2 in the current path.
 }
 
 # =========================
 # Viewing and reading files
 # =========================
 
+# 25. cat - Exercise 1:
+# Display the full content of file1.txt.
 sol25() {
     :
-    # 25. cat - Exercise 1:
-    # Display the full content of file1.txt.
 }
 
+# 26. cat - Exercise 2:
+# Combine two text files and print them to standard output.
 sol26() {
     :
-    # 26. cat - Exercise 2:
-    # Combine two text files and print them to standard output.
 }
 
+# 27. less - Exercise 1:
+# Open a long text file and search for the word error.
 sol27() {
     :
-    # 27. less - Exercise 1:
-    # Open a long text file and search for the word error.
 }
 
+# 28. less - Exercise 2:
+# Open a file and jump to the end of it for quick inspection.
 sol28() {
     :
-    # 28. less - Exercise 2:
-    # Open a file and jump to the end of it for quick inspection.
 }
 
+# 29. more - Exercise 1:
+# View a long file one screen at a time.
 sol29() {
     :
-    # 29. more - Exercise 1:
-    # View a long file one screen at a time.
 }
 
+# 30. more - Exercise 2:
+# Open a text file and move page by page through the output.
 sol30() {
     :
-    # 30. more - Exercise 2:
-    # Open a text file and move page by page through the output.
 }
 
+# 31. head - Exercise 1:
+# Show the first 5 lines of file2.txt.
 sol31() {
     :
-    # 31. head - Exercise 1:
-    # Show the first 5 lines of file2.txt.
 }
 
+# 32. head - Exercise 2:
+# Print the first 20 lines from every .log file in a directory.
 sol32() {
     :
-    # 32. head - Exercise 2:
-    # Print the first 20 lines from every .log file in a directory.
 }
 
+# 33. tail - Exercise 1:
+# Show the last 10 lines of a log file.
 sol33() {
     :
-    # 33. tail - Exercise 1:
-    # Show the last 10 lines of a log file.
 }
 
+# 34. tail - Exercise 2:
+# Follow a log file in real time as new lines are added.
 sol34() {
     :
-    # 34. tail - Exercise 2:
-    # Follow a log file in real time as new lines are added.
 }
 
+# 35. grep - Exercise 1:
+# Search recursively for the word pytest in the current directory.
 sol35() {
     :
-    # 35. grep - Exercise 1:
-    # Search recursively for the word pytest in the current directory.
 }
 
+# 36. grep - Exercise 2:
+# Print only lines that start with ERROR from a log file.
 sol36() {
     :
-    # 36. grep - Exercise 2:
-    # Print only lines that start with ERROR from a log file.
 }
 
+# 37. sort - Exercise 1:
+# Sort the lines of names.txt alphabetically.
 sol37() {
     :
-    # 37. sort - Exercise 1:
-    # Sort the lines of names.txt alphabetically.
 }
 
+# 38. sort - Exercise 2:
+# Sort a file of numbers from largest to smallest.
 sol38() {
     :
-    # 38. sort - Exercise 2:
-    # Sort a file of numbers from largest to smallest.
 }
 
+# 39. uniq - Exercise 1:
+# Remove duplicate adjacent lines from a sorted file.
 sol39() {
     :
-    # 39. uniq - Exercise 1:
-    # Remove duplicate adjacent lines from a sorted file.
 }
 
+# 40. uniq - Exercise 2:
+# Count how many times each repeated line appears.
 sol40() {
     :
-    # 40. uniq - Exercise 2:
-    # Count how many times each repeated line appears.
 }
 
 sol41() {
