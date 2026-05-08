@@ -40,11 +40,15 @@ def basher(func):
 @w_r
 @basher
 def main():
-    bash_script="""
+    # bash_script="""
     
-    date +%F 
+    # date +%F 
     
-    """
+    # """
+    pyfile = "./py_file_input.py"
+    with open(pyfile, "r") as f:
+        bash_script = f.read()
+    
     return bash_script
     
 main()
