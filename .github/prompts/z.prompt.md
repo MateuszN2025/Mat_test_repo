@@ -2,7 +2,7 @@
 name: z
 description: 'Zadaj ogólne pytanie i ignoruj kontekst repozytorium oraz edytora.'
 argument-hint: 'Wpisz dowolne ogólne pytanie'
-model: 'GPT-5 mini (copilot)'
+model: 'GPT-4.1 (copilot)'
 ---
 
 Traktuj to wyłącznie jako pytanie ogólne.
