@@ -22,9 +22,18 @@ import w_r
 def basher(func):
     def wrapper(*args, **kwargs):
         result = func(*args, **kwargs)  
+        
+        # print("------------------------------------------")
+        # print(result)
+        # print("------------------------------------------")
+        
         file = "bash1.sh"
         with open(file, "w") as b:
             b.write(result)
+        # "bash1.sh" works because you create and use it in the current directory.
+        # For files that already exist (like py_file_input.py), you must specify 
+        # the correct relative path from where you run the script, or ensure you
+        # always run the script from the directory where the file is located.
                     
         output = subprocess.run(["bash", f"./{file}"],
                        capture_output=True,
@@ -40,16 +49,24 @@ def basher(func):
 @w_r
 @basher
 def main():
-    # bash_script="""
+    bash_script="""
     
-    # date +%F 
+    date +%F 
     
-    # """
-    pyfile = "./py_file_input.py"
+    """
+    pyfile = "T14/py_file_input.py"
+    bash_script2 = ""
     with open(pyfile, "r") as f:
-        bash_script = f.read()
+        for line in f:
+            if line.strip().startswith("'''") or line.strip().startswith('"""'):
+                continue
+            bash_script2 += line
     
-    return bash_script
+    # print(type(bash_script2))
+    # print("------------------------------------------")
+    # print(bash_script2)
+    
+    return bash_script2
     
 main()
     
