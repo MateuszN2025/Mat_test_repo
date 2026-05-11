@@ -85,6 +85,8 @@ sol5() {
 # Confirm that you are inside the expected project folder before running a script.
 sol6() {
     :
+    echo "➖➖➖➖➖➖➖➖➖"
+
     expected="/home/mniedziolka/PP/Mat_test_repo/T14/exam"
     if [[ "$(pwd)" == "$expected" ]]; then
         # "$(pwd)" means: run the pwd command first,
@@ -93,7 +95,11 @@ sol6() {
     else
         echo "Wrong folder"
     fi
+    
+    echo "➖➖➖➖➖➖➖➖➖"
+    echo
 }
+sol6
 
 # 7. mkdir - Exercise 1:
 # Create a directory named exam_practice.
