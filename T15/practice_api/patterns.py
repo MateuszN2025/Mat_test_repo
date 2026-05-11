@@ -7,7 +7,7 @@ def audit_action(event_name: str):
         @wraps(func)
         def wrapper(self, *args, **kwargs):
             result = func(self, *args, **kwargs)
-            self.audit_log.append(event_name)
+            self.store.append_audit_log(event_name)
             return result
 
         return wrapper
@@ -54,11 +54,16 @@ class PricingStrategyFactory:
 class ItemBuilder:
     def __init__(self):
         self._payload = {
+            "id": 1,
             "name": "Training Item",
             "price": 99.99,
             "tags": ["practice"],
             "is_active": True,
         }
+
+    def with_id(self, item_id: int):
+        self._payload["id"] = item_id
+        return self
 
     def with_name(self, name: str):
         self._payload["name"] = name

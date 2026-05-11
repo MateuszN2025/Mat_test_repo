@@ -6,8 +6,8 @@ from .repositories import ItemRepository, RepositoryFactory
 
 class ItemService:
     def __init__(self, repository: ItemRepository | None = None):
-        self.repository = repository or RepositoryFactory.create("memory")
-        self.audit_log = self.repository.store.audit_log
+        self.repository = repository or RepositoryFactory.create("sqlite")
+        self.store = self.repository.store
 
     def _to_response(self, item: dict, pricing: str) -> dict:
         strategy = PricingStrategyFactory.create(pricing)
@@ -26,7 +26,10 @@ class ItemService:
 
     @audit_action("create_item")
     def create_item(self, payload: dict) -> dict:
-        return self._to_response(self.repository.create_item(payload), "regular")
+        try:
+            return self._to_response(self.repository.create_item(payload), "regular")
+        except ValueError as exc:
+            raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
 
     @audit_action("replace_item")
     def replace_item(self, item_id: int, payload: dict) -> dict:
@@ -49,4 +52,4 @@ class ItemService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
 
     def read_audit_log(self) -> list[str]:
-        return list(self.audit_log)
+        return self.store.read_audit_log()

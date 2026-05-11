@@ -6,6 +6,8 @@ What matters:
 - The API is resource-oriented: `/items` is the collection and `/items/{item_id}` is a single resource.
 - All common HTTP methods are covered with REST-style semantics: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`.
 - `POST /items` returns `201 Created` and a `Location` header for the new resource.
+- The client provides the item `id` during creation, so IDs do not auto-increment.
+- Item data is stored in a local SQLite database and survives API restarts.
 - The code includes pattern examples you can practice in tests: Singleton, Factory, Strategy, Decorator, Builder, and an API-style Page Object Model.
 - Tests use `fastapi.testclient.TestClient`, so you can train API automation without starting a real server.
 
@@ -52,7 +54,7 @@ When a request comes in, the project follows this path:
 
 ## Pattern map
 
-- Singleton: `InMemoryStore` keeps one shared store for the app.
+- Singleton: `InMemoryStore` keeps one shared SQLite-backed store object for the app.
 - Factory: `RepositoryFactory` and `PricingStrategyFactory` choose the implementation.
 - Strategy: pricing modes `regular`, `vip`, `clearance`.
 - Decorator: `audit_action` records service actions.
@@ -77,7 +79,7 @@ When a request comes in, the project follows this path:
 
 ### `practice_api/models.py`
 
-- `ItemCreate`: input model for creating an item. It validates `name`, `price`, `tags`, and `is_active`.
+- `ItemCreate`: input model for creating an item. It validates `id`, `name`, `price`, `tags`, and `is_active`.
 - `ItemReplace`: same shape as `ItemCreate`, used for full replacement with `PUT`.
 - `ItemPatch`: partial-update model for `PATCH`. Every field is optional.
 - `ItemResponse`: output model returned by the API. It adds `id` and `display_price`.
@@ -85,18 +87,20 @@ When a request comes in, the project follows this path:
 
 ### `practice_api/store.py`
 
-- `InMemoryStore`: singleton object that keeps application state in memory.
+- `InMemoryStore`: singleton object that manages the SQLite database used by the API.
 - `_instance`: stores the single shared object.
 - `_lock`: prevents two threads from creating the singleton at the same time.
-- `__new__()`: creates the singleton once and initializes `items`, `audit_log`, and `next_id`.
-- `reset()`: clears all in-memory data so tests start from a known state.
+- `__new__()`: creates the singleton once and initializes the database file.
+- `append_audit_log()`: writes service actions to the persistent audit table.
+- `read_audit_log()`: reads the persistent audit history.
+- `reset()`: clears stored rows so tests start from a known state.
 
 ### `practice_api/repositories.py`
 
 - `ItemRepository`: thin data-access object around `InMemoryStore`.
 - `list_items()`: returns copies of all stored items.
 - `get_item(item_id)`: returns one item or `None`.
-- `create_item(payload)`: assigns a new id and stores a new item.
+- `create_item(payload)`: stores a new item using the client-provided id.
 - `replace_item(item_id, payload)`: replaces the whole record if it exists.
 - `patch_item(item_id, changes)`: updates only the provided fields.
 - `delete_item(item_id)`: removes an item and returns `True` or `False`.
@@ -106,11 +110,11 @@ When a request comes in, the project follows this path:
 
 - `ItemService`: business layer between the REST routes and the repository.
 - `__init__()`: injects a repository or creates one through `RepositoryFactory`.
-- `self.audit_log`: points to the shared audit list in the singleton store.
+- `self.store`: points to the shared SQLite-backed store singleton.
 - `_to_response(item, pricing)`: internal helper that applies the selected pricing strategy and builds the API response shape.
 - `list_items(pricing)`: returns all items with strategy-based `display_price`.
 - `get_item(item_id, pricing)`: returns one item or raises `404`.
-- `create_item(payload)`: creates an item and records the action through the decorator.
+- `create_item(payload)`: creates an item with the client-provided id and records the action through the decorator.
 - `replace_item(item_id, payload)`: full update with `404` handling.
 - `patch_item(item_id, changes)`: partial update with `404` handling.
 - `delete_item(item_id)`: deletes an item or raises `404`.

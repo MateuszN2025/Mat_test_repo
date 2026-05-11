@@ -1,14 +1,18 @@
 from pydantic import BaseModel, Field
 
 
-class ItemCreate(BaseModel):
+class ItemBase(BaseModel):
     name: str = Field(min_length=1)
     price: float = Field(gt=0)
     tags: list[str] = Field(default_factory=list)
     is_active: bool = True
 
 
-class ItemReplace(ItemCreate):
+class ItemCreate(ItemBase):
+    id: int
+
+
+class ItemReplace(ItemBase):
     pass
 
 
@@ -19,7 +23,7 @@ class ItemPatch(BaseModel):
     is_active: bool | None = None
 
 
-class ItemResponse(ItemCreate):
+class ItemResponse(ItemBase):
     id: int
     display_price: float
 
