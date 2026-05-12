@@ -1,45 +1,49 @@
 #!/bin/bash
 
-# File & Directory:
-#     ls, cd, pwd, mkdir, rmdir, cp, mv, rm, touch, find, locate, tree
+sol0() {
+    :
+    # File & Directory:
+    #     ls, cd, pwd, mkdir, rmdir, cp, mv, rm, touch, find, locate, tree
 
-# Viewing & Editing:
-#     cat, less, more, head, tail, grep, sort, uniq, wc, nano/vi/vim
+    # Viewing & Editing:
+    #     cat, less, more, head, tail, grep, sort, uniq, wc, nano/vi/vim
 
-# Permissions & Ownership:
-#     chmod, chown, chgrp, umask
+    # Permissions & Ownership:
+    #     chmod, chown, chgrp, umask
 
-# Processes:
-#     ps, top, htop, kill, pkill, jobs, bg, fg, & (backgrounding)
+    # Processes:
+    #     ps, top, htop, kill, pkill, jobs, bg, fg, & (backgrounding)
 
-# System Info:
-#     uname, df, du, free, uptime, whoami, id, env, history
+    # System Info:
+    #     uname, df, du, free, uptime, whoami, id, env, history
 
-# Networking:
-#     ping, ifconfig/ip, netstat, curl, wget, ssh, scp
+    # Networking:
+    #     ping, ifconfig/ip, netstat, curl, wget, ssh, scp
 
-# Archiving:
-#     tar, gzip, gunzip, zip, unzip
+    # Archiving:
+    #     tar, gzip, gunzip, zip, unzip
 
-# Text Processing:
-#     awk, sed, cut, tr, paste, xargs
+    # Text Processing:
+    #     awk, sed, cut, tr, paste, xargs
 
-# Scripting:
-#     Writing basic bash scripts, using variables, loops (for, while), if/else, functions
+    # Scripting:
+    #     Writing basic bash scripts, using variables, loops (for, while), if/else, functions
 
-# Package Management:
-#     apt, yum, dnf, pacman (depending on distro)
+    # Package Management:
+    #     apt, yum, dnf, pacman (depending on distro)
 
-# User Management:
-#     useradd, userdel, passwd, groups
+    # User Management:
+    #     useradd, userdel, passwd, groups
 
-# Senior insight: Mastering pipes (|), redirection (>, >>, <),
-# and command substitution ($()) is key for combining commands efficiently.
+    # Senior insight: Mastering pipes (|), redirection (>, >>, <),
+    # and command substitution ($()) is key for combining commands efficiently.
 
-# Bash / Linux practice exam
-# Rules:
-# - Solve each task with the named command when possible.
-# - Add your commands below each exercise if you want to practice later.
+    # Bash / Linux practice exam
+    # Rules:
+    # - Solve each task with the named command when possible.
+    # - Add your commands below each exercise if you want to practice later.
+    
+}
 
 # =========================
 # File and directory commands
@@ -99,7 +103,7 @@ sol6() {
     echo "➖➖➖➖➖➖➖➖➖"
     echo
 }
-sol6
+# sol6
 
 # 7. mkdir - Exercise 1:
 # Create a directory named exam_practice.
@@ -116,80 +120,141 @@ sol7() {
 # -v helps while learning or debugging scripts.
 sol8() {
     :
-    mkdir -p logs/archive/2026
+    mkdir -p temp_empty1 temp_empty2
 }
+# sol8
 
 # 9. rmdir - Exercise 1:
 # Remove an empty directory named temp_empty.
 sol9() {
     :
+    rm -r temp_empty
 }
+# sol9
 
 # 10. rmdir - Exercise 2:
 # Remove two empty directories with one command.
 sol10() {
     :
+    rm -r temp_empty1 temp_empty2
 }
+# sol10
 
 # 11. cp - Exercise 1:
 # Copy file1.txt to file1_backup.txt.
 sol11() {
     :
+    # touch file1.txt
+    cp file1.txt file3_backup.sh
 }
+# sol11
 
 # 12. cp - Exercise 2:
 # Copy all .sh files from one directory into another directory.
 sol12() {
     :
+    # for file in *.sh; do
+    #     echo "$file"
+    # done
+    # for i in 1 2 3; do
+    #     echo "$i"
+    # done
+    # mkdir sh_files
+    for file in *.sh; do
+        cp $file ./sh_files
+    done
+
 }
+# sol12
 
 # 13. mv - Exercise 1:
 # Rename notes.txt to notes_old.txt.
 sol13() {
     :
+    # touch notes.txt
+    mv notes.txt notes_old.txt
+
 }
+# sol13
 
 # 14. mv - Exercise 2:
 # Move all .log files into a directory named logs.
 sol14() {
     :
+    # for i in 1 2 3; do
+    #     touch "log_file$i.log"
+    # done
+    for log_file in *.log; do
+        mv "$log_file" ./logs
+    done
 }
+# sol14
 
 # 15. rm - Exercise 1:
-# Remove a file named old_report.txt.
+# Remove a file named log_file1.log.
 sol15() {
     :
+    rm -f ./logs/log_file1.log
 }
+# sol15
 
 # 16. rm - Exercise 2:
 # Remove a directory with all its contents.
 sol16() {
     :
+    # rm -f ./sh_files/*.sh
+    # rm -r ./logs/
+    # pwd
+    for file in *.*; do
+        if [[ "$file" != "bash_exam.sh" ]]; then
+            rm -f $file
+        fi
+    done
+
+    # != → string not equal
+    # -ne → numeric not equal (integers)
+    # && : AND
+    # || : OR
+    # ! : NOT
+    # -eq equal
+    # -ne not equal
+    # -gt greater than
+    # -ge greater or equal
+    # -lt less than
+    # -le less or equal
 }
+# sol16
 
 # 17. touch - Exercise 1:
 # Create an empty file named todo.txt.
 sol17() {
     :
+    touch todo.txt
 }
 
 # 18. touch - Exercise 2:
 # Create three empty files in one command.
 sol18() {
     :
+    touch ./sh_files/todo1.sh ./sh_files/todo2.txt ./sh_files/todo3.sh
 }
+# sol18
 
 # 19. find - Exercise 1:
 # Find all .sh files under the current directory.
 sol19() {
     :
+    find ./sh_files -type f -name "*.sh"
 }
+# sol19
 
 # 20. find - Exercise 2:
 # Find directories modified in the last 2 days.
 sol20() {
     :
+    find . -type d -mtime -2
 }
+sol20
 
 # 21. locate - Exercise 1:
 # Search for a file named compose.yaml using the locate database.
@@ -207,12 +272,14 @@ sol22() {
 # Show the directory tree of T14.
 sol23() {
     :
+    tree /home/mniedziolka/PP/Mat_test_repo/T14
 }
 
 # 24. tree - Exercise 2:
 # Show only directories up to depth 2 in the current path.
 sol24() {
     :
+    tree -L 2
 }
 
 # =========================
