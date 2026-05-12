@@ -42,7 +42,7 @@ def main():
   
     
     print("------------------------------------------")
-    id1 = f"{URL + ITEMS}" + "1"
+    # id1 = f"{URL + ITEMS}" + "1"
     # response3 = requests.get(id1)
     # print(json.dumps((response3.json()), indent=4))
     # print(response3.status_code)
@@ -56,12 +56,36 @@ def main():
     
     
     print("------------------------------------------")
-    id_all = f"{URL + ITEMS}"
+    # id_all = f"{URL + ITEMS}"
+    # response_all = requests.get(id_all)
+    # print(json.dumps((response_all.json()), indent=4))
+    # print(response_all.status_code)
+    
+    # payload4 = {
+    #     "price": 432
+    # }
+    
+    # requests.patch(id1, json=payload4)
+    
+    print("------------------------------------------")
+    # id_all = f"{URL + ITEMS}"
+    # response_all = requests.get(id_all)
+    # print(json.dumps((response_all.json()), indent=4))
+    # print(response_all.status_code)
+    
+    print("------------------------------------------")
+    # id125 = f"{URL + ITEMS}" + "125"
+    # payload5 = {
+    #     "id": 7837
+
+    # }
+    # requests.delete(id125)
+    
+    print("------------------------------------------")
+    id_all = f"{URL + ITEMS}health/"
     response_all = requests.get(id_all)
     print(json.dumps((response_all.json()), indent=4))
-    print(response_all.status_code)
-    
-    requests.patch(id1, data={})
+    # print(response_all.status_code)
     
     
 main()
