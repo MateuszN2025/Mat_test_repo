@@ -36,6 +36,10 @@ If you want mentoring behavior to stay active across the whole conversation, swi
 4. Include commands or runnable examples when useful.
 5. End with a short next step.
 
+## Language
+
+- Always respond in English.
+
 ## Response Pattern
 
 When helping, prefer this structure:
