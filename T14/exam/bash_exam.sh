@@ -254,7 +254,7 @@ sol20() {
     :
     find . -type d -mtime -2
 }
-sol20
+# sol20
 
 # 21. locate - Exercise 1:
 # Search for a file named compose.yaml using the locate database.
@@ -290,61 +290,110 @@ sol24() {
 # Display the full content of file1.txt.
 sol25() {
     :
+    cat todo1.txt
 }
 
 # 26. cat - Exercise 2:
 # Combine two text files and print them to standard output.
 sol26() {
     :
+    echo
+    cat todo2.txt todo3.txt
+    echo
 }
+# sol26
 
 # 27. less - Exercise 1:
 # Open a long text file and search for the word error.
 sol27() {
     :
+    less err.txt 
+    less -N err.txt
 }
+# sol27
 
 # 28. less - Exercise 2:
 # Open a file and jump to the end of it for quick inspection.
 sol28() {
     :
+    # shift + G
 }
 
 # 29. more - Exercise 1:
 # View a long file one screen at a time.
 sol29() {
     :
+    more err.txt
 }
 
 # 30. more - Exercise 2:
 # Open a text file and move page by page through the output.
 sol30() {
     :
+    more err.txt
+    # Press Space for next page
+    # Press Enter for next line
+    # Press q to quit
 }
+# sol30
 
 # 31. head - Exercise 1:
 # Show the first 5 lines of file2.txt.
 sol31() {
     :
+    head -5 err.txt
 }
+# sol31
 
 # 32. head - Exercise 2:
 # Print the first 20 lines from every .log file in a directory.
 sol32() {
     :
+    for i in *.*; do
+        printf "\n=== $i ===\n"
+        nl -ba $i | head -5
+    done
 }
+# sol32
 
 # 33. tail - Exercise 1:
 # Show the last 10 lines of a log file.
 sol33() {
     :
+    nl -ba err.txt | tail -10 
 }
-
+# sol33
 # 34. tail - Exercise 2:
 # Follow a log file in real time as new lines are added.
 sol34() {
     :
+    # mkdir -p ./temp/
+    # touch ./temp/null.txt
+    # tail -n 10 -f err.txt &
+    # APP_PID=$!
+    # echo "new_line2" >> err.txt
+    # kill "$APP_PID"
+    # # It only asks the process to terminate. 
+    # # It does not guarantee the process is already gone at the next line.
+    # wait "$APP_PID" 1>./temp/null.txt || true
+    # cat ./temp/null.txt
+    tail -n 10 -f err.txt > ./temp/tail_out.txt &
+    APP_PID=$!
+
+    sleep 0.2
+    echo "new_line2 $(date +%T)" >> err.txt
+    sleep 0.2
+
+    kill "$APP_PID"
+    wait "$APP_PID" 2>./temp/wait_err.txt || true
+
+    echo "=== wait stderr ==="
+    cat ./temp/wait_err.txt
+    echo "=== tail output ==="
+    cat ./temp/tail_out.txt
+    
 }
+sol34
 
 # 35. grep - Exercise 1:
 # Search recursively for the word pytest in the current directory.
