@@ -12,7 +12,7 @@ from app.app1 import app1
 
 @pytest.fixture
 def client():
-    return TestClient(app1)
+    return TestClient(app1) # passes your ASGI app, not a URL
     # TestClient is not a fake response mock like unittest.mock.
     # It runs your real FastAPI app code in-process 
     # (router, validation, dependencies, middleware, handlers
@@ -22,10 +22,14 @@ def client():
     # 
     # Treat TestClient tests as API component/integration tests, not full E2E.
     # Keep a smaller set of real-network smoke tests to catch deployment/network issues.
+    
+    # ASGI = Asynchronous Server Gateway Interface — the protocol that 
+    # connects a Python web framework (like FastAPI) to a web server (like Uvicorn).
+    # Browser → Uvicorn (ASGI server) → FastAPI app (ASGI app) → your route handler
 
 @pytest.fixture
 def url1():
-    return "http://127.0.0.1:8000/items/"
+    return "http://127.0.0.1:8000/items"
 
 
 @pytest.fixture
@@ -35,6 +39,6 @@ def mock_items():
     fake_items = {
         99: {"id": 99, "name": "Mocked Item", "price": 0.01},
     }
-    with patch("app.app1.ITEMS", fake_items):
+    with patch("app.app1.items_db", fake_items):
         yield fake_items
 

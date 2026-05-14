@@ -54,4 +54,5 @@ else
 fi
 
 # Step 11: Run only tests marked with "easy".
-pytest -vv -rP -s -m easy
+# pytest -vv -rP -s -m easy
+pytest -vv -rP -s -k 4
