@@ -1,0 +1,26 @@
+[2026-05-14T09:33:52Z] CI Job: qa-api-tests #184
+[2026-05-14T09:33:52Z] Runner: linux-x64
+[2026-05-14T09:33:53Z] Command: pytest tests/test_1.py -k test_4_post_z -q
+
+=================================== FAILURES ===================================
+_______________________________ test_4_post_z _________________________________
+
+    @pytest.mark.hard
+    def test_4_post_z(client):
+        payload = {"id": 3, "name": "ZZZ", "price": 23349.00}
+        result = client.post("/items/3", json=payload)
+>       assert result.status_code == 201
+E       assert 405 == 201
+E        +  where 405 = <Response [405 Method Not Allowed]>.status_code
+
+tests/test_1.py:57: AssertionError
+
+----------------------------- Captured Response ------------------------------
+{"detail":"Method Not Allowed"}
+
+=========================== short test summary info ===========================
+FAILED tests/test_1.py::test_4_post_z - assert 405 == 201
+1 failed, 5 deselected in 0.11s
+
+[2026-05-14T09:33:54Z] Root cause: Route mismatch (client used POST /items/3 while API route was POST /items)
+[2026-05-14T09:33:54Z] Suggested fix: Align caller endpoint with API contract and keep id in JSON body

@@ -1,0 +1,3 @@
+bug_id,reported_at,component,title,severity,status,root_cause,fix_summary,source
+
+BUG-003,2026-05-14T09:34:00Z,T16/app/app1.py,Method not allowed on POST /items/3,high,resolved,Route path changed to /items but client/test still used /items/3,Updated caller to POST /items and keep id in JSON body,curl script failure
