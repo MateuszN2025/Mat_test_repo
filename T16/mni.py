@@ -29,3 +29,8 @@ items_db_list = list(items_db)
 print("------------------------------------------")
 print(items_db_list)
 print(len(items_db_list))
+
+print("------------------------------------------")
+l1=[{"id":1,"name":"Laptop","price":999.99},{"id":2,"name":"Monitor","price":349.0}]
+for i in l1:
+    print(i)

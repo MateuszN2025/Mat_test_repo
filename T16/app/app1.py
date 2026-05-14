@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException, status, Body
+from fastapi import FastAPI, HTTPException, status, Body, Response
 from pydantic import BaseModel, Field
+import json
 
 # FastAPI() creates the application object.
 # Think of it as the "engine" — you register routes on it.
@@ -74,9 +75,19 @@ def create_item(payload: ItemCreate):
     items_db[payload.id] = payload.model_dump()
     return items_db[payload.id]  
     
+# @app1.get("/items")
+# def list_items():
+#     return items_db #
+#     # GET all
+#     # {"1":{"id":1,"name":"Laptop","price":999.99},"2":{"id":2,"name":"Monitor","price":349.0}}
+
 @app1.get("/items")
-def list_items():
-    return list(items_db.values())
+def list_items(pretty: bool = False):
+    # Keep default API output as regular JSON objects.
+    data = list(items_db.values())
+    if pretty:
+        return Response(content=json.dumps(data, indent=4), media_type="application/json")
+    return data
 
 
 @app1.get("/items/{item_id}")
