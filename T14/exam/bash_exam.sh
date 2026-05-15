@@ -393,31 +393,42 @@ sol34() {
     cat ./temp/tail_out.txt
     
 }
-sol34
+# sol34
 
 # 35. grep - Exercise 1:
 # Search recursively for the word pytest in the current directory.
 sol35() {
     :
+    grep -r PYTEST .
 }
+# sol35
 
 # 36. grep - Exercise 2:
 # Print only lines that start with ERROR from a log file.
 sol36() {
     :
+    grep -i ERROR ./todo3*
 }
+# sol36
 
 # 37. sort - Exercise 1:
 # Sort the lines of names.txt alphabetically.
 sol37() {
     :
+    sort ./todo3.txt
 }
+sol37
 
 # 38. sort - Exercise 2:
 # Sort a file of numbers from largest to smallest.
 sol38() {
     :
+    sort -nr ./todo4.txt
+    # sort -r = strings,
+    # sort -n = numbers,
+    # sort -nr = numeric descending.
 }
+# sol38
 
 # 39. uniq - Exercise 1:
 # Remove duplicate adjacent lines from a sorted file.
