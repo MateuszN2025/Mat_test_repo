@@ -34,3 +34,34 @@ print("------------------------------------------")
 l1=[{"id":1,"name":"Laptop","price":999.99},{"id":2,"name":"Monitor","price":349.0}]
 for i in l1:
     print(i)
+    
+print("------------------------------------------")
+items_db: dict[int, dict] = {
+    1: {"id": 1, "name": "Laptop",  "price": 999.99},
+    2: {"id": 2, "name": "Monitor", "price": 349.00},
+    3: {"id": 3, "name": "Monitor", "price": 349.00},}
+
+payload = {"id": 3, "name": "Banana"}
+# list_of_ids = []
+   
+# if payload.get("id") is not None:
+#     for i_dict in items_db.values():
+#         list_of_ids.append(i_dict["id"])
+#     if payload["id"] in list_of_ids:
+#         for i_dict in items_db.values():
+#             if i_dict["id"] == payload["id"]:
+#                 for k in i_dict:
+#                     if payload.get(k) is not None:
+#                         i_dict[k] = payload[k]
+#     else:
+#         print("Id from payload does not match❌")            
+# else:
+#     print("Id does not EXIST⚠️ in payload")
+item_id = 1 
+    
+items_db[payload["id"]] = payload
+print("------------------------------------------")  
+# print(payload["id"])
+print(items_db)
+del items_db[item_id]
+print(items_db)

@@ -44,8 +44,8 @@ class ItemCreate(BaseModel):
 #     items_db[item_id] = item
 #     return item
 
-# @app1.post("/items/{item_id}", status_code=status.HTTP_201_CREATED)
-# def create_item(item_id: int, payload: dict = Body(...)):
+# @app1.post("/items", status_code=status.HTTP_201_CREATED)
+# def create_item(payload: dict = Body(...)):
 #     # payload: dict = Body(...) tells FastAPI: “read JSON
 #     # from the request body into a Python dict”.
 #     item = ItemCreate(
@@ -53,27 +53,123 @@ class ItemCreate(BaseModel):
 #         name=payload["name"],
 #         price=payload["price"],
 #     )
-#     items_db[item_id] = item.model_dump()
+#     items_db[item.id] = item.model_dump()
 #     # item.model_dump() [from BaseModel] converts the Pydantic object to a plain dict,
 #     # which matches your current items_db structure.
 #     return item
 
-# @app1.post("/items/{item_id}", status_code=201)      
-# def create_item(item_id: int, payload: dict = Body(...)):
-#     # payload: dict = Body(...) tells FastAPI: “read JSON
-#     # from the request body into a Python dict”.
-#     items_db[item_id] = payload
-#     return payload
-    
-# status.HTTP_201_CREATED == 201.
-# Returning 201 instead of 200 tells the client "resource was created".
 @app1.post("/items", status_code=status.HTTP_201_CREATED)
 def create_item(payload: ItemCreate):
     if payload.id in items_db:
         raise HTTPException(status_code=409, detail="Item with this id already exists")
-    # .model_dump() converts the Pydantic model to a plain dict.
-    items_db[payload.id] = payload.model_dump()
-    return items_db[payload.id]  
+
+    item = payload.model_dump()
+    items_db[payload.id] = item
+    return item
+
+@app1.patch("/items", status_code=200)      
+def update_item_partially(payload: dict = Body(...)):
+    # payload: dict = Body(...) tells FastAPI: “read JSON
+    # from the request body into a Python dict”.
+    
+    # items_db: dict[int, dict] = {
+    # 1: {"id": 1, "name": "Laptop",  "price": 999.99},
+    # 2: {"id": 2, "name": "Monitor", "price": 349.00},
+    # }
+    
+    # list_of_ids = []
+    # if payload.get("id") is not None:
+    #     for i_dict in items_db.values():
+    #         list_of_ids.append(i_dict["id"])
+    #     if payload["id"] in list_of_ids:
+    #         for i_dict in items_db.values():
+    #             if i_dict["id"] == payload["id"]:
+    #                 for k in i_dict:
+    #                     if payload.get(k) is not None:
+    #                         i_dict[k] = payload[k]
+    #     else:
+    #         raise HTTPException(status_code=400, detail="Bad Request")
+    # else:
+    #     raise HTTPException(status_code=404, detail="Not Found")
+        
+    # return i_dict
+    
+
+    item_id = payload.get("id")
+    if item_id is None:
+        raise HTTPException(status_code=400, detail="'id' is required in payload")
+
+    item = items_db.get(item_id)
+    if item is None:
+        raise HTTPException(status_code=404, detail=f"Item with id={item_id} not found")
+
+    for k in item:
+        if payload.get(k) is not None:
+            item[k] = payload[k]
+
+    return item
+
+@app1.put("/items", status_code=200)      
+def update_item_completely(payload: dict = Body(...)):
+    # PUT is treated as full replacement in this handler, so all required
+    # fields must be present in the incoming JSON body.
+    required_fields = ("id", "name", "price")
+    missing_fields = [field for field in required_fields if payload.get(field) is None]
+
+    # Enter validation failure branch when at least one required field is missing.
+    if missing_fields:
+        # Raise FastAPI HTTPException so the API responds with an explicit client error.
+        raise HTTPException(
+            # Use 400 because the client sent an incomplete PUT payload.
+            status_code=400,
+            # Include missing field names to help the caller fix the request quickly.
+            detail=f"Incomplete payload. Missing fields: {', '.join(missing_fields)}",
+            # Close HTTPException constructor after setting status and detail.
+        )
+
+    # Replace the stored record with the full payload.
+    items_db[payload["id"]] = payload
+    return payload
+
+# Hint: keep this route focused on one delete scenario so status handling stays predictable.
+# Registers the DELETE endpoint and declares a 200 success response contract.
+# @app1.delete("/items", status_code=200)      
+# # Defines the handler and accepts request-body data used to identify the target item.
+# def delete_item_completely(payload: dict = Body(...)):
+#     item_id = payload.get("id")
+#     if item_id is None:
+#         raise HTTPException(status_code=400, detail="'id' is required in payload")
+#     if not isinstance(item_id, int) or isinstance(item_id, bool):
+#         raise HTTPException(status_code=400, detail="'id' must be an integer")
+
+#     # pop performs read+delete in one operation and avoids double dict lookup.
+#     deleted_data = items_db.pop(item_id, None)
+#     if deleted_data is None:
+#         raise HTTPException(status_code=404, detail=f"Item with id={item_id} not found")
+#     return deleted_data
+    
+@app1.delete("/items/{item_id}", status_code=200)      
+# Defines the handler and accepts request-body data used to identify the target item.
+def delete_item_completely(item_id: int): # ⚠️
+    # pop performs read+delete in one operation and avoids double dict lookup.
+    # deleted_data = items_db.pop(item_id, None)
+    if items_db.get(item_id) is not None:
+        deleted_data = items_db[item_id]
+        del items_db[item_id]    
+        
+    else:
+        raise HTTPException(status_code=404, detail=f"Item with id={item_id} not found")
+    return deleted_data    
+    
+# status.HTTP_201_CREATED == 201.
+# Returning 201 instead of 200 tells the client "resource was created".
+# @app1.post("/items", status_code=status.HTTP_201_CREATED)
+# def create_item(payload: ItemCreate):
+#     if payload.id in items_db:
+#         raise HTTPException(status_code=409, detail="Item with this id already exists")
+#     # .model_dump() converts the Pydantic model to a plain dict.
+#     items_db[payload.id] = payload.model_dump()
+#     return items_db[payload.id]  
     
 # @app1.get("/items")
 # def list_items():
