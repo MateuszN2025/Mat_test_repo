@@ -417,7 +417,7 @@ sol37() {
     :
     sort ./todo3.txt
 }
-sol37
+# sol37
 
 # 38. sort - Exercise 2:
 # Sort a file of numbers from largest to smallest.
@@ -434,24 +434,31 @@ sol38() {
 # Remove duplicate adjacent lines from a sorted file.
 sol39() {
     :
+   sort ./todo2.txt | uniq
 }
+# sol39
 
 # 40. uniq - Exercise 2:
 # Count how many times each repeated line appears.
 sol40() {
     :
+    sort ./todo2.txt | uniq -c
 }
+# sol40
 
 sol41() {
     :
     # 41. wc - Exercise 1:
     # Count the number of lines in file3.txt.
+    wc -l ./todo2.txt
 }
+# sol41
 
 sol42() {
     :
     # 42. wc - Exercise 2:
     # Show the number of lines, words, and bytes in a file.
+    wc ./todo2.txt
 }
 
 sol43() {
@@ -1150,50 +1157,100 @@ sol152() {
     # Print two variables inside one sentence.
 }
 
+# 153. if / else - Exercise 1:
+# Check whether a file exists and print one message if it does and another if it does not.
 sol153() {
     :
-    # 153. if / else - Exercise 1:
-    # Check whether a file exists and print one message if it does and another if it does not.
+    if [[ -f "todo23.txt" ]]; then
+        echo "FILE exists"
+    else
+        echo "FILE does not exist"
+    fi
 }
+sol153
 
+# 154. if / else - Exercise 2:
+# Check whether the current user is root before running an admin command.
 sol154() {
     :
-    # 154. if / else - Exercise 2:
-    # Check whether the current user is root before running an admin command.
-}
+    if [[ $USER == root ]]; then
+        echo "run admin command"
+    else
+        echo "You're not admin"
+    fi
 
+}
+# sol154
+
+# 155. for loop - Exercise 1:
+# Loop through all .txt files and print each filename.
 sol155() {
     :
-    # 155. for loop - Exercise 1:
-    # Loop through all .txt files and print each filename.
+    for file in *.txt; do
+        echo ${file}
+    done
 }
+# sol155
 
+# 156. for loop - Exercise 2:
+# Loop through numbers 1 to 5 and create files based on those numbers.
 sol156() {
     :
-    # 156. for loop - Exercise 2:
-    # Loop through numbers 1 to 5 and create files based on those numbers.
+    for i in 1 2 3 4 5; do
+        touch ${i}_file.txt
+    done
 }
+# sol156
 
+# 157. while loop - Exercise 1:
+# Print the current time every second for five iterations.
 sol157() {
     :
-    # 157. while loop - Exercise 1:
-    # Print the current time every second for five iterations.
+    CC=5
+    while [[ $CC -gt 0 ]]; do
+        date 
+        sleep 1
+        CC=$((CC-1))
+    done 
 }
+# sol157
 
+# 158. while loop - Exercise 2:
+# Read a file line by line and print each line with a prefix.
 sol158() {
     :
-    # 158. while loop - Exercise 2:
-    # Read a file line by line and print each line with a prefix.
+    # CC=5
+    # while [[ $CC -gt 0 ]]; do
+    #     echo "$CC"
+    #     sleep 0.2
+    #     CC=$((CC-1))
+    # done
+    # Read todo1.txt safely line by line, preserving leading/trailing spaces and backslashes.
+    while read -r line; do
+        echo "PREFIX|$line"
+    done < todo1.txt
 }
+# sol158
 
+# 159. functions - Exercise 1:
+# Write a function that prints a separator line.
 sol159() {
     :
-    # 159. functions - Exercise 1:
-    # Write a function that prints a separator line.
+    echo "==="
 }
+# sol159
 
+# 160. functions - Exercise 2:
+# Write a function that accepts one filename argument and checks whether it exists.
+file=todo1.txt
 sol160() {
     :
-    # 160. functions - Exercise 2:
-    # Write a function that accepts one filename argument and checks whether it exists.
+    if [[ -f $file ]]; then
+        echo "FILE EXISTS"
+    else
+        echo "FILE DOES NOT EXIST"
+    fi
+    
 }
+# sol160
+
