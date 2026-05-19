@@ -17,7 +17,6 @@ elif [[ $method == "POST" ]]; then
     curl -X POST "http://127.0.0.1:8000/items" \
     -H "Content-Type: application/json" \
     -d "{\"id\": $item_id, \"name\": \"XXX\", \"price\": 27779.00}"
-    # -d "{'id': $item_id, 'name': 'xxx', 'price': 333.00}" #❌
 
 elif [[ $method == "PATCH" ]]; then
     echo "PATCH"
