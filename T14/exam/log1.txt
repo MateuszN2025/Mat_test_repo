@@ -1,0 +1,18 @@
+total 96
+-rw-r--r-- 1 root root     0 May 20 14:33 _file1.txt
+-rw-r--r-- 1 root root     0 May  8 13:31 a
+-rw-r--r-- 1 root root 24985 May 20 15:49 bash_exam.sh
+-rw-r--r-- 1 root root 31046 May 14 07:48 err.txt
+drwxr-xr-x 2 root root  4096 May  8 13:52 exam_practice
+-rw-r--r-- 1 root root     0 May 20 14:31 file1.txt
+-rw-r--r-- 1 root root    60 May 20 15:49 log.txt
+-rw-r--r-- 1 root root     0 May 20 15:49 log1.txt
+-rw-r--r-- 1 root root     0 May 20 14:33 root_file1.txt
+drwxr-xr-x 2 root root  4096 May 12 16:14 sh_files
+drwxr-xr-x 2 root root  4096 May 13 15:20 temp
+-rw-r--r-- 1 root root    30 May 18 15:00 todo1.txt
+-rw-r--r-- 1 root root    30 May 20 15:00 todo2.txt
+-rw-r--r-- 1 root root    46 May 15 15:40 todo3 copy.log
+-rw-r--r-- 1 root root    19 May 15 15:41 todo3.txt
+-rw-r--r-- 1 root root    20 May 15 15:43 todo4.txt
+-rw-r--r-- 1 root root     0 May 20 14:32 {root}file1.txt

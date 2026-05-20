@@ -1103,59 +1103,129 @@ sol143() {
     # Count how many .py files exist under the current directory using a pipeline.
 }
 
+# 144. pipes | - Exercise 2:
+# Show unique logged-in usernames in sorted order using multiple commands.
 sol144() {
     :
-    # 144. pipes | - Exercise 2:
-    # Show unique logged-in usernames in sorted order using multiple commands.
+    # Show unique logged-in usernames in sorted order
+    # who | awk '{print $1}' | sort | uniq
+    ps -eo pid,user,pcpu,pmem,comm --sort=-pcpu | head -n 6
 }
+sol144
 
+# 145. redirection > and >> - Exercise 1:
+# Save the output of ls -l into a new file.
 sol145() {
     :
-    # 145. redirection > and >> - Exercise 1:
-    # Save the output of ls -l into a new file.
+    ls -l > log1.txt
 }
+# sol145
 
+# 146. redirection > and >> - Exercise 2:
+# Append the current date to an existing log file.
 sol146() {
     :
-    # 146. redirection > and >> - Exercise 2:
-    # Append the current date to an existing log file.
-}
+    date >> log.txt
 
+}
+# sol146
+
+# 147. input redirection < - Exercise 1:
+# Pass a file into a command that can read from standard input.
 sol147() {
     :
-    # 147. input redirection < - Exercise 1:
-    # Pass a file into a command that can read from standard input.
+    # Heredoc: pass multi-line Python code to stdin.
+    # Call with: sol147 < todo1.txt
+    python3 << 'EOF'
+print("hello")
+EOF
 }
+# sol147
 
+# 148. input redirection < - Exercise 2:
+# Compare behavior of a command with direct filename input versus input redirection.
 sol148() {
     :
-    # 148. input redirection < - Exercise 2:
-    # Compare behavior of a command with direct filename input versus input redirection.
-}
 
+    file="todo1.txt"
+    if [[ ! -f "$file" ]]; then
+        printf "line1\nline2\nline3\n" > "$file"
+    fi
+
+    # echo "Direct filename input (wc reads from file argument):"
+    # wc -l "$file"
+
+    # echo "Input redirection (wc reads from stdin):"
+    # wc -l < "$file"
+    # < "$file"
+    # cat "$file"
+    # cat < "$file"
+    # awk 'END {print "lines=" NR, "source=" FILENAME}' "$file"
+    awk 'END {print "lines=" NR, "source=" FILENAME}' < "$file"
+    # Each part:
+    # awk
+    # The tool that processes text line by line.
+    # '...'
+    # Single quotes protect the awk program from shell expansion.
+    # Without single quotes, shell could break special chars like { }, $.
+    # END
+    # A special awk block.
+    # Runs once, after all input is fully read.
+    # { ... }
+    # Action block (what to do when END runs).
+    # print
+    # Outputs values to stdout.
+    # "lines="
+    # Literal text string.
+    # NR
+    # Built-in awk variable: total number of records read.
+    # With default settings, one record = one input line.
+    # "source="
+    # Another literal text string.
+    # FILENAME
+    # Built-in awk variable: current input file name.
+    # If input comes from redirection (example: < file), often shows as -.
+
+}
+# sol148
+
+# 149. command substitution $() - Exercise 1:
+# Store the current date in a variable using command substitution.
 sol149() {
     :
-    # 149. command substitution $() - Exercise 1:
-    # Store the current date in a variable using command substitution.
-}
+    date1=$(date)
+    echo "Now is: $date1"
 
+}
+# sol149
+
+# 150. command substitution $() - Exercise 2:
+# Build a filename that contains the current username.
 sol150() {
     :
-    # 150. command substitution $() - Exercise 2:
-    # Build a filename that contains the current username.
+    touch ${USER}_file1.txt
 }
+# sol150
 
+# 151. variables - Exercise 1:
+# Create a variable with a directory path and use it in a command.
 sol151() {
     :
-    # 151. variables - Exercise 1:
-    # Create a variable with a directory path and use it in a command.
+    path=$(pwd)
+    echo "This is my path: $path"
 }
+# sol151
 
+# 152. variables - Exercise 2:
+# Print two variables inside one sentence.
 sol152() {
     :
-    # 152. variables - Exercise 2:
-    # Print two variables inside one sentence.
+    var1=1
+    var2="Bobby"
+    echo "$var2 has $var1"
+
 }
+# sol152
 
 # 153. if / else - Exercise 1:
 # Check whether a file exists and print one message if it does and another if it does not.
@@ -1167,7 +1237,7 @@ sol153() {
         echo "FILE does not exist"
     fi
 }
-sol153
+# sol153
 
 # 154. if / else - Exercise 2:
 # Check whether the current user is root before running an admin command.
@@ -1253,4 +1323,6 @@ sol160() {
     
 }
 # sol160
+
+echo
 
