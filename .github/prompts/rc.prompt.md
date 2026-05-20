@@ -46,19 +46,12 @@ Optimization rules:
 - Keep complexity low and avoid clever one-liners.
 - If optimization changes behavior risk, do not apply blindly; explain first.
 
-Testing expectations:
-- Add or update tests for every behavior change.
-- Cover happy path and at least one failure path.
-- Verify HTTP status codes and response body shape for API endpoints.
-- If tests cannot be run, state that explicitly and explain what should be run.
-
 Output format:
 0. Scope checked (what exact marked fragment was reviewed)
 1. Findings (most severe first)
 2. Fixes applied
-3. Tests added/updated
-4. Residual risks or assumptions
-5. Short summary
+3. Residual risks or assumptions
+4. Short summary
 
 When no issues are found:
 - State explicitly: "No significant findings."

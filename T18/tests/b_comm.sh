@@ -8,7 +8,7 @@ command="${1:-GET}"
 # fi
 
 item_id="${2:-456}" # This sets 456 when arg 2 is missing or empty.
-data="{\"id\": $item_id, \"name\": \"XXX\", \"age\": 88}"
+data="{\"id\": $item_id, \"name\": \"XXX\", \"age\": 2, \"month\": 1}"
 
 if [[ $command == "GET" ]]; then
     curl "http://127.0.0.1:8000/items"

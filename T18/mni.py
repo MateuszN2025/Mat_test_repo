@@ -11,4 +11,9 @@ payload={"id": 3, "name": "John", "age": 88}
 
 users_db[payload["id"]] = payload
 
-print(users_db)
+# print(users_db)
+
+ids=[id for id in users_db.keys()]
+# print(max(ids))
+
+print(users_db[3]["age"])
