@@ -983,11 +983,38 @@ sol125() {
     # Read a list of filenames from standard input and remove them.
 }
 
+# 126. xargs - Exercise 2:
+# Use find and xargs together to count lines in multiple files.
 sol126() {
     :
-    # 126. xargs - Exercise 2:
-    # Use find and xargs together to count lines in multiple files.
+    echo 126
+    # find . -name "*.log" | rm # rm: missing operand
+    # 
+    # find . -name "*.log" | xargs rm
+    # 
+    # How it fixes it: xargs captures the list of .log files coming from find and 
+    # reformats them as arguments, effectively running: 
+    # rm ./setup.log ./error.log ./app.log.
+    # 
+    # Instead of a vertical stream of data flowing down a pipe, xargs flattens that
+    # data into a horizontal line of arguments attached to the back of your target command.
+    # find . -name "*.csv" | xargs -P 4 gzip
+    # 
+    # echo "file1 file2 file3 file4" | xargs -n 2 rm
+    #   rm file1 file2   
+    #   rm file3 file4 
+    # 
+    # find . -name "*.txt" | xargs -p rm
+    # find . -name "*.txt" -print0 | xargs -0 rm
+    #   -print0 tells find to separate files using a hidden null
+    #   character (\0) instead of spaces.
+    #   -0 tells xargs to look for those null characters,
+    #   perfectly preserving filenames that contain spaces.
+
+
+
 }
+sol126
 
 # =========================
 # Package management
@@ -997,6 +1024,17 @@ sol127() {
     :
     # 127. apt - Exercise 1:
     # Refresh package lists on a Debian-based system.
+    sudo apt update          # Updates the local list of available packages
+    sudo apt upgrade         # Upgrades all installed packages to newer versions
+    sudo apt full-upgrade    # Upgrades packages, handling changing dependencies
+    sudo apt install <pkg>   # Downloads and installs a specific package
+    sudo apt remove <pkg>    # Uninstalls a package but keeps its config files
+    sudo apt purge <pkg>     # Completely removes a package and its config files
+    apt search <keyword>     # Searches package names and descriptions for a term
+    apt show <pkg>           # Displays detailed information about a package
+    apt list --installed     # Lists all packages currently installed on the system
+    sudo apt autoremove      # Removes leftover dependencies no longer needed
+    sudo apt clean           # Clears cached installer files to free up disk space
 }
 
 sol128() {
@@ -1045,63 +1083,93 @@ sol134() {
 # User management
 # =========================
 
+# 135. useradd - Exercise 1:
+# Create a new user named trainee.
 sol135() {
     :
-    # 135. useradd - Exercise 1:
-    # Create a new user named trainee.
+    sudo useradd -m trainee
+
 }
 
+# 136. useradd - Exercise 2:
+# Create a new user with a home directory and a specific shell.
 sol136() {
-    :
-    # 136. useradd - Exercise 2:
-    # Create a new user with a home directory and a specific shell.
+    sudo useradd -m -s "$2" "$1"
+    # How It Works
+    # sudo: Creating new user accounts requires root privileges.
+    # useradd: The standard low-level utility for creating new users.
+    # -m (or --create-home): Forces the system to create the user's 
+    #     home directory (usually /home/username) if it doesn't
+    #     already exist, and copies skeleton files (like .bashrc) into it.
+    # -s "$2" (or --shell): Sets the path to the user's default
+    #      login shell (e.g., /bin/bash, /bin/zsh, or /bin/sh).
 }
+# sol136 newuser /bin/bash
 
+# 137. userdel - Exercise 1:
+# Remove a user named trainee.
 sol137() {
     :
-    # 137. userdel - Exercise 1:
-    # Remove a user named trainee.
+    sudo userdel trainee
+
 }
 
+# 138. userdel - Exercise 2:
+# Remove a user together with the home directory.
 sol138() {
     :
-    # 138. userdel - Exercise 2:
-    # Remove a user together with the home directory.
+    # echo "$1"
+    sudo userdel -r "$1"
+    
 }
+# sol138 "mamama"
 
+# 139. passwd - Exercise 1:
+# Set a password for a newly created user.
 sol139() {
     :
-    # 139. passwd - Exercise 1:
-    # Set a password for a newly created user.
+    sudo passwd Bob
 }
 
+# 140. passwd - Exercise 2:
+# Expire a user's password and force a change on next login if your system supports it.
 sol140() {
     :
-    # 140. passwd - Exercise 2:
-    # Expire a user's password and force a change on next login if your system supports it.
+    sudo passwd -e "root"
 }
 
+# 141. groups - Exercise 1:
+# Show all groups for the current user.
 sol141() {
     :
-    # 141. groups - Exercise 1:
-    # Show all groups for the current user.
+    groups
 }
 
+# 142. groups - Exercise 2:
+# Check which groups a target user belongs to.
 sol142() {
     :
-    # 142. groups - Exercise 2:
-    # Check which groups a target user belongs to.
+    groups "root"
+    # id -Gn "$1"
 }
+# sol142
 
 # =========================
 # Core shell skills
 # =========================
 
+# 143. pipes | - Exercise 1:
+# Count how many .txt files exist under the current directory using a pipeline.
 sol143() {
-    :
-    # 143. pipes | - Exercise 1:
-    # Count how many .py files exist under the current directory using a pipeline.
+    find . -type f -name "*.txt" | wc -l
+
+    # If you happen to have file names that contain actual
+    # newline characters (which is rare but technically possible in Linux),
+    # the solution above might slightly overcount. If you want to make
+    # it 100% bulletproof against weird filenames, you can use this advanced variation:
+    find . -type f -name "*.txt" -printf '.' | wc -c
 }
+# sol143
 
 # 144. pipes | - Exercise 2:
 # Show unique logged-in usernames in sorted order using multiple commands.
@@ -1109,10 +1177,12 @@ sol144() {
     :
     # Show unique logged-in usernames in sorted order
     # who | awk '{print $1}' | sort | uniq
-    ps -eo pid,user,pcpu,pmem,comm --sort=-pcpu | head -n 6
+    # ps -eo pid,user,pcpu,pmem,comm --sort=-pcpu | head -n 6
+    ps -eo pid=PID,user=USER,pcpu=%CPU,pmem=%MEM,comm=COMM --sort=-pcpu | head -n 6
 }
-sol144
+# sol144
 
+# 
 # 145. redirection > and >> - Exercise 1:
 # Save the output of ls -l into a new file.
 sol145() {
