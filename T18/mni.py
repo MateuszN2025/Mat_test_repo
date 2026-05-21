@@ -16,4 +16,12 @@ users_db[payload["id"]] = payload
 ids=[id for id in users_db.keys()]
 # print(max(ids))
 
-print(users_db[3]["age"])
+# print(users_db[3]["age"])
+
+def dict1():
+    return {"a":1, "b":2}
+
+def dict2(dict1):
+    return dict1
+
+print(dict2["b"])
