@@ -24,4 +24,22 @@ def dict1():
 def dict2(dict1):
     return dict1
 
-print(dict2["b"])
+# print(dict2["b"])
+
+base = {"APP_HOST": "old-host", "X": "1"}
+
+env = {
+    **base,
+    "APP_HOST": "127.0.0.1",
+    "APP_PORT": "8000",
+}
+
+# print(env)
+
+# list1 = [1,2,3]
+
+usr = users_db[1]
+# print(usr)
+
+a = [{"id":1,"name":"Bob","age":43},{"id":2,"name":"Sam","age":54}]
+print(a.max())

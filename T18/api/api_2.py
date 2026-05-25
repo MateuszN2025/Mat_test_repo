@@ -1,24 +1,21 @@
-from fastapi import FastAPI, Body, HTTPException, status
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field, model_validator
 
-
-api_2=FastAPI()
+api_2 = FastAPI()
 
 users_db: dict[int, dict] = {
-    1: {"id": 1,
-        "name": "Bob",
-        "age": 43},
-    2: {"id": 2,
-        "name": "Sam",
-        "age": 54}
+    1: {"id": 1, "name": "Bob", "age": 43},
+    2: {"id": 2, "name": "Sam", "age": 54}
 }
 
-# users_db = {}
+class UserOut(BaseModel):
+    id: int
+    name: str = Field(min_length=2)
+    age: int = Field(gt=0)
 
 class UserCreateUpdate(BaseModel):
     name: str = Field(min_length=2)
     age: int = Field(gt=0)
-
 
 class UserPartialUpdate(BaseModel):
     name: str | None = Field(default=None, min_length=2)
@@ -30,107 +27,98 @@ class UserPartialUpdate(BaseModel):
             raise ValueError("Provide at least one field: name or age")
         return self
 
+# 3. Use response_model
+# FastAPI relies on the response_model argument in 
+# the decorator to generate accurate OpenAPI schemas (Swagger UI)
+# and automatically filter/serialize output data.
+# Adding response_model=UserOut ensures only the fields defined 
+# in that schema are ever sent to the client.
 
-class UserOut(BaseModel):
-    id: int
-    name: str = Field(min_length=2)
-    age: int = Field(gt=0)
-    
-@api_2.get("/items")
-def get_data():
-    # users = []
-    # for user in users_db.values():
-    #     users.append(user)    
+@api_2.get("/users", response_model=list[UserOut], status_code=status.HTTP_200_OK)
+def get_users():
+    # Standard REST behavior: return [] if the collection is empty
     return list(users_db.values())
 
-# @api_2.post("/items", status_code=201)
-# def post_data(item_id: int, payload: dict):
-#     if item_id != payload["id"]:
-#         raise HTTPException(status_code=400)
-#     # dict tells FastAPI to parse that JSON as a Python dictionary
-#     users_db[payload["id"]] = payload
-#     return item_id, payload
-
-# @api_2.post("/items", status_code=201)
-# def post_data(payload: dict): 
-#     # Using payload: dict with direct key access can 
-#     # raise KeyError and surface as 500 instead of structured 422 validation errors.
-#     users_db[payload["id"]] = payload
-#     return payload
-
-"""@api_2.post("/items", status_code=status.HTTP_201_CREATED)
-def post_data(payload: User):
-    #       raw_data = {"id": 3, "name": "Kim", "age": 32}
-    #       payload = User(**raw_data)
-    # 
-    # FastAPI does this flow for you:
-    #   The client sends JSON in the HTTP request body.
-    #   FastAPI reads that JSON and turns it into a Python dictionary internally.
-    #   Because the parameter is annotated as User, FastAPI passes that dictionary to Pydantic.
-    #   Pydantic creates a User object. 
-    #   Inside the function, payload is therefore a User instance, so payload.id works.
-    # 
-    # FastAPI validates the request body against User before this logic runs.
-    u1 = User(id=payload.id,
-              name=payload.name,
-              age=payload.age)
-    # Keep users_db values as plain dicts to match existing in-memory records.
-    users_db[payload.id] = u1.model_dump() # it converts the Pydantic model back into a plain dictionary for storage.
-    # Return the normalized object that was actually accepted and stored.
-    return u1"""
-
-
-# @api_2.post("/items", status_code=status.HTTP_201_CREATED)
-# def post_data(payload: dict):
-#     # u1 = User(id=1, name="Kim", age=32)
-#     u1 = User(id=payload["id"],
-#               name=payload["name"],
-#               age=payload["age"])
-#     users_db[payload["id"]] = u1
-#     return payload
-
-
-@api_2.post("/items", status_code=status.HTTP_201_CREATED)
-def post_data(payload: UserCreateUpdate) -> UserOut:
-    # default=0 avoids ValueError when the in-memory store is empty.
+@api_2.get("/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
+def get_user(user_id: int):
+    user = users_db.get(user_id)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return user
+          
+@api_2.post("/users", response_model=UserOut, status_code=status.HTTP_201_CREATED)
+def create_user(payload: UserCreateUpdate):
     max_id = max(users_db.keys(), default=0)
-    u1 = UserOut(id=max_id + 1,
-                 name=payload.name,
-                 age=payload.age)
-    users_db[u1.id] = u1.model_dump()
-    return u1
+    new_user = UserOut(
+        id=max_id + 1,
+        name=payload.name,
+        age=payload.age
+    )
+    users_db[new_user.id] = new_user.model_dump()
+    return new_user
 
-@api_2.delete("/items/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
-def del_user(item_id: int) -> None:
-    # Fetch user from store; dict.pop() removes and returns in one operation,
-    # avoiding redundant lookups and reducing race condition risk in concurrent scenarios.
-    deleted_user = users_db.pop(item_id, None)
+@api_2.delete("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_user(user_id: int) -> None:
+    deleted_user = users_db.pop(user_id, None)
     if deleted_user is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    # 204 No Content: successful deletion with no response body
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
-@api_2.put("/items/{item_id}", status_code=status.HTTP_200_OK)
-def update_user(item_id: int, payload: UserCreateUpdate) -> UserOut:
-    if item_id in users_db:
-        # Keep the canonical user id from the path parameter during full update.
-        user_to_update = UserOut(id=item_id,
-                                 name=payload.name,
-                                 age=payload.age)
-        users_db[item_id] = user_to_update.model_dump()
-        return user_to_update
-    else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+@api_2.put("/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
+def update_user_fully(user_id: int, payload: UserCreateUpdate):
+    if user_id not in users_db:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        
+    user_to_update = UserOut(
+        id=user_id,
+        name=payload.name,
+        age=payload.age
+    )
+    users_db[user_id] = user_to_update.model_dump()
+    return user_to_update
     
-@api_2.patch("/items/{item_id}", status_code=status.HTTP_200_OK)
-def update_user_partially(item_id: int, payload: UserPartialUpdate) -> UserOut:
-    if item_id in users_db:
-        current_user = users_db[item_id]
-        updated_user = UserOut(
-            id=item_id,
-            name=payload.name if payload.name is not None else current_user["name"],
-            age=payload.age if payload.age is not None else current_user["age"],
-        )
-        users_db[item_id] = updated_user.model_dump()
-        return updated_user
-    else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+@api_2.patch("/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
+def update_user_partially(user_id: int, payload: UserPartialUpdate):
+    stored_user_data = users_db.get(user_id)
+    if not stored_user_data:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    
+    # Dynamically update only the fields the user sent
+    stored_user_model = UserOut(**stored_user_data)
+    update_data = payload.model_dump(exclude_unset=True)
+    updated_user = stored_user_model.model_copy(update=update_data)
+    
+    users_db[user_id] = updated_user.model_dump()
+    return updated_user
+
+
+"""
+What to Add for a Production API
+To transition this from a "good foundation" to a 
+"production-ready architecture," you will eventually want to implement the following patterns:
+
+Persistent Storage: An in-memory dictionary resets
+every time your server restarts. The next major step is swapping
+users_db for a real database (like PostgreSQL or SQLite) using an ORM like SQLAlchemy or SQLModel.
+
+Dependency Injection: FastAPI shines with its Depends() system.
+In a production app, you will use dependency injection to pass 
+database sessions or user authentication tokens into your route functions automatically.
+
+Layered Architecture: Right now, your routing (the @api_2 decorators),
+your business logic, and your database access are all in one function. As
+your app grows, you will want to split these into separate files
+(e.g., routes.py, crud.py, models.py) to keep the codebase maintainable.
+
+Environment Variables: Hardcoding configuration isn't safe for production.
+You will want to use Pydantic's BaseSettings to load things like database
+URLs and secret keys from a .env file.
+
+Authentication: Adding security, such as OAuth2 with JWT (JSON Web Tokens),
+to protect certain endpoints so only authorized users can create or delete data.
+
+You have nailed the HTTP layer and the data validation layer perfectly.
+
+What aspect of taking this to the next level interests you most—would
+you like to look at how to structure this into multiple files, or how to connect
+it to a real database?
+"""

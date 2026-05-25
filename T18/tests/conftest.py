@@ -7,6 +7,22 @@ import pytest
 from pathlib import Path
 from typing import Dict, Any
 
+"""
+tests/
+│
+├── conftest.py               <-- Your SINGLE conftest file is here
+│
+├── api_tests/                <-- Package 1
+│   ├── __init__.py           
+│   ├── test_endpoints.py
+│   └── test_auth.py
+│
+└── ui_tests/                 <-- Package 2
+    ├── __init__.py           
+    └── test_login.py
+"""
+
+
 # Path resolution
 file_name = Path(__file__).resolve()
 folder_dir = file_name.parents[1]
@@ -48,10 +64,10 @@ def app_config() -> Dict[str, Any]:
     return {
         "host": "127.0.0.1",
         "port": 8000,
-        "endpoint": "/items",
+        "endpoint": "/users",
     }
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(scope="package", autouse=True)
 def run_app(app_config: Dict[str, Any]):
     host = app_config["host"]
     port = app_config["port"]
@@ -69,11 +85,16 @@ def run_app(app_config: Dict[str, Any]):
             "APP_HOST": host,
             "APP_PORT": str(port),
         }
+        # Python dict keys must be unique. 
+        # If the same key appears again while building a dict,
+        # the later value wins.
     )
 
     connection_check_helper(host, port, process)
     print(f"\n[➖SETUP➖] Server is up on {host}:{port}!✅\n")
+    
     yield app_config
+    
     print("\n[➖TEARDOWN➖] Killing server...❌")
     # Teardown: Kill the entire process group
     if process.poll() is None:
@@ -81,7 +102,7 @@ def run_app(app_config: Dict[str, Any]):
         process.wait()
     print("\n[➖TEARDOWN➖] Server killed.❗")
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="function", autouse=True)
 def log_time():
     t1 = time.perf_counter_ns()
     yield
