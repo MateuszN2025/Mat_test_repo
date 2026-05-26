@@ -446,235 +446,276 @@ sol40() {
 }
 # sol40
 
+# 41. wc - Exercise 1:
+# Count the number of lines in file3.txt.
 sol41() {
     :
-    # 41. wc - Exercise 1:
-    # Count the number of lines in file3.txt.
     wc -l ./todo2.txt
 }
 # sol41
 
+# 42. wc - Exercise 2:
+# Show the number of lines, words, and bytes in a file.
 sol42() {
     :
-    # 42. wc - Exercise 2:
-    # Show the number of lines, words, and bytes in a file.
     wc ./todo2.txt
 }
 
+# 43. nano - Exercise 1:
+# Open a new file and write three short notes.
 sol43() {
     :
-    # 43. nano - Exercise 1:
-    # Open a new file and write three short notes.
 }
 
+# 44. nano - Exercise 2:
+# Edit a script and save it under the same name.
 sol44() {
     :
-    # 44. nano - Exercise 2:
-    # Edit a script and save it under the same name.
+
 }
 
+# 45. vim - Exercise 1:
+# Open a file, add one new line, save, and quit.
 sol45() {
     :
-    # 45. vim - Exercise 1:
-    # Open a file, add one new line, save, and quit.
+
 }
 
+# 46. vim - Exercise 2:
+# Search for a word inside a file and move to the next match.
 sol46() {
     :
-    # 46. vim - Exercise 2:
-    # Search for a word inside a file and move to the next match.
+
 }
 
 # =========================
 # Permissions and ownership
 # =========================
 
+# 47. chmod - Exercise 1:
+# Give the owner execute permission on script.sh.
 sol47() {
     :
-    # 47. chmod - Exercise 1:
-    # Give the owner execute permission on script.sh.
+    chmod u+x script.sh
 }
 
+# 48. chmod - Exercise 2:
+# Remove write permission for group and others from a file.
 sol48() {
     :
-    # 48. chmod - Exercise 2:
-    # Remove write permission for group and others from a file.
+    chmod g-w o-w script.sh
+
 }
 
+# 49. chown - Exercise 1:
+# Change the owner of report.txt to bob.
 sol49() {
     :
-    # 49. chown - Exercise 1:
-    # Change the owner of report.txt to bob.
+    chown report.txt bob
+
 }
 
+# 50. chown - Exercise 2:
+# Change owner recursively for a directory and everything inside it.
 sol50() {
     :
-    # 50. chown - Exercise 2:
-    # Change owner recursively for a directory and everything inside it.
+    chown -r dir/ bob
+
 }
 
+# 51. chgrp - Exercise 1:
+# Change the group of notes.txt to developers.
 sol51() {
     :
-    # 51. chgrp - Exercise 1:
-    # Change the group of notes.txt to developers.
+
 }
 
+# 52. chgrp - Exercise 2:
+# Change the group recursively for a project directory.
 sol52() {
     :
-    # 52. chgrp - Exercise 2:
-    # Change the group recursively for a project directory.
+
 }
 
+# 53. umask - Exercise 1:
+# Display the current umask value.
 sol53() {
     :
-    # 53. umask - Exercise 1:
-    # Display the current umask value.
+
 }
 
+# 54. umask - Exercise 2:
+# Temporarily set a umask so new files are not writable by group or others.
 sol54() {
     :
-    # 54. umask - Exercise 2:
-    # Temporarily set a umask so new files are not writable by group or others.
+
 }
 
 # =========================
 # Processes and jobs
 # =========================
 
+# 55. ps - Exercise 1:
+# Show processes running for the current user.
 sol55() {
     :
-    # 55. ps - Exercise 1:
-    # Show processes running for the current user.
+    ps -u root
 }
 
+# 56. ps - Exercise 2:
+# Display the top CPU-consuming processes in a sorted list.
 sol56() {
     :
-    # 56. ps - Exercise 2:
-    # Display the top CPU-consuming processes in a sorted list.
+    ps aux --sort=-%cpu | head -n 5
+    ps aux | sort -rn -k 3 | head -n 5
+    ps aux | awk 'NR==1; NR>1 {print $0 | "sort -rn -k 3"}' | head -n 5
 }
 
+# 57. top - Exercise 1:
+# Open a live process monitor and inspect CPU usage.
 sol57() {
     :
-    # 57. top - Exercise 1:
-    # Open a live process monitor and inspect CPU usage.
+
 }
 
+# 58. top - Exercise 2:
+# Sort running processes by memory usage while top is open.
 sol58() {
     :
-    # 58. top - Exercise 2:
-    # Sort running processes by memory usage while top is open.
+    # Shif + M (memory)
+    # Shift + P (cpu)
+    
 }
 
+# 59. htop - Exercise 1:
+# Open htop and inspect processes for your user.
 sol59() {
     :
-    # 59. htop - Exercise 1:
-    # Open htop and inspect processes for your user.
+
 }
 
+# 60. htop - Exercise 2:
+# Use htop to find a process consuming the most CPU.
 sol60() {
     :
-    # 60. htop - Exercise 2:
-    # Use htop to find a process consuming the most CPU.
+
 }
 
+# 61. kill - Exercise 1:
+# Stop a process by its PID using the default signal.
 sol61() {
     :
-    # 61. kill - Exercise 1:
-    # Stop a process by its PID using the default signal.
+
 }
 
+# 62. kill - Exercise 2:
+# Force stop a process that does not exit normally.
 sol62() {
     :
-    # 62. kill - Exercise 2:
-    # Force stop a process that does not exit normally.
+    kill -9 '<PID>'
 }
 
+# 63. pkill - Exercise 1:
+# Stop all processes with a given name.
 sol63() {
     :
-    # 63. pkill - Exercise 1:
-    # Stop all processes with a given name.
+
 }
 
+# 64. pkill - Exercise 2:
+# Stop all processes owned by a specific user for one command name.
 sol64() {
     :
-    # 64. pkill - Exercise 2:
-    # Stop all processes owned by a specific user for one command name.
+
 }
 
+# 65. jobs - Exercise 1:
+# Show background and stopped jobs in the current shell.
 sol65() {
     :
-    # 65. jobs - Exercise 1:
-    # Show background and stopped jobs in the current shell.
+
 }
 
+# 66. jobs - Exercise 2:
+# Start a long command in the background and confirm it appears in jobs.
 sol66() {
     :
-    # 66. jobs - Exercise 2:
-    # Start a long command in the background and confirm it appears in jobs.
+
 }
 
+# 67. bg - Exercise 1:
+# Resume a stopped job in the background.
 sol67() {
     :
-    # 67. bg - Exercise 1:
-    # Resume a stopped job in the background.
+
 }
 
+# 68. bg - Exercise 2:
+# Send the second stopped job to the background.
 sol68() {
     :
-    # 68. bg - Exercise 2:
-    # Send the second stopped job to the background.
+    
 }
 
+# 69. fg - Exercise 1:
+# Bring the most recent background job to the foreground.
 sol69() {
     :
-    # 69. fg - Exercise 1:
-    # Bring the most recent background job to the foreground.
+    
 }
 
+# 70. fg - Exercise 2:
+# Bring a specific job number back to the foreground.
 sol70() {
     :
-    # 70. fg - Exercise 2:
-    # Bring a specific job number back to the foreground.
+    
 }
 
 # =========================
 # System information
 # =========================
 
+# 71. uname - Exercise 1:
+# Print the kernel name of your system.
 sol71() {
     :
-    # 71. uname - Exercise 1:
-    # Print the kernel name of your system.
+    uname
 }
 
+# 72. uname - Exercise 2:
+# Show all available system information in one command.
 sol72() {
     :
-    # 72. uname - Exercise 2:
-    # Show all available system information in one command.
+    uname -a
 }
 
+# 73. df - Exercise 1:
+# Show disk usage for all mounted filesystems in human-readable format.
 sol73() {
     :
-    # 73. df - Exercise 1:
-    # Show disk usage for all mounted filesystems in human-readable format.
+
 }
 
+# 74. df - Exercise 2:
+# Check disk usage only for the filesystem containing your home directory.
 sol74() {
     :
-    # 74. df - Exercise 2:
-    # Check disk usage only for the filesystem containing your home directory.
+    df -h /home/mniedziolka/
 }
 
+# 75. du - Exercise 1:
+# Show the size of the current directory in human-readable format.
 sol75() {
     :
-    # 75. du - Exercise 1:
-    # Show the size of the current directory in human-readable format.
+    du -sh /home/mniedziolka/
 }
 
+# 76. du - Exercise 2:
+# Find the sizes of immediate subdirectories only.
 sol76() {
     :
-    # 76. du - Exercise 2:
-    # Find the sizes of immediate subdirectories only.
+    du -h -d 1
+    du -sh */
 }
 
 sol77() {
