@@ -3,6 +3,8 @@ import pytest
 
 def test_standalone_get_status_code_all_users(run_app: dict):
     response = requests.get(url=run_app['url'])
+    # print(f"response.json()|{response.json()}") # dict, list, etc.
+    # print(f"response.text|{response.text}") # str 
     assert response.status_code == 200, "wrong status code"
 
 # TestLogin
@@ -26,20 +28,3 @@ class TestClass:
         assert response.json() == exp_data
         assert response.status_code == exp_sts, "wrong status code"
     
-
-
-
-# def test_2():
-#     response = requests.get(url="http://127.0.0.1:8000/items")
-#     assert response.status_code == 200, "wrong status code"
-
-# @pytest.mark.usefixtures("log_time")
-# class TestClass1():
-#     def test_3(self):
-#         response = requests.get(url="http://127.0.0.1:8000/items")
-#         assert response.status_code == 200, "wrong status code"
-
-
-#     def test_4(self):
-#         response = requests.get(url="http://127.0.0.1:8000/items")
-#         assert response.status_code == 200, "wrong status code"
