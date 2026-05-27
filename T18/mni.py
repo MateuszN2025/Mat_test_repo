@@ -48,4 +48,16 @@ new_user_data = {"name": "Klint", "age": 133}
 new_user_exp_data = {"id": user_id}
 new_user_exp_data = new_user_exp_data | new_user_data
 # combined = {**dict1, **dict2}
-print(f"{new_user_exp_data}")
+# print(f"{new_user_exp_data}")
+
+class c_l_a_s:
+    a = 1
+    
+print(c_l_a_s.a)
+print("------------------------------------------")
+print(c_l_a_s.__dict__)
+c_l_a_s.b = 2
+print(c_l_a_s.b)
+print("------------------------------------------")
+print(c_l_a_s.__dict__)
+

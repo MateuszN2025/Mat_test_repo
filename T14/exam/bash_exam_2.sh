@@ -61,7 +61,7 @@ sol1() {
 # List files in a target directory sorted by size from largest to smallest.
 sol2() {
     :
-    ls -lS | grep '^-'
+    ls -lS "${1:-.}" | grep '^-'
 }
 
 # 3. cd - Exercise 1:
@@ -75,7 +75,7 @@ sol3() {
 # Move back to the previous directory without typing its full path again.
 sol4() {
     :
-    cd ..
+    cd -
 }
 
 # 5. pwd - Exercise 1:
@@ -120,7 +120,7 @@ sol7() {
 # -v helps while learning or debugging scripts.
 sol8() {
     :
-    mkdir -p temp_empty1 temp_empty2
+    mkdir -p logs/archive/2026
 }
 # sol8
 
@@ -128,7 +128,7 @@ sol8() {
 # Remove an empty directory named temp_empty.
 sol9() {
     :
-    rm -r temp_empty
+    rmdir temp_empty
 }
 # sol9
 
@@ -136,7 +136,7 @@ sol9() {
 # Remove two empty directories with one command.
 sol10() {
     :
-    rm -r temp_empty1 temp_empty2
+    rmdir temp_empty1 temp_empty2
 }
 # sol10
 
@@ -145,7 +145,7 @@ sol10() {
 sol11() {
     :
     # touch file1.txt
-    cp file1.txt file3_backup.sh
+    cp file1.txt file1_backup.txt
 }
 # sol11
 
@@ -161,7 +161,7 @@ sol12() {
     # done
     # mkdir sh_files
     for file in *.sh; do
-        cp $file ./sh_files
+        cp "$file" ./sh_files
     done
 
 }
@@ -202,14 +202,7 @@ sol15() {
 # Remove a directory with all its contents.
 sol16() {
     :
-    # rm -f ./sh_files/*.sh
-    # rm -r ./logs/
-    # pwd
-    for file in *.*; do
-        if [[ "$file" != "bash_exam.sh" ]]; then
-            rm -f $file
-        fi
-    done
+    rm -rf ./logs/
 
     # != → string not equal
     # -ne → numeric not equal (integers)
@@ -290,7 +283,7 @@ sol24() {
 # Display the full content of file1.txt.
 sol25() {
     :
-    cat todo1.txt
+    cat file1.txt
 }
 
 # 26. cat - Exercise 2:
@@ -341,7 +334,7 @@ sol30() {
 # Show the first 5 lines of file2.txt.
 sol31() {
     :
-    head -5 err.txt
+    head -n 5 file2.txt
 }
 # sol31
 
@@ -349,9 +342,9 @@ sol31() {
 # Print the first 20 lines from every .log file in a directory.
 sol32() {
     :
-    for i in *.*; do
+    for i in *.log; do
         printf "\n=== $i ===\n"
-        nl -ba $i | head -5
+        head -n 20 "$i"
     done
 }
 # sol32
@@ -360,7 +353,7 @@ sol32() {
 # Show the last 10 lines of a log file.
 sol33() {
     :
-    nl -ba err.txt | tail -10 
+    tail -n 10 err.txt
 }
 # sol33
 # 34. tail - Exercise 2:
@@ -399,7 +392,7 @@ sol34() {
 # Search recursively for the word pytest in the current directory.
 sol35() {
     :
-    grep -r PYTEST .
+    grep -R "pytest" .
 }
 # sol35
 
@@ -407,7 +400,7 @@ sol35() {
 # Print only lines that start with ERROR from a log file.
 sol36() {
     :
-    grep -i ERROR ./todo3*
+    grep '^ERROR' ./*.log
 }
 # sol36
 
@@ -511,7 +504,7 @@ sol48() {
 # Change the owner of report.txt to bob.
 sol49() {
     :
-    chown report.txt bob
+    chown bob report.txt
 
 }
 
@@ -519,7 +512,7 @@ sol49() {
 # Change owner recursively for a directory and everything inside it.
 sol50() {
     :
-    chown -r dir/ bob
+    chown -R bob dir/
 
 }
 
@@ -559,7 +552,7 @@ sol54() {
 # Show processes running for the current user.
 sol55() {
     :
-    ps -u root
+    ps -u "$(whoami)"
 }
 
 # 56. ps - Exercise 2:
@@ -693,7 +686,7 @@ sol72() {
 # Show disk usage for all mounted filesystems in human-readable format.
 sol73() {
     :
-
+    df -h
 }
 
 # 74. df - Exercise 2:
@@ -707,7 +700,7 @@ sol74() {
 # Show the size of the current directory in human-readable format.
 sol75() {
     :
-    du -sh /home/mniedziolka/
+    du -sh .
 }
 
 # 76. du - Exercise 2:
@@ -722,14 +715,14 @@ sol76() {
 # Show memory usage in human-readable format.
 sol77() {
     :
-    
+    free -h
 }
 
 # 78. free - Exercise 2:
 # Display memory usage repeatedly with a short delay.
 sol78() {
     :    
-    while true; do free -h | awk '{ print $2 }'; sleep 1; done
+    free -h -s 1
 }
 
 # 79. uptime - Exercise 1:
@@ -750,21 +743,21 @@ sol80() {
 # Print the current username.
 sol81() {
     :
-
+    whoami
 }
 
 # 82. whoami - Exercise 2:
 # Confirm which user is running a script before doing admin actions
 sol82() {
     :
-
+    echo "Running as: $(whoami)"
 }
 
 # 83. id - Exercise 1:
 # Show your UID, GID, and groups.
 sol83() {
     :
-
+    id
 }
 
 # 84. id - Exercise 2:
@@ -778,7 +771,7 @@ sol84() {
 # Print all environment variables.
 sol85() {
     :
-
+    env
 }
 
 # 86. env - Exercise 2:
@@ -792,14 +785,14 @@ sol86() {
 # Show the last 20 commands from your shell history.
 sol87() {
     :
-    history | head -n 20
+    history | tail -n 20
 }
 
 # 88. history - Exercise 2:
 # Find previous commands related to pytest or docker.
 sol88() {
     :
-    history | grep python
+    history | grep -Ei 'pytest|docker'
 }
 
 # =========================
@@ -810,7 +803,7 @@ sol88() {
 # Check whether google.com responds to network requests.
 sol89() {
     :
-
+    ping google.com
 }
 
 # 90. ping - Exercise 2:
@@ -838,7 +831,7 @@ sol92() {
 # Show network interface details on a system where ifconfig is available.
 sol93() {
     :
-    
+    ifconfig
 }
 
 # 94. ifconfig - Exercise 2:
@@ -852,7 +845,7 @@ sol94() {
 # Show listening TCP ports on the machine.
 sol95() {
     :
-    netstat --tcp
+    netstat -tln
 }
 
 # 96. netstat - Exercise 2:
@@ -879,7 +872,7 @@ sol98() {
     #  shut off its progress meter and error messages.
     # curl -s "http://127.0.0.1:8000/users" | jq
 
-    curl "http://127.0.0.1:8000/users" 2> /dev/null | jq
+    curl -I "http://127.0.0.1:8000/users"
     # So when curl uses 2>, it isn't saying "An error occurred!"
     #  It is saying "Here is some diagnostic background noise about the download.
     #  I'm putting it over here so it doesn't mess up your actual data."
@@ -935,7 +928,7 @@ sol104() {
     :
     # 104. scp - Exercise 2:
     # Copy a remote directory to your local machine recursively.
-    sshpass -p "changeme1@" scp -r ./temp vboxuser1@192.168.0.152:/home/vboxuser1
+    sshpass -p "changeme1@" scp -r vboxuser1@192.168.0.152:/home/vboxuser1/temp ./
 }
 # sol104
 
@@ -969,7 +962,7 @@ sol106() {
 # Compress a file named big.log.
 sol107() {
     :
-    gzip custom_name.txt
+    gzip big.log
 
 }
 # sol107
@@ -980,7 +973,7 @@ sol108() {
     :
     # You actually only really need the gzip command. gunzip is 
     # literally just a shortcut for running gzip with the -d (decompress) flag.
-    gzip -d custom_name.txt.gz
+    gzip ./*.txt
 }
 # sol108
 
@@ -988,7 +981,7 @@ sol108() {
 # Decompress a file named report.txt.gz.
 sol109() {
     :
-
+    gunzip report.txt.gz
 }
 
 # 110. gunzip - Exercise 2:
@@ -1004,7 +997,7 @@ sol110() {
 # Create a zip archive from two text files.
 sol111() {
     :
-    zip err.zip err.txt
+    zip archive.zip file1.txt file2.txt
 
 }
 # sol111
@@ -1022,7 +1015,7 @@ sol112() {
 # Extract archive.zip into the current directory.
 sol113() {
     :
-    unzip directory.zip -d ./zippers
+    unzip archive.zip
 }
 # sol113
 
@@ -1030,7 +1023,7 @@ sol113() {
 # Extract an archive into a directory named extracted_files.
 sol114() {
     :
-
+    unzip archive.zip -d extracted_files
 }
 
 # =========================
@@ -1040,7 +1033,7 @@ sol114() {
 # Print the first and third columns from a text file.
 sol115() {
     :
-    cat columns.txt | awk '{print $1 $3}'
+    awk '{print $1, $3}' columns.txt
 }
 # sol115
 
@@ -1048,8 +1041,7 @@ sol115() {
 # Print only the second line of a file.
 sol116() {
     :
-
-    awk 'NR == 2 {print $1, $3; exit}' columns.txt
+    awk 'NR == 2 {print; exit}' columns.txt
 }
 # sol116
 
@@ -1057,8 +1049,7 @@ sol116() {
 # Replace every occurrence of foo with bar in a file output.
 sol117() {
     :
-    sed -i 's/foo/bar/g' foobar.txt
-    # sed 's/foo/bar/g' foobar.txt > new_file.txt
+    sed 's/foo/bar/g' foobar.txt
 }
 # sol117
 
@@ -1078,13 +1069,12 @@ sol118() {
 # Print the first field from /etc/passwd using : as the delimiter.
 sol119() {
     :
-    cut -d ':' -f 3 /etc/passwd
+    cut -d ':' -f 1 /etc/passwd
     # -d ':': Specifies the delimiter (the character that separates the columns).
     #  In this case, it is a colon.
 
     # -f 1: Specifies the field (column) number you want to extract. 
     # Field 1 in /etc/passwd corresponds to the usernames.
-    awk -F':' '{print $1}' /etc/passwd
     # -F':': This is the awk way of setting the Field separator (the delimiter).
 
 }
@@ -1094,7 +1084,7 @@ sol119() {
 # Extract characters 1 to 5 from every line in a file.
 sol120() {
     :
-    cut -c 1-2 foobar.txt
+    cut -c 1-5 foobar.txt
 }
 # sol120
 
@@ -1135,14 +1125,14 @@ sol124() {
 # Read a list of filenames from standard input and remove them.
 sol125() {
     :
-
+    xargs rm
 }
 
 # 126. xargs - Exercise 2:
 # Use find and xargs together to count lines in multiple files.
 sol126() {
     :
-    echo 126
+    find . -name "*.log" -print0 | xargs -0 wc -l
     # find . -name "*.log" | rm # rm: missing operand
     # 
     # find . -name "*.log" | xargs rm
@@ -1179,7 +1169,7 @@ sol127() {
     :
     # 127. apt - Exercise 1:
     # Refresh package lists on a Debian-based system.
-    # sudo apt update          # Updates the local list of available packages
+    sudo apt update
     # sudo apt upgrade         # Upgrades all installed packages to newer versions
     # sudo apt full-upgrade    # Upgrades packages, handling changing dependencies
     # sudo apt install <pkg>   # Downloads and installs a specific package
@@ -1196,42 +1186,49 @@ sol128() {
     :
     # 128. apt - Exercise 2:
     # Install one package and then inspect whether it is installed.
+    sudo apt install -y tree && apt list --installed | grep '^tree/'
 }
 
 sol129() {
     :
     # 129. yum - Exercise 1:
     # Install a package on a yum-based system.
+    sudo yum install -y tree
 }
 
 sol130() {
     :
     # 130. yum - Exercise 2:
     # Search for packages matching the word docker.
+    yum search docker
 }
 
 sol131() {
     :
     # 131. dnf - Exercise 1:
     # Update package metadata on a dnf-based system.
+    sudo dnf makecache
 }
 
 sol132() {
     :
     # 132. dnf - Exercise 2:
     # Remove a package that is no longer needed.
+    sudo dnf remove -y tree
 }
 
 sol133() {
     :
     # 133. pacman - Exercise 1:
     # Synchronize package databases on an Arch-based system.
+    sudo pacman -Sy
 }
 
 sol134() {
     :
     # 134. pacman - Exercise 2:
     # Install a package and check its files.
+    sudo pacman -S --noconfirm tree && pacman -Ql tree
 }
 
 # =========================
@@ -1333,7 +1330,7 @@ sol144() {
     # Show unique logged-in usernames in sorted order
     # who | awk '{print $1}' | sort | uniq
     # ps -eo pid,user,pcpu,pmem,comm --sort=-pcpu | head -n 6
-    ps -eo pid=PID,user=USER,pcpu=%CPU,pmem=%MEM,comm=COMM --sort=-pcpu | head -n 6
+    who | awk '{print $1}' | sort | uniq
 }
 # sol144
 
@@ -1359,11 +1356,7 @@ sol146() {
 # Pass a file into a command that can read from standard input.
 sol147() {
     :
-    # Heredoc: pass multi-line Python code to stdin.
-    # Call with: sol147 < todo1.txt
-    python3 << 'EOF'
-print("hello")
-EOF
+    wc -l < todo1.txt
 }
 # sol147
 
@@ -1540,7 +1533,7 @@ sol159() {
 file=todo1.txt
 sol160() {
     :
-    if [[ -f $file ]]; then
+    if [[ -f "$1" ]]; then
         echo "FILE EXISTS"
     else
         echo "FILE DOES NOT EXIST"
