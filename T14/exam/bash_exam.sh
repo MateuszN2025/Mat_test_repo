@@ -718,164 +718,208 @@ sol76() {
     du -sh */
 }
 
+# 77. free - Exercise 1:
+# Show memory usage in human-readable format.
 sol77() {
     :
-    # 77. free - Exercise 1:
-    # Show memory usage in human-readable format.
+    
 }
 
+# 78. free - Exercise 2:
+# Display memory usage repeatedly with a short delay.
 sol78() {
-    :
-    # 78. free - Exercise 2:
-    # Display memory usage repeatedly with a short delay.
+    :    
+    while true; do free -h | awk '{ print $2 }'; sleep 1; done
 }
 
+# 79. uptime - Exercise 1:
+# Show how long the system has been running.
 sol79() {
     :
-    # 79. uptime - Exercise 1:
-    # Show how long the system has been running.
+    uptime -p
 }
 
+# 80. uptime - Exercise 2:
+# Check the current load average of the machine.
 sol80() {
     :
-    # 80. uptime - Exercise 2:
-    # Check the current load average of the machine.
+    uptime
 }
 
+# 81. whoami - Exercise 1:
+# Print the current username.
 sol81() {
     :
-    # 81. whoami - Exercise 1:
-    # Print the current username.
+
 }
 
+# 82. whoami - Exercise 2:
+# Confirm which user is running a script before doing admin actions
 sol82() {
     :
-    # 82. whoami - Exercise 2:
-    # Confirm which user is running a script before doing admin actions.
+.
 }
 
+# 83. id - Exercise 1:
+# Show your UID, GID, and groups.
 sol83() {
     :
-    # 83. id - Exercise 1:
-    # Show your UID, GID, and groups.
+
 }
 
+# 84. id - Exercise 2:
+# Print only the username of the current user.
 sol84() {
     :
-    # 84. id - Exercise 2:
-    # Print only the username of the current user.
+    id -un
 }
 
+# 85. env - Exercise 1:
+# Print all environment variables.
 sol85() {
     :
-    # 85. env - Exercise 1:
-    # Print all environment variables.
+
 }
 
+# 86. env - Exercise 2:
+# Check the values of PATH and HOME during a shell session.
 sol86() {
     :
-    # 86. env - Exercise 2:
-    # Check the values of PATH and HOME during a shell session.
+    env | grep 'HOME\|PATH'
 }
 
+# 87. history - Exercise 1:
+# Show the last 20 commands from your shell history.
 sol87() {
     :
-    # 87. history - Exercise 1:
-    # Show the last 20 commands from your shell history.
+    history | head -n 20
 }
 
+# 88. history - Exercise 2:
+# Find previous commands related to pytest or docker.
 sol88() {
     :
-    # 88. history - Exercise 2:
-    # Find previous commands related to pytest or docker.
+    history | grep python
 }
 
 # =========================
 # Networking
 # =========================
 
+# 89. ping - Exercise 1:
+# Check whether google.com responds to network requests.
 sol89() {
     :
-    # 89. ping - Exercise 1:
-    # Check whether google.com responds to network requests.
+
 }
 
+# 90. ping - Exercise 2:
+# Send only 4 ping packets to a target host.
 sol90() {
     :
-    # 90. ping - Exercise 2:
-    # Send only 4 ping packets to a target host.
+    ping -c 4 google.com
 }
 
+# 91. ip - Exercise 1:
+# Show all IP addresses assigned to your machine.
 sol91() {
     :
-    # 91. ip - Exercise 1:
-    # Show all IP addresses assigned to your machine.
+    ip a
 }
 
+# 92. ip - Exercise 2:
+# Display routing information for the system.
 sol92() {
     :
-    # 92. ip - Exercise 2:
-    # Display routing information for the system.
+    ip route
 }
 
+# 93. ifconfig - Exercise 1:
+# Show network interface details on a system where ifconfig is available.
 sol93() {
     :
-    # 93. ifconfig - Exercise 1:
-    # Show network interface details on a system where ifconfig is available.
+    
 }
 
+# 94. ifconfig - Exercise 2:
+# Inspect a single network interface and read its IP address.
 sol94() {
     :
-    # 94. ifconfig - Exercise 2:
-    # Inspect a single network interface and read its IP address.
+    ifconfig | grep eth0
 }
 
+# 95. netstat - Exercise 1:
+# Show listening TCP ports on the machine.
 sol95() {
     :
-    # 95. netstat - Exercise 1:
-    # Show listening TCP ports on the machine.
+    netstat --tcp
 }
 
+# 96. netstat - Exercise 2:
+# Display established network connections with numeric addresses.
 sol96() {
     :
-    # 96. netstat - Exercise 2:
-    # Display established network connections with numeric addresses.
+    netstat -atn | grep ESTABLISHED
 }
 
+# 97. curl - Exercise 1:
+# Send a GET request to a public API endpoint.
 sol97() {
     :
-    # 97. curl - Exercise 1:
-    # Send a GET request to a public API endpoint.
+    curl "http://127.0.0.1:8000/users"
 }
 
+# 98. curl - Exercise 2:
+# Download only the response headers from a URL.
 sol98() {
     :
-    # 98. curl - Exercise 2:
-    # Download only the response headers from a URL.
-}
 
-sol99() {
+    # curl -I "http://127.0.0.1:8000/users" 
+    # The -s (or --silent) flag tells curl to completely
+    #  shut off its progress meter and error messages.
+    # curl -s "http://127.0.0.1:8000/users" | jq
+
+    curl "http://127.0.0.1:8000/users" 2> /dev/null | jq
+    # So when curl uses 2>, it isn't saying "An error occurred!"
+    #  It is saying "Here is some diagnostic background noise about the download.
+    #  I'm putting it over here so it doesn't mess up your actual data."
+
+    #  -H "Content-Type: application/json": This header tells the server:
+    #  "If I send you any data, it is going to be formatted as JSON."
+
+    # -H "Accept: application/json": This header tells the server: 
+    # "Please send your response back to me formatted as JSON."
+}
+# sol98
+
+# 99. wget - Exercise 1:
+# Download a file from a URL into the current directory.
+sol99() {    
     :
-    # 99. wget - Exercise 1:
-    # Download a file from a URL into the current directory.
+    wget http://localhost:8121/m_file
 }
 
+# 100. wget - Exercise 2:
+# Save a downloaded file under a custom name.
 sol100() {
     :
-    # 100. wget - Exercise 2:
-    # Save a downloaded file under a custom name.
-}
+    wget -O custom_name.txt http://localhost:8121/m_file
 
+}
+# sol100
+
+# 101. ssh - Exercise 1:
+# Connect to a remote host with a specific username.
 sol101() {
     :
-    # 101. ssh - Exercise 1:
-    # Connect to a remote host with a specific username.
+    ssh vboxuser1@192.168.0.152
 }
 
+# 102. ssh - Exercise 2:
+# Run one remote command over SSH without opening an interactive shell.
 sol102() {
     :
-    # 102. ssh - Exercise 2:
-    # Run one remote command over SSH without opening an interactive shell.
+    sshpass -p "changeme1@" ssh vboxuser1@192.168.0.152 'pwd'
 }
 
 sol103() {
@@ -1055,7 +1099,7 @@ sol126() {
 
 
 }
-sol126
+# sol126
 
 # =========================
 # Package management
@@ -1065,17 +1109,17 @@ sol127() {
     :
     # 127. apt - Exercise 1:
     # Refresh package lists on a Debian-based system.
-    sudo apt update          # Updates the local list of available packages
-    sudo apt upgrade         # Upgrades all installed packages to newer versions
-    sudo apt full-upgrade    # Upgrades packages, handling changing dependencies
-    sudo apt install <pkg>   # Downloads and installs a specific package
-    sudo apt remove <pkg>    # Uninstalls a package but keeps its config files
-    sudo apt purge <pkg>     # Completely removes a package and its config files
-    apt search <keyword>     # Searches package names and descriptions for a term
-    apt show <pkg>           # Displays detailed information about a package
-    apt list --installed     # Lists all packages currently installed on the system
-    sudo apt autoremove      # Removes leftover dependencies no longer needed
-    sudo apt clean           # Clears cached installer files to free up disk space
+    # sudo apt update          # Updates the local list of available packages
+    # sudo apt upgrade         # Upgrades all installed packages to newer versions
+    # sudo apt full-upgrade    # Upgrades packages, handling changing dependencies
+    # sudo apt install <pkg>   # Downloads and installs a specific package
+    # sudo apt remove <pkg>    # Uninstalls a package but keeps its config files
+    # sudo apt purge <pkg>     # Completely removes a package and its config files
+    # apt search <keyword>     # Searches package names and descriptions for a term
+    # apt show <pkg>           # Displays detailed information about a package
+    # apt list --installed     # Lists all packages currently installed on the system
+    # sudo apt autoremove      # Removes leftover dependencies no longer needed
+    # sudo apt clean           # Clears cached installer files to free up disk space
 }
 
 sol128() {

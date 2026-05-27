@@ -42,4 +42,10 @@ usr = users_db[1]
 # print(usr)
 
 a = [{"id":1,"name":"Bob","age":43},{"id":2,"name":"Sam","age":54}]
-print(a.max())
+# print(a.max())
+user_id = 1
+new_user_data = {"name": "Klint", "age": 133}
+new_user_exp_data = {"id": user_id}
+new_user_exp_data = new_user_exp_data | new_user_data
+# combined = {**dict1, **dict2}
+print(f"{new_user_exp_data}")
