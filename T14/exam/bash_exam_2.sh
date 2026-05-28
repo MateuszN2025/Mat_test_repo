@@ -252,13 +252,13 @@ sol20() {
 # 21. locate - Exercise 1:
 # Search for a file named compose.yaml using the locate database.
 sol21() {
-    :
+    locate compose.yaml
 }
 
 # 22. locate - Exercise 2:
 # Find all paths containing the word jenkins.
 sol22() {
-    :
+    locate jenkins
 }
 
 # 23. tree - Exercise 1:
@@ -457,27 +457,29 @@ sol42() {
 # 43. nano - Exercise 1:
 # Open a new file and write three short notes.
 sol43() {
-    :
+    nano notes1.txt
 }
 
 # 44. nano - Exercise 2:
 # Edit a script and save it under the same name.
 sol44() {
-    :
+    nano script.sh
 
 }
 
 # 45. vim - Exercise 1:
 # Open a file, add one new line, save, and quit.
 sol45() {
-    :
+    vim file1.txt
 
 }
 
 # 46. vim - Exercise 2:
 # Search for a word inside a file and move to the next match.
 sol46() {
-    :
+    # Open file and search for a word, then move to next match
+    vim file1.txt
+    # Inside vim: /word and press n for next
 
 }
 
@@ -519,28 +521,28 @@ sol50() {
 # 51. chgrp - Exercise 1:
 # Change the group of notes.txt to developers.
 sol51() {
-    :
+    chgrp developers notes.txt
 
 }
 
 # 52. chgrp - Exercise 2:
 # Change the group recursively for a project directory.
 sol52() {
-    :
+    chgrp -R developers project_dir/
 
 }
 
 # 53. umask - Exercise 1:
 # Display the current umask value.
 sol53() {
-    :
+    umask
 
 }
 
 # 54. umask - Exercise 2:
 # Temporarily set a umask so new files are not writable by group or others.
 sol54() {
-    :
+    umask 077
 
 }
 
@@ -793,6 +795,8 @@ sol87() {
 sol88() {
     :
     history | grep -Ei 'pytest|docker'
+    # Without -E: You would have to write 'pytest\|docker'.
+    # With -E: You can cleanly write 'pytest|docker'.
 }
 
 # =========================
@@ -874,11 +878,11 @@ sol98() {
 
     curl -I "http://127.0.0.1:8000/users"
     # So when curl uses 2>, it isn't saying "An error occurred!"
-    #  It is saying "Here is some diagnostic background noise about the download.
-    #  I'm putting it over here so it doesn't mess up your actual data."
+    # It is saying "Here is some diagnostic background noise about the download.
+    # I'm putting it over here so it doesn't mess up your actual data."
 
-    #  -H "Content-Type: application/json": This header tells the server:
-    #  "If I send you any data, it is going to be formatted as JSON."
+    # -H "Content-Type: application/json": This header tells the server:
+    # "If I send you any data, it is going to be formatted as JSON."
 
     # -H "Accept: application/json": This header tells the server: 
     # "Please send your response back to me formatted as JSON."
