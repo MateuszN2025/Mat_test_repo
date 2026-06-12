@@ -59,8 +59,7 @@ def create_user(payload: UserCreateUpdate):
 
 @api_2.delete("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user(user_id: int) -> None:
-    deleted_user = users_db.pop(user_id, None)
-    if deleted_user is None:
+        if users_db.pop(user_id, None) is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
 @api_2.put("/users/{user_id}", response_model=UserOut, status_code=status.HTTP_200_OK)
