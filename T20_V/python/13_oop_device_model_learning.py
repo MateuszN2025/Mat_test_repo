@@ -7,6 +7,7 @@ Run:
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+import w_r
 
 
 class EmbeddedDevice(ABC):
@@ -43,7 +44,7 @@ class Alarm(EmbeddedDevice):
             return "offline"
         return "armed" if self.armed else "disarmed"
 
-
+@w_r
 def main() -> int:
     devices: list[EmbeddedDevice] = [
         Camera(name="camera-front", stream_running=True),

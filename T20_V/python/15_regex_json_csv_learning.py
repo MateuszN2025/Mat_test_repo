@@ -10,6 +10,7 @@ import csv
 import json
 from pathlib import Path
 import re
+import w_r
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +34,7 @@ def read_csv_results(csv_path: Path) -> list[dict[str, str]]:
     with csv_path.open(encoding="utf-8", newline="") as file_handle:
         return list(csv.DictReader(file_handle))
 
-
+@w_r
 def main() -> int:
     failures = detect_failures(DATA_DIR / "sample_device.log")
     summary = read_json_summary(DATA_DIR / "sample_report.json")

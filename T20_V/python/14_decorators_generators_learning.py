@@ -9,6 +9,7 @@ from __future__ import annotations
 from collections.abc import Callable, Iterator
 from functools import wraps
 import time
+import w_r
 
 
 def log_step(step_name: str) -> Callable[[Callable[..., str]], Callable[..., str]]:
@@ -39,7 +40,7 @@ def get_latest_sensor_state() -> str:
         print(f"sensor value: {latest_value}")
     return f"latest={latest_value}"
 
-
+@w_r
 def main() -> int:
     state = get_latest_sensor_state()
     print(state)

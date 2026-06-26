@@ -7,6 +7,7 @@ Run:
 from __future__ import annotations
 
 from dataclasses import dataclass
+import w_r
 
 
 @dataclass
@@ -36,7 +37,7 @@ def then_device_responds_to_health_check(world: DeviceWorld) -> None:
 def then_main_service_is_healthy(world: DeviceWorld) -> None:
     assert world.service_ok is True
 
-
+@w_r
 def main() -> int:
     world = DeviceWorld()
     scenario_steps = [
