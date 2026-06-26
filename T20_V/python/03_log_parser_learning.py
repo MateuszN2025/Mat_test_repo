@@ -21,6 +21,12 @@ LOG_LINES = [
 
 def parse_levels(lines: list[str]) -> Counter[str]:
     counts: Counter[str] = Counter()
+    
+    # counts = {}
+    # for line in lines:
+    #     level = line.split()[0]
+    #     counts[level] = counts.get(level, 0) + 1
+    
     for line in lines:
         # Splitting by the first token is a simple but common log summary technique.
         level = line.split()[0]
@@ -30,6 +36,9 @@ def parse_levels(lines: list[str]) -> Counter[str]:
 @w_r
 def main():
     counts = parse_levels(LOG_LINES)
+    print("------------------------------------------")
+    print(counts)
+    print("------------------------------------------")
     print("Log level summary:")
     for level, count in counts.items():
         print(f"- {level}: {count}")

@@ -13,8 +13,18 @@ import w_r
 
 
 def build_parser() -> argparse.ArgumentParser:
+    # Create the command-line parser object.
     parser = argparse.ArgumentParser(description="Tiny device log checker")
-    parser.add_argument("--log-file", type=Path, required=True, help="Path to a device log file")
+    parser.add_argument(
+        "--log-file",
+        # Convert the CLI string directly into a pathlib.Path object.
+        type=Path, # type=Path makes args.log_file a Path, not a plain string.
+        # Use /tmp/device.log if the user does not pass --log-file.
+        default=Path("/tmp/device.log"),
+        # Help text shown in --help output.
+        help="Path to a device log file (default: /tmp/device.log)",
+    )
+    # Optional argument: text that the script will search for inside the log file.
     parser.add_argument("--expected-text", default="boot completed", help="Text that must exist")
     return parser
 
