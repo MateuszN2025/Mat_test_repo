@@ -9,6 +9,7 @@ from __future__ import annotations
 import shlex
 import subprocess
 from dataclasses import dataclass
+import w_r
 
 
 @dataclass
@@ -35,7 +36,7 @@ def run_check(name: str, command: str) -> CheckResult:
     details = result.stdout.strip() or result.stderr.strip() or "no output"
     return CheckResult(name=name, passed=passed, details=details)
 
-
+@w_r
 def main() -> int:
     checks = [
         # In a real lab, replace these with health endpoints, service checks, or device CLI commands.

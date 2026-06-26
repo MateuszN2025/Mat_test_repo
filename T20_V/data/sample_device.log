@@ -1,0 +1,8 @@
+INFO bootrom: power good
+INFO kernel: starting services
+INFO service=video-stream status=starting
+ERROR api timeout while registering camera
+WARNING retry scheduled
+Kernel panic - not syncing: fatal exception in interrupt
+INFO service=alarm-daemon status=healthy
+ERROR watchdog reset detected

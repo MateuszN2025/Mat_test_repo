@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "suite": "device-smoke",
+  "passed": 7,
+  "failed": 2
+}

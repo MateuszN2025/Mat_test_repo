@@ -1,0 +1,4 @@
+case_name,status,duration_seconds
+boot_smoke,passed,12
+api_health,failed,5
+ssh_service_check,passed,3

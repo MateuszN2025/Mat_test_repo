@@ -7,6 +7,7 @@ Run:
 from __future__ import annotations
 
 from collections import Counter
+import w_r
 
 
 LOG_LINES = [
@@ -26,8 +27,8 @@ def parse_levels(lines: list[str]) -> Counter[str]:
         counts[level] += 1
     return counts
 
-
-if __name__ == "__main__":
+@w_r
+def main():
     counts = parse_levels(LOG_LINES)
     print("Log level summary:")
     for level, count in counts.items():
@@ -35,3 +36,7 @@ if __name__ == "__main__":
 
     if counts["ERROR"]:
         print("Important: even one ERROR line should trigger investigation in embedded QA.")
+
+
+if __name__ == "__main__":
+    main()
