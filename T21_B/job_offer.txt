@@ -1,0 +1,53 @@
+company is a global product leader in delivering innovative and sustainable mobility solutions for the vehicle market. We are a company of innovators and independent thinkers that brings together talented employees, meaningful work, and amazing technology in a unique environment. At company, we constantly work towards our vision of a clean and energy-efficient world.
+
+
+
+At company, we design and manufacture the systems that define the way the world moves forward. With the world’s foremost technologists, engineers, and OEMs, we’re accelerating the world’s transformation to eMobility.
+
+Products and solutions range from existing portfolio Power Electronics - company.
+
+Job purpose
+
+System Development Engineer is a part of the systems engineering competency at our Technical Center in Kraków.
+
+The PowerDrive Systems business unit is responsible to deliver hybrid and full electric vehicle solutions to customers. The system feature owner will be responsible for the key areas of inverters, across a complete development V cycle, from concept to final test.
+
+Key responsibilities
+
+    Lead technical development for the system feature with cross-functional development teams, component leads and customers.
+    Negotiate the technical requirements, scope and subcontract deliverables for the system feature.
+    Use knowledge to drive and disseminate system level requirements and architectural proposals.
+    Use knowledge to ensure designs meet requirements and test quality and coverage are ensured.
+    Drive engineering competencies, suppliers, and partners to ensure commitment to internal quality processes during the development, execution and verification.
+    Lead the technical analysis, trade off studies, FMEAs, design reviews and customer presentations for the defined features.
+    Manage the execution of all systems engineering activities and product deliverables consistent with the SE process.
+    Be a single point of reference for related change requests and issue investigations.
+    Work closely with the SW, HW and Testing team to drive the implementation and verification for the defined features.
+    Support the definition and continuous improvement of systems engineering processes, methods, and tools.
+    Document and share best-practices.
+    Mentor less experienced engineers; role model for BW Beliefs.
+
+What we’re looking for
+
+    Bachelor’s degree in Electrical Engineering, Mechatronics Engineering or similar
+    Experience in related engineering field applying Systems Engineering principles throughout the product life cycle in one or more of the following areas:
+    Automotive electronics product development
+    Power electronics, especially motor drive inverters
+    Systems Engineering
+    In depth knowledge of requirements elicitation, analysis, definition, and management
+    Experience with electronics systems, especially in the areas of sensors and actuators
+    Excellent analytical and problem solving skills
+    Knowledge of embedded software and / or hardware development.
+    Excellent verbal and written communication skills in English language. French or German is a benefit.
+    Organized and structured work-style and attention to detail.
+    Ability to solve problems efficiently and effectively.
+    Travel 10% required, domestic and international.
+    Preferred knowledge or experience:
+    Master’s degree in Systems, Electrical, Mechanical, or Software Engineering
+    Knowledge of or experience in multiple engineering areas (electrical, mechanical, test, software, controls)
+    Requirements management in e.g. Polarion or Doors
+    System modeling in SysML and / or MatLab Simulink
+    Automotive electrical system experience
+    Power Electronics hardware and/or software design experience
+    System  techniques such as FMEA, FTA, etc.
+    ASPICE and ISO 26262 experience.
