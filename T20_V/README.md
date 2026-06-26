@@ -64,6 +64,7 @@ python3 T20_V/python/12_bdd_step_mapping_learning.py
 python3 T20_V/python/13_oop_device_model_learning.py
 python3 T20_V/python/14_decorators_generators_learning.py
 python3 T20_V/python/15_regex_json_csv_learning.py
+python3 T20_V/python/16_pyserial_real_port_learning.py --port /dev/ttyUSB0
 python3 -m pytest -q T20_V/tests/test_embedded_smoke_pytest.py
 bash T20_V/bash/01_bash_strict_mode.sh
 bash T20_V/bash/02_device_smoke_runner.sh 127.0.0.1
