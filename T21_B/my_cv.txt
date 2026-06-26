@@ -1,0 +1,153 @@
+Mateusz Niedziółka
+Senior QA Engineer
+
+Technologies:
+
+•	Python, pytest
+•	Linux, Bash/Shell
+•	Jenkins (CI/CD)
+•	GIT/Gitlab, SVN, Bitbucket
+•	CAN, LIN, CANoe, CAPL (C-Like Syntax), UDS
+•	HTTP protocol, REST API , Postman
+•	NI LabVIEW, NI TestStand
+•	JIRA, Zephyr, Change Synergy,  Redmine
+•	DOORS
+•	During studies: MATLAB, Simulink
+
+
+06.2022 – Present (4 yrs 1 mo)
+Senior QA Engineer in Klika Tech
+
+Test Engineering Expertise:
+
+•	Test Automation: Developing, scaling, and maintaining automated test suites using Python and pytest.
+•	Scripting & OS: Writing Bash/Shell scripts for specialized Embedded Linux OS testing and verification.
+•	CI/CD Integration: Configuring Jenkins jobs to automate test execution.
+•	API & UI Validation: Performing automated and manual validation of RESTful APIs, alongside manual verification of Web UIs.
+•	Quality Assurance: Executing end-to-end (E2E) integration testing, regression testing, and rigorous feature validation.
+•	Diagnostics: Conducting advanced log analysis, debugging, and root-cause analysis in complex embedded environments.	
+Platforms & Architectures:
+
+•	Executed Hardware-in-the-Loop (HIL) testing for single- and three-phase AC EV charging systems.
+•	Embedded Linux environments and IoT systems.
+•	Cloud Infrastructure: Leveraging AWS services such as S3 and IoT Core (utilizing the MQTT test client) for cloud-to-device communication.
+•	Network Protocols: Client-server architectures, HTTP and SSH.
+•	Utilizing Raspberry Pi as a simulation and communication interface device for charging systems.
+
+	Tools & Technologies:
+
+•	Languages & frameworks: Python, pytest
+•	Testing & API Tools: Postman, Zephyr Scale
+•	Version Control: Git, GitLab
+•	Project Management: Jira, Confluence
+	
+	
+03.2020-05.2022 (2 yrs 3 mos)
+Senior Embedded Software Verification Engineer in Woodward
+
+Test Engineering Expertise:
+
+•	Requirements-Driven Testing: Designed comprehensive test cases and maintained full requirements traceability throughout the project lifecycle using IBM DOORS.
+•	Test Methodology: Designed and executed full-lifecycle automated and manual test strategies for safety-critical embedded systems. 
+•	Framework Evolution: Scaled, expanded, and maintained robust automated test frameworks to maximize test coverage and execution speed. 
+•	Quality Collaboration: Partnered closely with cross-functional development teams to isolate defects, performed root-cause analysis, and drive resolution. 
+•	CI/CD Integration: Utilized Jenkins jobs to automate test suite execution and continuous validation.	
+Platforms & Architectures:
+
+•	HIL Environments: Managed and configured Hardware-in-the-Loop (HIL) testing environments for complex embedded hardware. 
+•	Lab Instrumentation: Integrated and operated laboratory equipment, including oscilloscopes,  power supplies, NI PXI Data Acquisition (DAQ) systems, for hardware verification. 
+•	OS Platforms: Conducted formal verification of Embedded Linux distribution.
+	
+	Tools & Technologies:
+
+•	NI Ecosystem: NI LabVIEW and NI TestStand (utilized for automated framework extension, GUI development, and test execution), with additional expertise in NI LabVIEW FPGA.
+•	Python and pytest for developing automated test scripts. Developed a custom Python data-conversion utility.
+•	CANopen protocol utilization for the automated testing of valve driver (RVDT sensor, actuator). 
+
+
+01.2019 - 02.2020 (1 yr 2 mos)
+Independent Test & Verification Team Leader in Aptiv
+Team Management:
+•	Led a team of up to 15 engineers across 5 concurrent projects.
+•	Optimized team workflows to maximize productivity and efficiency.
+•	Facilitated strategic project planning and spearheaded recruitment through technical job interviews.	Technical Project Capabilities:
+•	Fostered inter-departmental collaboration across electrical, systems, and software engineering teams.
+•	Managed technical procurement for new lab and project equipment.
+•	Developed comprehensive project and test plans to ensure successful delivery.
+Leadership & Communication:
+•	Served as a key interface for senior stakeholders, ensuring alignment on project milestones.
+•	Coordinated cross-functional teams to streamline execution.	Key Strengths:
+•	Strategic workforce management and resource allocation. 
+•	Technical project oversight coupled with effective cross-functional communication.
+
+10.2015-12.2018 (3 yrs 3 mos)
+09.2014-09.2015 (1 yr 1 mo)
+Software Systems Test Engineer in Aptiv
+Software Systems Test Engineer in SII (Work on the project in Aptiv/Delphi)
+
+Test Engineering Expertise:
+ 
+•	Process Compliance: Ensured rigorous adherence to Automotive SPICE (ASPICE) and V-Model development lifecycles.
+•	Requirements & Defect Management: Analyze complex system requirements via IBM DOORS and manage full defect lifecycles in Change Synergy.
+•	Test Automation: Utilized automated test environments and test benches (including Vector and NI PXI equipment).
+•	Methodologies: Executed comprehensive manual and automated black-box testing, end-to-end embedded system verification, and high-level test reporting.
+•	Quality Collaboration: Partnered closely with cross-functional development teams to isolate defects, perform root-cause analysis, and drive resolution. 	
+Platforms & Architectures:
+
+•	HIL Testing: Developed and executed comprehensive Hardware-in-the-Loop (HIL) testing strategies tailored for advanced automotive Body Control Modules 
+•	Bus Protocols:  Performed deep-dive verification and protocol analysis of CAN and LIN bus communication systems (utilizing Unified Diagnostic Services [UDS])
+•	Validated systems utilizing both HIL infrastructure and physical vehicle platforms.
+
+	
+	Tools & Technologies:
+
+•	Vector Toolchain: CANoe, CAPL scripting, and Vector hardware.
+•	Instrumentation & Diagnostics: Oscilloscopes, signal analyzers, spectrum analyzers, and precision digital multimeters for physical signal and bus measurement.
+
+01.2013–09.2014 (1 yr 9 mos)
+Junior Test Engineer in Fideltronik
+
+•	Maintained, programmed, and configured ICT, FCT, and AOI test systems (sensors, actuators).
+•	Analyzed schematics and component measurements to resolve quality issues.
+•	Generated technical documentation and managed data using a customized Oracle system.
+
+03.2012–09.2012 (7 mos)
+Automation/Electrician in MASPEX-GMW
+
+•	Maintained, inspected, and repaired industrial automated machinery and electrical systems (sensors, actuators).
+•	Analyzed electrical schematics to troubleshoot and resolve equipment failures.
+•	Executed preventive maintenance schedules and upgraded electrical systems.
+
+Certificates
+•	ISTQB Certified Tester (Foundation Level) (SJSI)
+•	B2 certificate in English (Cracow University of Technology)
+•	Python for Programmers of Other Languages Intermediate (ALX)
+•	Python Advanced (ALX)
+•	Python (Mimo App)
+•	Python AI Development (Mimo App)
+•	SEP (up to 1kV)
+•	VECTOR CANoe FlexRay Training
+•	SQL - An Introduction to Relational Databases (Comarch)
+•	Time Management  Personal Effectiveness (nesse)
+•	Emotional Intelligence (nesse)
+•	Treating People with Respect (Everfi)
+•	ITV-1 Certification (Delphi/APITV)
+•	ITV-2 Certification (Delphi/APITV)
+•	Systems Engineering – Level1 (Delphi/APTIV)
+•	Systems Engineering – Level1 (Delphi/APTIV)
+•	Certificate of Recognition (APTIV)
+Trainings and Courses
+•	LabVIEW Core 1 course (NI)
+•	LabVIEW Core 2 course (NI)
+•	LabVIEW TestStand course (NI)
+•	LabVIEW FPGA Course (NI)
+•	Introduction to TCL (Delphi/APTIV)
+Scientific achievements
+•	Scholarship for achievements in science. 
+•	Scientific publications which were announced during academic session of Digital Technology Circle: 
+o	“Temperature control system by the CAN bus”
+o	“CAN bus in motorization”
+Interests
+•	Football
+•	Playing guitar
+•	Emerging new technologies and innovation
