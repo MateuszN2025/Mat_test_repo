@@ -1,0 +1,31 @@
+name: Embedded QA Learning Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "T20_V/**"
+
+jobs:
+  python-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run learning scripts
+        run: |
+          # Keep CI examples simple and easy to explain in an interview.
+          python3 T20_V/python/01_subprocess_learning.py
+          python3 T20_V/python/02_embedded_smoke_check.py
+          python3 T20_V/python/03_log_parser_learning.py
+
+      - name: Run bash smoke scripts
+        run: |
+          bash T20_V/bash/01_bash_strict_mode.sh
+          bash T20_V/bash/02_device_smoke_runner.sh 127.0.0.1

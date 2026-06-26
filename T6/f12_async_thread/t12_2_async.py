@@ -21,9 +21,16 @@ asyncio.run(io_process_execution())
 print("\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")  # noqa: E303
 
 """
-asyncio is usually better when you have many I/O operations and your stack is async-aware. Typical cases are many HTTP requests, WebSocket connections, async database drivers, async queues, and high-concurrency servers. It scales well because one thread can manage many waiting tasks, and context switching is cheap. The cost is that your code and libraries must cooperate with async and await.
+asyncio is usually better when you have many I/O operations and your stack is async-aware.
+Typical cases are many HTTP requests, WebSocket connections, async database drivers, async queues,
+and high-concurrency servers. It scales well because one thread can manage many waiting tasks,
+and context switching is cheap. The cost is that your code and libraries must cooperate with async and await.
 
-threading is usually better when your work is I/O-bound but uses blocking libraries. Typical cases are legacy code, blocking SDKs, blocking DB drivers, requests, file operations mixed with existing synchronous code, or small background tasks. It is often simpler to add to an existing synchronous program because you do not need to redesign everything around an event loop.
+threading is usually better when your work is I/O-bound but uses blocking libraries.
+Typical cases are legacy code, blocking SDKs, blocking DB drivers, requests, 
+file operations mixed with existing synchronous code, or small background tasks. 
+It is often simpler to add to an existing synchronous program because you 
+do not need to redesign everything around an event loop.
 
 Use this rule:
 
