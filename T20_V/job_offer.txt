@@ -3,7 +3,7 @@ Position: Embedded Automated Test & Test System Engineer
 
 Who We Are
 company is transforming how organizations protect their people and places with an integrated, AI-powered platform. A leader in cloud physical security, company helps organizations strengthen safety and efficiency through one connected software platform that includes solutions for video security, access control, air quality sensors, alarms, intercoms, and visitor management.
-Over 30,000 organizations worldwide, including more than 100 companies in the Fortune 500, trust company as their physical security layer for easier management, intelligent control, and scalable deployments. Founded in 2016, company has expanded rapidly with 15 offices and 2,200+ full-time employees.
+
 About the Role
 We’re growing incredibly fast, and so is our fleet of our products like cameras, access control, alarms, sensors. A QA engineer at company owns the behavior of our products in the field and is responsible for keeping them running reliably - key to a company like ours! The QA Engineer, and their team of reliability engineers, verify new code releases against a set of test cases, grow the test suite, monitor devices in the field, and are responsible for rolling out new updates - in short, everything related to keeping deployed devices running smoothly.
 What You'll Do

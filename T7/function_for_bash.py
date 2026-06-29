@@ -21,6 +21,25 @@ class Basher:
 
         return output.stdout
 
+    def send_bash_command_para(self, command: str) -> str:
+        import paramiko
+
+        client = paramiko.SSHClient()
+        # Automatically accept the remote host key on first connection.
+        # In production, replace with a known_hosts-based policy.
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        try:
+            client.connect(
+                hostname=self.ip,
+                username=self.user,
+                password=self.password,
+            )
+            _, stdout, _ = client.exec_command(command)
+            return stdout.read().decode()
+        finally:
+            # Always close the transport even if exec_command raises.
+            client.close()
+
     def make_a_list_from_str_contains_new_line(self, sss: str):
 
         items = []
