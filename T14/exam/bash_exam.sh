@@ -1452,6 +1452,11 @@ sol152() {
 }
 # sol152
 
+sol152_1(){
+    echo "||| $1 |||"
+}
+# sol152_1 "Mike"
+
 # 153. if / else - Exercise 1:
 # Check whether a file exists and print one message if it does and another if it does not.
 sol153() {
