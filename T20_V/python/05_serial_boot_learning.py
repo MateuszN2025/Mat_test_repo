@@ -112,6 +112,7 @@ def main() -> int:
     print("PASS: serial boot flow matched expected behavior")
     if serial is None:
         print("Note: pyserial is not installed, so this run used a fake port for learning.")
+    jlk
     return 0
 
 
