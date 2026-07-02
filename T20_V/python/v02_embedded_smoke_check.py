@@ -57,3 +57,11 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+    # With raise SystemExit(main()), 
+    # the integer from main() becomes the actual OS exit code.
+    # 
+    # This is especially critical in Jenkins or GitHub Actions pipelines. 
+    # A step that exits with 0 is marked green. 
+    # If your smoke check silently swallows a failure and returns 0,
+    # the pipeline continues — deploying broken firmware or
+    # code to the next stage with no alarm.

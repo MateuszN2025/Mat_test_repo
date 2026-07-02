@@ -1,0 +1,4 @@
+2026-07-02 08:00:01 INFO  [boot] device boot completed in 3.2s
+2026-07-02 08:00:04 INFO  [network] connected to 192.168.1.10, RSSI=-62dBm
+2026-07-02 08:00:05 INFO  [camera] retry scheduled in 5s (attempt 1/3)
+2026-07-02 08:00:10 INFO  [camera] retry scheduled in 5s (attempt 2/3)
