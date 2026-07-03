@@ -1,0 +1,9 @@
+boot: power good
+kernel: init done
+system ready
+boot: power good
+kernel: init done
+system ready
+boot: power good
+kernel: init done
+system ready
