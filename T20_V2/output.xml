@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.10.12 on linux)" generated="2026-07-12T12:53:59.753741" rpa="false" schemaversion="5">
+<suite id="s1" name="Robot11" source="/home/mniedziolka/PP/Mat_test_repo/T20_V2/robot11.robot">
+<test id="s1-t1" name="Add Two Positive Numbers" line="5">
+<kw name="Add" owner="robot1.MathLibrary">
+<msg time="2026-07-12T12:53:59.811108" level="INFO">${result} = 5.0</msg>
+<var>${result}</var>
+<arg>2</arg>
+<arg>3</arg>
+<status status="PASS" start="2026-07-12T12:53:59.810622" elapsed="0.000537"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-07-12T12:53:59.812076" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${result}</arg>
+<arg>5</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-07-12T12:53:59.811501" elapsed="0.000683"/>
+</kw>
+<status status="PASS" start="2026-07-12T12:53:59.808298" elapsed="0.004225"/>
+</test>
+<test id="s1-t2" name="Add Negative Numbers" line="9">
+<kw name="Add" owner="robot1.MathLibrary">
+<msg time="2026-07-12T12:53:59.816873" level="INFO">${result} = -2.0</msg>
+<var>${result}</var>
+<arg>-1</arg>
+<arg>-1</arg>
+<status status="PASS" start="2026-07-12T12:53:59.816254" elapsed="0.000679"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-07-12T12:53:59.818142" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${result}</arg>
+<arg>-2</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-07-12T12:53:59.817681" elapsed="0.000557"/>
+</kw>
+<status status="PASS" start="2026-07-12T12:53:59.813038" elapsed="0.006005"/>
+</test>
+<test id="s1-t3" name="Divide Normal" line="13">
+<kw name="Divide" owner="robot1.MathLibrary">
+<msg time="2026-07-12T12:53:59.820844" level="INFO">${result} = 3.3333333333333335</msg>
+<var>${result}</var>
+<arg>10</arg>
+<arg>3</arg>
+<status status="PASS" start="2026-07-12T12:53:59.820367" elapsed="0.000535"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${result} &gt; 3.333 and ${result} &lt; 3.334</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-07-12T12:53:59.821138" elapsed="0.000709"/>
+</kw>
+<status status="PASS" start="2026-07-12T12:53:59.819458" elapsed="0.002629"/>
+</test>
+<test id="s1-t4" name="Divide By Zero Raises" line="17">
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Divide" owner="robot1.MathLibrary">
+<msg time="2026-07-12T12:53:59.823940" level="FAIL">ValueError: Cannot divide by zero</msg>
+<arg>10</arg>
+<arg>0</arg>
+<status status="FAIL" start="2026-07-12T12:53:59.823503" elapsed="0.001257">ValueError: Cannot divide by zero</status>
+</kw>
+<arg>ValueError: Cannot divide by zero</arg>
+<arg>Divide</arg>
+<arg>10</arg>
+<arg>0</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-07-12T12:53:59.822713" elapsed="0.002462"/>
+</kw>
+<status status="PASS" start="2026-07-12T12:53:59.822306" elapsed="0.003172"/>
+</test>
+<test id="s1-t5" name="Check Result Type" line="21">
+<kw name="Add" owner="robot1.MathLibrary">
+<msg time="2026-07-12T12:53:59.826382" level="INFO">${result} = 3.0</msg>
+<var>${result}</var>
+<arg>1</arg>
+<arg>2</arg>
+<status status="PASS" start="2026-07-12T12:53:59.826096" elapsed="0.000344"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-07-12T12:53:59.827111" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${result}</arg>
+<arg>3</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-07-12T12:53:59.826629" elapsed="0.000600"/>
+</kw>
+<status status="PASS" start="2026-07-12T12:53:59.825716" elapsed="0.001860"/>
+</test>
+<status status="PASS" start="2026-07-12T12:53:59.756137" elapsed="0.071952"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Robot11" id="s1" pass="5" fail="0" skip="0">Robot11</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

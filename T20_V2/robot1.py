@@ -25,3 +25,37 @@ class MathLibrary:
         if b == 0:
             raise ValueError("Cannot divide by zero")
         return a / b
+    
+"""
+*** Settings ***
+Resource  HubjectCommon.robot
+->  
+*** Settings ***
+Resource  robot_suites/common_keywords.robot
+->
+*** Settings ***
+Library  Collections
+Library  String
+Library  framework_helpers/global_listener.py
+Library  python2robot/keywords_common.py
+Library  python2robot/keywords_config.py
+Library  python2robot/keywords_template.py
+Library  python2robot/keywords_threads.py
+Library  python2robot/keywords_aws.py
+Library  python2robot/keywords_embedded_low_level.py
+"""
+
+
+# robot --pythonpath . robot11.robot
+
+# stop_service  /etc/init.d/S93i2p2app          ← .robot (keyword call)
+#   │
+#   │  [resolved by Robot via Library declaration in common_keywords.robot]
+#   ▼
+# def stop_service(service_path, ...)            ← python2robot/keywords_embedded_low_level.py:203
+#   │
+#   ▼
+# service_mgmt_by_name(proc_name, 'stop', ...)   ← utils/helpers/board_services.py
+#   │
+#   ▼
+# send_ssh_command("killall i2p2app", ...)        ← SSH → embedded device
