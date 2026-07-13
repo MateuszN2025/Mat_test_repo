@@ -60,7 +60,7 @@ def main() -> None:
     # ── ROUND 1: GC disabled ───────────────────────────────────────────────────
     print("-----------------ROUND 1: GC disabled-------------------------")
     gc.disable()          # Python will NO LONGER auto-collect cycles
-    gc.collect()          # start with a clean slate
+    gc.collect()          # start with a clean slate → drains ~280 backlog to near 0
 
     make_cycle()
     make_cycle()
