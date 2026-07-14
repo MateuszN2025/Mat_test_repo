@@ -1,0 +1,29 @@
+Summary/Objectives
+T_company QA Engineers are responsible for testing products built on the T_company platform. This will involve working with developers and product managers to construct and execute test plans, plan for functional, performance and regression testing, file detailed bugs, and providing visibility through project updates.
+
+Strong technical skills are essential. If you are not comfortable hunting down resource leaks while simulating hundreds of thousands of clients, digging into the guts of windows security configuration or scripting environment configuration for dozens of target OS’s, this may not be the place for you. If these things sound as exciting to you as they do to us, then T_company could be your new home!
+
+Essential Job Functions
+•	Utilize project management and leadership skills to effectively manage multiple concurrent projects throughout the entire software development cycle
+•	Author and execute test plans and test cases
+•	Write automated tests and contribute to the framework itself when needed
+•	Manage resources, project plans, estimates, and timelines
+•	Review test plans, monitor test progress, and distribute test reports
+•	Understand business requirements and develop test cases against them
+•	Execute test plans efficiently, opening high quality bug reports as bugs are discovered
+
+Minimum & Preferred Job Qualifications
+Education
+•	Bachelor's Degree in Computer Science, IT or other relevant degree or equivalent experience
+
+Experience
+•	5+ years of Quality Assurance/Testing experience (enterprise level preferred)  
+•	Solid understanding of manual and black box testing experience  
+•	Practical experience in test automation using programing language (Python preferred)
+•	Decent grasp of OOP / SOLID / KISS / DRY concepts
+•	Solid understanding of operating systems (Linux & Windows preferred); how they are installed and configured 
+•	Practical experience with virtualization and/or containerization (platform-agnostic); vCenter/VMware or Proxmox knowledge is a bonus
+•	Proficient with at least one scripting language - Shell, Bash, PowerShell, etc., and familiar with using it to streamlining day to day tasks
+•	Nice to have understanding of network security, experience in using packet capture tools (Wireshark, tcpdump, etc) is a plus  
+•	Must be familiar with terms like authentication, file signature, and certificates  
+•	Project management skills a plus.
