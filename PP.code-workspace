@@ -22,6 +22,10 @@
 			"titleBar.border": "#ffffff"
 		},
 		"workbench.colorTheme": "Dark Modern",
+		"editor.quickSuggestions": false,
+		"editor.suggestOnTriggerCharacters": false,
+		"editor.wordBasedSuggestions": "off",
+		"editor.inlineSuggest.enabled": false,
 		"window.zoomLevel": 0.80
 		
 	}

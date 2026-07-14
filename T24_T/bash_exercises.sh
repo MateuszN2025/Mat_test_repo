@@ -23,25 +23,49 @@
 # anywhere under the current directory tree (any depth), including hidden dirs.
 # Write the command as a comment.
 
+func1_1(){
+    # touch "log1.txt" "log2.txt"
+    # mkdir -p "./logis/log3.txt"
+    # rm -r ./logis/log3.txt
+    # touch "./logis/log3.txt"
+    ##################################
+    # find . --name "*.txt" # find: unknown predicate `--name'
+    ##################################
+    # for file in *.txt; do
+    #     mv -- "$file" "${file%.txt}.log"
+    # done
+    ##################################
+    # ls -l | grep ".log"
+    # find . -maxdepth 2 -type f -name '*.log'
+    find . -type f -name '*.log'
+    find . -type f -name '*.log' | wc -l
+}
+func1_1
 
 # Exercise 1.2
 # You have a directory "test_results/" with hundreds of files named like:
 #   run_2026-07-01.json, run_2026-07-02.json, ...
 # Write a command to count how many such files exist, without opening any of them.
 
+find ./test_results -maxdepth 1 -type f -name 'run_*.json' | wc -l
+
+
 
 # Exercise 1.3
 # Explain (as a comment) the difference between these three, and when you'd
 # use each in a test-automation script:
-#   cp file.txt /tmp/
-#   mv file.txt /tmp/
-#   ln -s file.txt /tmp/file.txt
+#   cp file.txt /tmp/ # copy
+#   mv file.txt /tmp/ # move
+#   ln -s file.txt /tmp/file.txt # make a link
 
 
 # Exercise 1.4
 # Write a command that makes a script "run_tests.sh" executable, then a
 # second command that runs it using the current shell's PATH resolution
 # (i.e., not by typing "bash run_tests.sh").
+
+chmod u+x run_tests.sh
+PATH="$PWD:$PATH" run_tests.sh
 
 
 # ------------------------------------------------------------
