@@ -221,17 +221,26 @@ except ValueError as e:
 
 print(t1)
 print(t2)
-print(t3)
-
-        
-
-        
+print(t3)     
 
 
 # Exercise 3.2
 # Create a class `TestSuite` that holds a list of `TestCase` objects (from 3.1)
 # and has a method `pass_rate()` returning the percentage of passed tests.
 # This is basic composition: a TestSuite "has-a" list of TestCase.
+print("------------------------------------------")
+class TestSuite:
+    def __init__(self, test_cases: list[TestCase]) -> None:
+        self.test_cases = test_cases
+
+    def pass_rate(self) -> float:
+        if not self.test_cases:
+            return 0.0
+        passed = sum(1 for t in self.test_cases if t.status == "passed")
+        return passed / len(self.test_cases) * 100
+
+ts = TestSuite([t1, t2, t3])
+print(f"{ts.pass_rate():.2f} %")
 
 
 # Exercise 3.3

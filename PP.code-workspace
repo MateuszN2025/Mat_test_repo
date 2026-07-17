@@ -30,7 +30,13 @@
 		"editor.suggestOnTriggerCharacters": false,
 		"editor.wordBasedSuggestions": "off",
 		"editor.inlineSuggest.enabled": false,
-		"window.zoomLevel": 0.80
+		"python.analysis.inlayHints.callArgumentNames": "off",
+		"editor.parameterHints.enabled": false,
+		"editor.hover.enabled": "off",
+		"editor.renderValidationDecorations": "off",
+		"window.zoomLevel": 0.80,
+		"python.linting.enabled": false,
+		"python.analysis.diagnosticMode": "off"
 		
 	}
 }
