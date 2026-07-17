@@ -157,17 +157,17 @@ class LoginPage:
 
     def __init__(self, driver_name="chrome"):
         self.driver = driver_name
-        self.username_field = "input#username"
-        self.password_field = "input#password"
-        self.login_button = "button#login"
+        self.username_field = "input#username" # page locator
+        self.password_field = "input#password" # page locator
+        self.login_button = "button#login" # page locator
 
-    def enter_username(self, username):
+    def enter_username(self, username): # action
         print(f"{self.driver}: typing {username} in {self.username_field}")
 
-    def enter_password(self, password):
+    def enter_password(self, password): # action
         print(f"{self.driver}: typing {password} in {self.password_field}")
 
-    def click_login(self):
+    def click_login(self): # action
         print(f"{self.driver}: clicking {self.login_button}")
 
     def login(self, username, password):

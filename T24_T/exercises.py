@@ -134,6 +134,23 @@ print(len(results))
 # Without writing 5 separate test functions, describe (in a comment) how you'd
 # structure this using pytest, then write the plain-Python equivalent loop
 # that asserts each pair.
+import pytest
+
+# In pytest, use one test function and feed multiple input/expected sets
+# via @pytest.mark.parametrize, so each case is reported separately.
+@pytest.mark.parametrize(["a", "b", "result"],
+                         ((1, 2, 3),
+                          (2, 3, 5),
+                          (4, 5, 9),
+                          (6, 7, 13),
+                          (8, 9, 17)))
+def test_1(a, b, result):
+    assert a + b == result
+
+# Plain-Python equivalent (no pytest):
+cases = [(1, 2, 3), (2, 3, 5), (4, 5, 9), (6, 7, 13), (8, 9, 17)]
+for a, b, result in cases:
+    assert a + b == result
 
 
 # Exercise 2.2
@@ -141,6 +158,27 @@ print(len(results))
 # one instead of just creating an object at the top of every test function?
 # Then sketch (as a comment or pseudo-code, no need to run pytest) what a
 # fixture for "a logged-in test user" might look like.
+
+# A fixture is reusable setup/teardown code for tests.
+# Use it to avoid duplication, keep tests cleaner, and control lifecycle
+# (function/module/session) in one place.
+
+@pytest.fixture(scope="session")
+def logged_in_user():
+    # pseudo-login: create a user/session object once per test session
+    user = {"username": "qa_user", "token": "fake-token"}
+    print("Logging in", user["username"])
+    yield user
+    print("Logging out", user["username"])
+
+
+def test_verify_user(logged_in_user):
+    assert logged_in_user["token"]
+
+
+def test_verify_admin(logged_in_user):
+    assert logged_in_user["username"] == "qa_user"
+    
 
 
 # ------------------------------------------------------------
@@ -151,6 +189,43 @@ print(len(results))
 # Create a class `TestCase` with attributes: name, status ("passed"/"failed"/
 # "skipped"), and duration_seconds. Add a method `is_slow(threshold=2.0)` that
 # returns True if duration_seconds exceeds the threshold.
+print("------------------------------------------")
+class TestCase:
+    def __init__(self, name: str, status: str, duration_seconds: float) -> None:
+        self.name = name
+        self.status = status
+        self.duration_seconds = duration_seconds
+        
+        if status in ("passed", "failed", "skipped"):
+            pass
+        else:
+            raise ValueError("Wrong status.")
+        
+    def is_slow(self, threshold: float =2.0) -> bool:
+        return self.duration_seconds > threshold
+        
+    def __str__(self) -> str:
+        return f"Name: {self.name}, \
+                status: {self.status}, \
+                duration: {self.duration_seconds}, \
+                is slow ?: {self.is_slow()}"
+
+t1 = TestCase("name1", "passed", 1.5)
+t2 = TestCase("name1", "failed", 2.5)
+t3 = TestCase("name1", "skipped", 2.5)
+
+try:
+    t4 = TestCase("name1", "l", 2.5)
+except ValueError as e:
+    print(e)
+
+print(t1)
+print(t2)
+print(t3)
+
+        
+
+        
 
 
 # Exercise 3.2
