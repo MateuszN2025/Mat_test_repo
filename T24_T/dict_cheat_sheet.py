@@ -20,7 +20,7 @@ print(dict1)
 print(dict1["k"])
 
 data = ["PASS", "FAIL", "PASS", "SKIPPED"]
-def task_dict_count_statuses(statuses: list) -> dict:
+def task_dict_count_statuses(statuses: list[str]) -> dict[str, int]:
     """
 	Count how many times each status appears.
 	Input: ["PASS", "FAIL", "PASS"]
@@ -34,7 +34,16 @@ def task_dict_count_statuses(statuses: list) -> dict:
     # for status in statuses:
     #  counter[status] = counter.get(status, 0) + 1
     # return counter
+    
+    """
+    # ...existing code...
+    from collections import Counter
 
+    def task_dict_count_statuses(statuses: list[str]) -> dict[str, int]:
+        return dict(Counter(statuses))
+    # ...existing code...
+    """
+    
     counter = {}
     for status in statuses:
         if status in counter:
