@@ -1,0 +1,4 @@
+test_name,status,duration
+test_login,passed,0.42
+test_logout,failed,1.10
+test_signup,passed,0.35

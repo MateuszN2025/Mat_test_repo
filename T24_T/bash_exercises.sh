@@ -40,14 +40,17 @@ func1_1(){
     find . -type f -name '*.log'
     find . -type f -name '*.log' | wc -l
 }
-func1_1
+# func1_1
 
 # Exercise 1.2
 # You have a directory "test_results/" with hundreds of files named like:
 #   run_2026-07-01.json, run_2026-07-02.json, ...
 # Write a command to count how many such files exist, without opening any of them.
 
-find ./test_results -maxdepth 1 -type f -name 'run_*.json' | wc -l
+sol12(){
+    find ./test_results -maxdepth 1 -type f -name 'run_*.json' | wc -l
+}
+
 
 
 
@@ -64,8 +67,13 @@ find ./test_results -maxdepth 1 -type f -name 'run_*.json' | wc -l
 # second command that runs it using the current shell's PATH resolution
 # (i.e., not by typing "bash run_tests.sh").
 
-chmod u+x run_tests.sh
-PATH="$PWD:$PATH" run_tests.sh
+sol14(){
+    chmod u+x run_tests.sh
+    PATH="$PWD:$PATH"
+    hi.sh
+}
+# sol14
+
 
 
 # ------------------------------------------------------------
@@ -77,6 +85,12 @@ PATH="$PWD:$PATH" run_tests.sh
 # prints only the lines containing "FAILED", along with the line number
 # in the file.
 
+sol21(){
+    grep -n "FAILED" pytest_output.log
+}
+# sol21
+
+
 
 # Exercise 2.2
 # From a CSV file "results.csv" with columns: test_name,status,duration
@@ -86,6 +100,13 @@ PATH="$PWD:$PATH" run_tests.sh
 # Write a single command (cut/awk) that prints only the test_name column
 # for rows where status is "failed".
 
+sol22(){
+    # awk -F, '$2 == "failed" {print $1}' results.csv
+    awk -F, 'NR == 1 {print $2}' results.csv
+    # -F, sets comma as CSV separator
+}
+# sol22
+
 
 # Exercise 2.3
 # Write a command that counts how many times each unique status value
@@ -93,11 +114,32 @@ PATH="$PWD:$PATH" run_tests.sh
 # and prints a sorted summary (count + status).
 # Hint: think about a pipeline combining cut, sort, and uniq.
 
+# cut -d, -f2 results.csv | tail -n +2 | sort | uniq -c | sort -k2
+# cut -d, -f2 gets the status column.
+# tail -n +2 skips header row.
+# sort | uniq -c counts each unique status.
+# final sort -k2 sorts by status name.
+sol23(){
+    cut -d, -f2 results.csv | tail -n +1 | uniq -c
+    echo
+}
+ 
+# sol23
 
 # Exercise 2.4
 # Write a sed one-liner that replaces all occurrences of "localhost" with
 # "staging.example.com" in a file "config.env", editing the file in place
 # (careful — mention as a comment why you'd want a backup flag here).
+sol24(){
+    # Keep a backup (config.env.bak) so you can quickly rollback bad replacements.
+    sed -i.bak 's/localhost/staging.example.com/g' config.env
+    # s = substitute
+    # localhost = pattern to find
+    # staging.example.com = replacement text
+    # g = global (replace all matches per line, not only first)
+    
+}
+# sol24
 
 
 # ------------------------------------------------------------
@@ -110,8 +152,21 @@ PATH="$PWD:$PATH" run_tests.sh
 # directory doesn't exist.
 
 check_dir_exists() {
-    :
+    local dir_to_check="$1"
+
+    if [[ -z "$dir_to_check" ]]; then #True when STRING is empty (zero length).
+        echo "ERROR: directory path is required as argument 1" >&2
+        return 2
+    fi
+
+    if [[ ! -d "$dir_to_check" ]]; then # -d PATH True when PATH exists and is a directory.
+        echo "ERROR: directory does not exist: $dir_to_check" >&2
+        return 1
+    fi
+
+    echo "DIR exists: $dir_to_check"
 }
+check_dir_exists /home/mniedziolka/PP/Mat_test_repo/T24_sT/
 
 
 # Exercise 3.2
