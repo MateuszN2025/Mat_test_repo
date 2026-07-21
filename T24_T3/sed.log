@@ -2,3 +2,9 @@ aaa
 bbb
 ppp
 aaa
+
+WARNING I warn You
+INFO Weather is good
+ERROR Critical state1
+DEBUG Bad things happen in the background
+ERROR Critical state2
