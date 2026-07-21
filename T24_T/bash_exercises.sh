@@ -166,12 +166,31 @@ check_dir_exists() {
 
     echo "DIR exists: $dir_to_check"
 }
-check_dir_exists /home/mniedziolka/PP/Mat_test_repo/T24_sT/
+# check_dir_exists /home/mniedziolka/PP/Mat_test_repo/T24_sT/
 
 
 # Exercise 3.2
 # Write a loop that iterates over all ".json" files in a directory and
 # prints each filename together with its size in bytes.
+file_size(){
+    # In Bash, local means the variable 
+    # exists only inside the current function.
+    local dir="${1:-.}"
+    local found=false
+
+    for file in $dir/*.json; do
+        if [[ ! -e "$file" ]]; then
+            continue
+        fi
+        found=true
+        echo "$(basename "$file") $(stat -c%s "$file")"
+    done
+
+    if [[ "$found" == false ]]; then
+        echo "No .json files found in: $dir"
+    fi
+}
+# file_size
 
 
 # Exercise 3.3
@@ -181,8 +200,48 @@ check_dir_exists /home/mniedziolka/PP/Mat_test_repo/T24_sT/
 # Python `retry(func, attempts=3)` exercise — same idea, different language.
 
 retry_command() {
-    :
+    local attempts=3
+    local try=1
+    local exit_code=0
+
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: retry_command <command> [args...]" >&2
+        return 2
+    fi
+
+    while (( try <= attempts )); do
+        "$@"
+        exit_code=$?
+
+        if [[ $exit_code -eq 0 ]]; then
+            return 0
+        fi
+
+        if (( try < attempts )); then
+            sleep 1
+        fi
+        ((try++))
+    done
+
+    echo "Command failed after $attempts attempts (exit code: $exit_code)" >&2
+    return "$exit_code"
 }
+# retry_command pwd
+
+
+
+# for i in 1 2 3; do
+#     echo "$i"
+# done
+
+loop_func(){
+    number=$1
+    for ((i=1; i<=$number; i++)); do
+        printf " $i"
+    done
+}
+loop_func 100
+echo
 
 
 # Exercise 3.4
@@ -198,7 +257,13 @@ retry_command() {
 # Exercise 4.1
 # Write a command to find the PID of a running process named "pytest",
 # and a second command that kills it gracefully (not "kill -9" first).
-
+PID=$(pgrep -f pytest | head -n1)
+# -n 1 = limit to 1 line
+if [[ -n "$PID" ]]; then
+    kill -15 "$PID"
+else
+    echo "No pytest process found"
+fi
 
 # Exercise 4.2
 # A test run seems to hang. Write down (as comments) the sequence of

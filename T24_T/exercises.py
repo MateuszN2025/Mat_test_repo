@@ -242,18 +242,53 @@ class TestSuite:
 ts = TestSuite([t1, t2, t3])
 print(f"{ts.pass_rate():.2f} %")
 
-
+print("------------------------------------------")
 # Exercise 3.3
 # Create two classes, `ApiTest` and `UiTest`, both inheriting from a common
 # base class `BaseTest` that has a method `setup()` and `teardown()` (can just
 # print something for now). Override `setup()` differently in each subclass.
 # This demonstrates inheritance + polymorphism.
 
+class BaseTest:
+    
+    def setup(self) -> str:
+        text = "BaseTest_function"
+        print(f"{text}")
+        return text
+    
+    def teardown(self) -> None:
+        print("BaseTest teardown")
+    
+class ApiTest(BaseTest):
+    def setup(self) -> str:
+        text = "ApiTest_function"
+        print(f"{text}")
+        return text
+    
+    def teardown(self) -> None:
+        print("ApiTest teardown")
+
+class UiTest(BaseTest):
+    def setup(self) -> str:
+        text = "UiTest_function"
+        print(f"{text}")
+        return text
+    
+    def teardown(self) -> None:
+        print("UiTest teardown")
+
+u1 = UiTest()
+u1.setup()
+b1 = BaseTest()
+b1.setup()
+a1 = ApiTest()
+a1.setup()
 
 # ------------------------------------------------------------
 # SECTION 4: SOLID principles (short, practical, testing-flavored)
 # ------------------------------------------------------------
 
+print("------------------------------------------")
 # Exercise 4.1 — Single Responsibility Principle (SRP)
 # Below is a *description* of a bad class (don't write it — refactor it in
 # your head/on paper first, then code the fixed version):
@@ -265,6 +300,28 @@ print(f"{ts.pass_rate():.2f} %")
 # Split this into separate classes, each with ONE responsibility. Just write
 # the class names + one method each (skeleton only, bodies can be `pass`).
 
+class TestCaseReader:
+    """Responsibility: Read test cases from file."""
+    def read_tests(self, file_path: str) -> list:
+        pass
+
+class TestExecutor:
+    """Responsibility: Execute tests."""
+    def execute(self, test_cases: list) -> dict:
+        pass
+
+class HtmlFormatter:
+    """Responsibility: Format test results as HTML."""
+    def format_as_html(self, results: dict) -> str:
+        pass
+
+class EmailReporter:
+    """Responsibility: Send report via email."""
+    a: int = 1
+    def send_email(self, html_report: str, recipient: str) -> None:
+        pass
+
+print(EmailReporter.__annotations__)
 
 # Exercise 4.2 — Open/Closed Principle (OCP)
 # You have a function that generates a report in different formats:
@@ -275,6 +332,31 @@ print(f"{ts.pass_rate():.2f} %")
 # Every new format requires editing this function. Redesign it (using classes
 # or a dict of functions) so adding a new format doesn't require modifying
 # existing code — only adding new code.
+
+class GenerateJsonReport:
+    def generate(self, data: dict) -> str:
+        return str(data)
+    
+class GenerateHtmlReport:
+    def generate(self, data: dict) -> str:
+        rows = "".join(f"<li>{k}: {v}</li>" for k, v in data.items())
+        return f"<ul>{rows}</ul>"
+
+class GenerateXmlReport:
+    def generate(self, data: dict) -> str:
+        rows = "".join(f"<{k}>{v}</{k}>" for k, v in data.items())
+        return f"<report>{rows}</report>"
+
+
+def generate_report(data: dict, formatter) -> str:
+    # OCP-friendly entry point: new formats only need a new formatter class.
+    return formatter.generate(data)
+
+data_dict = {"test_login": "passed", "test_logout": "failed"}
+
+formatter = GenerateXmlReport()
+result = generate_report(data_dict, formatter)
+print(result)
 
 
 # Exercise 4.3 — Liskov Substitution Principle (LSP)
