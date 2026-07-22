@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, Header, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel, Field, model_validator
 
 api_2 = FastAPI()
@@ -7,6 +8,51 @@ users_db: dict[int, dict] = {
     1: {"id": 1, "name": "Bob", "age": 43},
     2: {"id": 2, "name": "Sam", "age": 54}
 }
+
+# Very basic in-memory credentials for demo purposes.
+auth_users_db: dict[str, str] = {
+    "admin": "admin123",
+    "qa": "qa123"
+}
+
+
+class TokenOut(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
+def get_current_username(authorization: str | None = Header(default=None)) -> str:
+    if authorization is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing Authorization header",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    scheme, _, token = authorization.partition(" ")
+    if scheme.lower() != "bearer" or not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authorization scheme",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    if not token.startswith("token-"):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    username = token.removeprefix("token-")
+    if username not in auth_users_db:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token user",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+
+    return username
 
 class UserOut(BaseModel):
     id: int
@@ -34,8 +80,21 @@ class UserPartialUpdate(BaseModel):
 # Adding response_model=UserOut ensures only the fields defined 
 # in that schema are ever sent to the client.
 
+
+@api_2.post("/auth/token", response_model=TokenOut, status_code=status.HTTP_200_OK)
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    stored_password = auth_users_db.get(form_data.username)
+    if stored_password is None or stored_password != form_data.password:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password"
+        )
+
+    # This is a fake token for learning/demo only. Replace with JWT in production.
+    return TokenOut(access_token=f"token-{form_data.username}")
+
 @api_2.get("/users", response_model=list[UserOut], status_code=status.HTTP_200_OK)
-def get_users():
+def get_users(_: str = Depends(get_current_username)):
     # Standard REST behavior: return [] if the collection is empty
     return list(users_db.values())
 
