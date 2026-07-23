@@ -1,0 +1,17 @@
+{
+  "course": "Python Fundamentals",
+  "level": "beginner",
+  "is_active": true,
+  "topics": [
+    "variables",
+    "functions",
+    "modules",
+    "packages"
+  ],
+  "progress": {
+    "completed_lessons": 3,
+    "total_lessons": 10,
+    "score": 87.5
+  },
+  "next_quiz_date": "2026-07-30"
+}

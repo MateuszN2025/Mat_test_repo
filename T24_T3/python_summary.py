@@ -331,3 +331,138 @@ print("current module name:", __name__)
 # from .calc import add
 # from ..helpers.formatter import pretty
 
+print("------------------File handling------------------------")
+file1 = "learning_sample.json"
+
+# with open(file=file1, mode="w") as f:
+    # python_dict = json.load(f)
+    # lines_list = f.readlines()
+    # lines_list = [line.rstrip("\n") for line in f]
+    
+    # for line in f:
+        # print(line)
+        
+    # with open("learning_sample.json", "r") as f:
+    #     for _ in range(1000):          # any upper limit
+    #         line = f.readline()
+    #         if line == "":             # EOF
+    #             break
+    #         print(line.rstrip("\n"))
+    
+    # f.write("asda")
+    # pass
+        
+# print(python_dict)
+# print(lines_list)
+
+print("------------------generators------------------------")
+
+def gen1():
+    for i in range(1,10,2):
+        yield i
+    # yield 1
+    # yield 2
+    # yield 3
+
+# Use one generator instance:
+g = gen1()
+print(next(g))
+print(next(g))
+print(next(g))
+
+"""
+def invalid_login_cases():
+    # Generator: yields one test case at a time
+    yield {"username": "", "password": "secret", "expected_status": 400}
+    yield {"username": "qa_user", "password": "", "expected_status": 400}
+    yield {"username": "wrong_user", "password": "wrong_pass", "expected_status": 401}
+
+
+@pytest.mark.parametrize("case", list(invalid_login_cases()))
+def test_login_negative(case):
+    response = requests.post(
+        "https://example.com/api/login",
+        json={"username": case["username"], "password": case["password"]},
+        timeout=10,
+    )
+    assert response.status_code == case["expected_status"]
+"""
+
+
+print("------------------iterators------------------------")
+
+class Iter1:
+    def __init__(self, start, stop, step):
+        self.current = start
+        self.stop = stop
+        self.step = step
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current >= self.stop:
+            raise StopIteration
+        value = self.current
+        self.current += self.step
+        return value
+            
+i1 = Iter1(1,10,2)
+print(next(i1))
+print(next(i1))
+print(next(i1))
+
+print("------------------context manager with contextmanager------------------------")
+from contextlib import contextmanager
+
+@contextmanager
+def open_file(path):
+    f = open(file=path, mode="r")
+    try:
+        yield f.read()
+    finally:
+        f.close()
+    
+with open_file(file1) as f:
+    print(f)
+    
+print("------------------context manager with class------------------------")
+    
+class ConMan1:
+    def __init__(self, file1):
+        self.file1 = file1
+        self._file = None
+    
+    def __enter__(self):
+        try:
+            self._file = open(self.file1, "r")
+            return self._file.read()
+        except FileNotFoundError as e:
+            print(e)
+            raise        
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        if self._file:
+            self._file.close()
+        return False
+    
+cm = ConMan1(file1)
+with cm as f:
+    print(f)
+    
+    
+# the easiest   
+class ConMan2:
+    def __init__(self, file_name):
+        self.file_name = file_name
+
+    def __enter__(self):
+        self.file = open(self.file_name, "r")
+        return self.file
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file.close()  
+print("------------------------------------------")
+cm2 = ConMan2(file1)
+with cm2 as f:
+    print(f.read())
