@@ -332,7 +332,18 @@ print("current module name:", __name__)
 # from ..helpers.formatter import pretty
 
 print("------------------File handling------------------------")
-file1 = "learning_sample.json"
+with open("./T24_T3/my_file.txt", "w") as f:
+    f.write("Hello!\n")
+    
+open("./T24_T3/empty.txt", "w").close()
+
+print("------------------Path------------------------")  
+# file1 = "learning_sample.json"
+from pathlib import Path
+
+file1 = Path(__file__).resolve().parent / "learning_sample.json"
+
+Path("my_file.txt").write_text("Hello!\n", encoding="utf-8")
 
 # with open(file=file1, mode="w") as f:
     # python_dict = json.load(f)
@@ -460,9 +471,43 @@ class ConMan2:
         self.file = open(self.file_name, "r")
         return self.file
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_value, traceback):
         self.file.close()  
 print("------------------------------------------")
 cm2 = ConMan2(file1)
 with cm2 as f:
     print(f.read())
+    
+print("------------------API------------------------")  
+import requests
+
+session = requests.Session()
+
+api_url="http://127.0.0.1:8000"
+endpoint_users="/users"
+endpoint_auth="/auth/token"
+# token="token-admin"
+
+data_auth = "username=admin&password=admin123"
+headers_auth = {"Content-Type": "application/x-www-form-urlencoded"}
+response_auth = session.post(
+    url=api_url + endpoint_auth,
+    data=data_auth,
+    headers=headers_auth,
+    timeout=10
+    )
+
+response_auth.raise_for_status()
+auth_payload = response_auth.json()
+print(auth_payload)
+
+token = auth_payload.get("access_token") or auth_payload.get("token")
+print("token:", token)
+
+headers_token = {"Authorization": f"Bearer {token}"}
+response_get = session.get(
+    url=api_url + endpoint_users,
+    headers=headers_token,
+    timeout=10)
+response_get.raise_for_status()
+print(response_get.json())
