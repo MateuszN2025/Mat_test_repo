@@ -511,3 +511,58 @@ response_get = session.get(
     timeout=10)
 response_get.raise_for_status()
 print(response_get.json())
+
+
+print("------------------ os ------------------------")  
+import os
+
+# 1) Read environment variables
+api_url = os.getenv("API_URL", "http://localhost:8000")
+# If missing, returns default
+
+# Required variable pattern
+token = os.getenv("API_TOKEN")
+if not token:
+    raise RuntimeError("Missing API_TOKEN")
+
+# 2) Current working directory
+cwd = os.getcwd()
+print("Current folder:", cwd)
+
+# 3) Join paths safely (portable between Linux/Windows)
+report_path = os.path.join(cwd, "reports", "result.json")
+print("Report path:", report_path)
+
+# 4) Check path/file existence
+if os.path.exists(report_path):
+    print("Report exists")
+
+# 5) Create directories (if needed)
+os.makedirs(os.path.join(cwd, "reports"), exist_ok=True)
+
+# 6) List files in a directory
+for name in os.listdir(cwd):
+    print(name)
+
+# 7) Run a shell command (simple, but prefer subprocess in serious code)
+exit_code = os.system("echo Hello from shell")
+print("Exit code:", exit_code)
+
+print("------------------ subprocess ------------------------")  
+
+print("=== cmd3 vboxuser1 ===")
+cmd3=subprocess.run(
+    args=[
+        "sshpass",
+        "-p", "changeme1@",
+        "ssh",
+        "vboxuser1@192.168.0.152",
+        "ip a | grep 192",
+    ],
+    capture_output=True,
+    text=True,
+    check=True,
+)
+print(cmd3.stdout)
+print(repr(cmd3.stdout))
+
