@@ -36,7 +36,8 @@
 		"editor.renderValidationDecorations": "off",
 		"window.zoomLevel": 0.80,
 		"python.linting.enabled": false,
-		"python.analysis.diagnosticMode": "off"
+		"python.analysis.diagnosticMode": "off",
+		"python.terminal.useEnvFile": true
 		
 	}
 }

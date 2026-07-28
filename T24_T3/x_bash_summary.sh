@@ -308,3 +308,34 @@ echo "-----tcpdump------"
 # -ge greater or equal
 # -lt less than
 # -le less or equal
+
+echo "-----redirection basics------"
+
+echo "1) stdout to file with 1>"
+echo "hello stdout" 1> out.log
+
+echo "2) stderr to file with 2>"
+ls /path/that/does/not/exist 2> err.log || true
+
+echo "3) send stdout to stderr with 1>&2"
+echo "this goes to stderr" 1>&2
+
+echo "-----more redirection options------"
+# ❌1&>2 is not valid❌. Use 1>&2 (or just >&2 in bash).
+
+echo "4) short form: stdout to stderr with >&2"
+echo "stdout redirected to stderr" >&2
+
+echo "5) discard only stdout to /dev/null"
+echo "this will be hidden" > /dev/null
+
+echo "6) discard only stderr to /dev/null"
+ls /path/that/does/not/exist 2> /dev/null || true
+
+echo "7) discard both stdout and stderr"
+ls /path/that/does/not/exist > /dev/null 2>&1 || true
+
+echo "8) bash shortcut: send both stdout+stderr"
+ls /path/that/does/not/exist &> /tmp/devnull || true
+
+

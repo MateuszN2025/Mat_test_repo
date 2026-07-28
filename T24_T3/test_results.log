@@ -1,0 +1,33 @@
+2026-07-28 13:19:29,155 - __main__ - INFO - Hi Hello
+2026-07-28 13:19:29,157 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:19:29,157 - __main__ - ERROR - Operation failed
+2026-07-28 13:33:15,797 - __main__ - INFO - Hi Hello
+2026-07-28 13:33:15,798 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:33:15,798 - __main__ - ERROR - Operation failed
+2026-07-28 13:33:19,441 - __main__ - INFO - Hi Hello
+2026-07-28 13:33:19,441 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:33:19,441 - __main__ - ERROR - Operation failed
+2026-07-28 13:34:44,424 - __main__ - INFO - Hi Hello
+2026-07-28 13:34:44,424 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:34:44,424 - __main__ - ERROR - Operation failed
+2026-07-28 13:34:48,132 - __main__ - INFO - Hi Hello
+2026-07-28 13:34:48,132 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:34:48,132 - __main__ - ERROR - Operation failed
+2026-07-28 13:41:47,195 - __main__ - INFO - Hi Hello
+2026-07-28 13:41:47,196 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:41:47,196 - __main__ - ERROR - Operation failed
+2026-07-28 13:43:10,573 - __main__ - INFO - Hi Hello
+2026-07-28 13:43:10,574 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:43:10,574 - __main__ - ERROR - Operation failed
+2026-07-28 13:46:10,323 - __main__ - INFO - Hi Hello
+2026-07-28 13:46:10,324 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:46:10,324 - __main__ - ERROR - Operation failed
+2026-07-28 13:47:58,305 - __main__ - INFO - Hi Hello
+2026-07-28 13:47:58,306 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:47:58,306 - __main__ - ERROR - Operation failed
+2026-07-28 13:51:42,202 - __main__ - INFO - Hi Hello
+2026-07-28 13:51:42,203 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:51:42,203 - __main__ - ERROR - Operation failed
+2026-07-28 13:59:14,982 - __main__ - INFO - Hi Hello
+2026-07-28 13:59:14,982 - __main__ - WARNING - Something might be wrong
+2026-07-28 13:59:14,982 - __main__ - ERROR - Operation failed

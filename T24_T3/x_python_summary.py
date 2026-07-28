@@ -479,6 +479,7 @@ with cm2 as f:
     print(f.read())
     
 print("------------------API------------------------")  
+print("⚠️⚠️⚠️  api must be run first ⚠️⚠️⚠️")
 import requests
 
 session = requests.Session()
@@ -513,8 +514,50 @@ response_get.raise_for_status()
 print(response_get.json())
 
 
-print("------------------ os ------------------------")  
+"""
 import os
+from urllib.parse import urlencode, urlparse, parse_qs
+
+api_url = os.getenv("API_URL", "http://localhost:8000")
+
+# Method 1: Use urlencode() for query parameters (RECOMMENDED)
+params = {
+    "username": "qa_user",
+    "status": "active",
+    "limit": 10
+}
+endpoint = "/users"
+full_url = f"{api_url}{endpoint}?{urlencode(params)}"
+# Result: http://localhost:8000/users?username=qa_user&status=active&limit=10
+
+# Method 2: requests library handles it automatically
+import requests
+response = requests.get(
+    f"{api_url}/users",
+    params=params,  # Automatically encoded with ? and &
+    timeout=10
+)
+
+# Method 3: Manual string concatenation (avoid - error-prone)
+# full_url = f"{api_url}/users?username=qa_user&status=active"  # ❌ Risky
+
+    URL Query String Syntax Breakdown
+            Symbol	Purpose	Rules
+                ?	Starts the query string	Only ONE ? per URL, must come after the path
+                &	Separates key-value pairs	Use between each parameter
+                =	Assigns value to key	One per parameter
+
+
+# Method 4: Parse existing URLs
+parsed = urlparse(full_url)
+query_params = parse_qs(parsed.query)  # Returns dict of params
+"""
+
+print("------------------ os ------------------------")  
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Loads from .env file
 
 # 1) Read environment variables
 api_url = os.getenv("API_URL", "http://localhost:8000")
@@ -549,9 +592,12 @@ exit_code = os.system("echo Hello from shell")
 print("Exit code:", exit_code)
 
 print("------------------ subprocess ------------------------")  
+print("⚠️⚠️⚠️  vbox must be run first ⚠️⚠️⚠️")
+import subprocess
 
-print("=== cmd3 vboxuser1 ===")
-cmd3=subprocess.run(
+import subprocess
+
+cmd = subprocess.run(
     args=[
         "sshpass",
         "-p", "changeme1@",
@@ -560,9 +606,206 @@ cmd3=subprocess.run(
         "ip a | grep 192",
     ],
     capture_output=True,
-    text=True,
-    check=True,
+    text=True,  # Returns strings, not bytes
+    check=False,  # Don't raise on non-zero exit
 )
-print(cmd3.stdout)
-print(repr(cmd3.stdout))
 
+# Access both streams
+print("STDOUT:", cmd.stdout)
+print("STDERR:", cmd.stderr)
+print("Exit code:", cmd.returncode)
+
+# Common pattern: log stderr when exit code is non-zero
+if cmd.returncode != 0: # 127 != 0 -> True -> logger.error
+    logger.error(f"Command failed: {cmd.stderr}")
+
+print("------------------ re (regex) ------------------------")
+import re
+
+# Text samples
+text = "error info debug error 1234 john123"
+email = "qa_user@example.com"
+log_line = "ERROR: Connection timeout at 2025-01-28 14:30:45"
+
+# 1) findall() - returns LIST of ALL matches (anywhere in string)
+print("\n=== findall() ===")
+words = re.findall(r"\w+", text)  # All word characters
+print(f"Words: {words}")  # ['error', 'info', 'debug', 'error', '1234', 'john123']
+
+numbers = re.findall(r"\d+", text)  # All digit sequences
+print(f"Numbers: {numbers}")  # ['1234', '123']
+
+# 2) match() - checks START of string only, returns Match object or None
+print("\n=== match() ===")
+if re.match(r"\w+", text):  # Starts with word? YES
+    print(f"✓ Text starts with word")
+
+if re.match(r"\d", text):  # Starts with digit? NO
+    print(f"✓ Text starts with digit")
+else:
+    print(f"✗ Text does NOT start with digit")
+
+# 3) search() - finds FIRST match ANYWHERE, returns Match object or None
+print("\n=== search() ===")
+match = re.search(r"\d+", text)  # Find first number
+if match:
+    print(f"First number found: {match.group()}")  # '1234'
+    print(f"Position: {match.start()}-{match.end()}")  # 33-37
+
+# 4) sub() - replace matches
+print("\n=== sub() ===")
+censored = re.sub(r"\d", "X", text)
+print(f"Censored: {censored}")  # error info debug error XXXX johnXXX
+
+# 5) Common patterns for QA testing
+print("\n=== Common QA patterns ===")
+email_pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+is_valid_email = bool(re.match(email_pattern, email))
+print(f"Valid email: {is_valid_email}")
+
+has_error = bool(re.search(r'ERROR', log_line))
+print(f"Has ERROR in logs: {has_error}")
+
+timestamp_match = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', log_line)
+if timestamp_match:
+    print(f"Extract timestamp: {timestamp_match.group()}")
+    
+"""
+================================================================
+
+pattern1 = r'[a-zA-Z0-9_.+-]+'  # ONE OR MORE of these chars
+test_strings = [
+    "john_doe",        # ✓ letters + underscore
+    "qa+tag",          # ✓ letters + plus
+    "user.name",       # ✓ letters + dot
+    "test-123",        # ✓ letters + hyphen + digits
+    "valid_email.part" # ✓ mixed
+]
+
+================================================================
+
+# Pattern 1: Just one character
+pattern1 = r'[a-z]'
+print(re.findall(pattern1, "hello"))  # ['h', 'e', 'l', 'l', 'o']
+
+# Pattern 2: One or MORE characters (a whole word)
+pattern2 = r'[a-z]+'
+print(re.findall(pattern2, "hello world 123"))  # ['hello', 'world']
+
+# Pattern 3: Inside brackets, + is LITERAL (not a quantifier)
+pattern3 = r'[a-z+]'
+print(re.findall(pattern3, "a+b"))  # ['a', '+', 'b']
+
+# Pattern 4: Both literal + AND quantifier
+pattern4 = r'[a-z+]+'
+print(re.findall(pattern4, "a+b++c"))  # ['a+b++c'] - matches "word with plus signs"
+
+================================================================
+
+text = "hello world 123"
+pattern = r"\d+"
+
+# match() checks ONLY the START
+match_result = re.match(pattern, text)
+print(match_result)  # None (because text starts with "hello", not a digit)
+
+# search() looks ANYWHERE
+search_result = re.search(pattern, text)
+print(search_result)  # <re.Match object> (finds "123" at the end)
+print(search_result.group())  # "123"
+
+================================================================
+"""
+
+print("------------------ logging ------------------------")
+import logging
+
+# 1) Set up ONCE (in a fixture or at module start)
+logging.basicConfig(
+    level=logging.INFO,  # Use constant, not string
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('./T24_T3/test_results.log'),  # File output
+        logging.StreamHandler()  # Console output
+    ]
+)
+
+# 2) Create logger instance (reusable)
+logger = logging.getLogger(__name__)
+print(f"__name__ : {__name__}")
+# 3) Use it
+logger.info("Hi Hello")
+logger.debug("Detailed info for debugging") # hidden because of the level=logging.INFO
+logger.warning("Something might be wrong")
+logger.error("Operation failed")
+
+print("------------------ collections ------------------------")
+from collections import defaultdict, Counter
+
+# defaultdict: Automatically creates default value for missing keys
+print("\n=== defaultdict ===")
+# Without defaultdict, accessing missing key raises KeyError
+# With defaultdict(list), missing key gets empty list []
+test_results = defaultdict(list)
+# defaultdict(list) creates a dictionary where any missing key 
+# automatically gets an empty list [] as its default value.
+
+test_results["login"].append("PASS")
+test_results["login"].append("FAIL")
+test_results["logout"].append("PASS")
+print(f"Test results: {dict(test_results)}")
+# Output: {'login': ['PASS', 'FAIL'], 'logout': ['PASS']}
+
+# Without defaultdict (verbose & error-prone):
+"""
+test_results_manual = {}
+if "login" not in test_results_manual:
+    test_results_manual["login"] = []
+test_results_manual["login"].append("PASS")
+test_results_manual["login"].append("FAIL")
+
+if "logout" not in test_results_manual:
+    test_results_manual["logout"] = []
+test_results_manual["logout"].append("PASS")
+print(f"Test results (manual): {test_results_manual}")
+
+# OR using .setdefault() (less verbose):
+test_results_alt = {}
+test_results_alt.setdefault("login", []).append("PASS")
+test_results_alt.setdefault("login", []).append("FAIL")
+test_results_alt.setdefault("logout", []).append("PASS")
+print(f"Test results (setdefault): {test_results_alt}")
+"""
+
+
+# Another example: count failures per test
+failure_counts = defaultdict(int)
+failure_counts["test_api"] += 1
+failure_counts["test_ui"] += 2
+failure_counts["test_api"] += 1
+print(f"Failures: {dict(failure_counts)}")
+# Output: {'test_api': 2, 'test_ui': 2}
+
+
+# #################################################################
+# Counter: Count occurrences of items
+print("\n=== Counter ===")
+# Common in QA: count test statuses
+test_statuses = ["PASS", "PASS", "FAIL", "PASS", "SKIP", "FAIL"]
+status_count = Counter(test_statuses)
+print(f"Status counts: {status_count}")
+# Output: Counter({'PASS': 3, 'FAIL': 2, 'SKIP': 1})
+
+# Most common 2 results
+print(f"Top 2 statuses: {status_count.most_common(2)}")
+# Output: [('PASS', 3), ('FAIL', 2)]
+
+# Count words in log line (useful for log analysis)
+log_text = "error warning error info error warning error"
+words = log_text.split()
+word_count = Counter(words)
+print(f"Word count: {word_count}")
+# Output: Counter({'error': 4, 'warning': 2, 'info': 1})
+
+print("-----------------------------")
+print({"a":[]})
