@@ -478,6 +478,33 @@ cm2 = ConMan2(file1)
 with cm2 as f:
     print(f.read())
     
+print("------------------ subprocess ------------------------")  
+print("⚠️⚠️⚠️  vbox must be run first ⚠️⚠️⚠️")
+import subprocess
+
+# cmd = subprocess.run(
+#     args=[
+#         "sshpass",
+#         "-p", "changeme1@",
+#         "ssh",
+#         "vboxuser1@192.168.0.152",
+#         "ip a | grep 192",
+#     ],
+#     capture_output=True,
+#     text=True,  # Returns strings, not bytes
+#     check=False,  # Don't raise on non-zero exit
+# )
+
+# # Access both streams
+# print("STDOUT:", cmd.stdout)
+# print("STDERR:", cmd.stderr)
+# print("Exit code:", cmd.returncode)
+
+# Common pattern: log stderr when exit code is non-zero
+# if cmd.returncode != 0: # 127 != 0 -> True -> logger.error
+#     logger.error(f"Command failed: {cmd.stderr}")
+
+    
 print("------------------API------------------------")  
 print("⚠️⚠️⚠️  api must be run first ⚠️⚠️⚠️")
 import requests
@@ -488,6 +515,55 @@ api_url="http://127.0.0.1:8000"
 endpoint_users="/users"
 endpoint_auth="/auth/token"
 # token="token-admin"
+
+import subprocess
+import socket
+import time
+
+# #################################################################
+def is_api_running(host="127.0.0.1", port=8000, timeout=2):
+    """Check if API is listening on the port."""
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(timeout)
+    try:
+        result = sock.connect_ex((host, port))
+        return result == 0  # 0 = success, port is in use
+    finally:
+        sock.close()
+
+def start_api_if_needed():
+    """Start API only if it's not already running."""
+    if is_api_running():
+        print("✓ API is already running on port 8000")
+        return
+    
+    print("⚠️  API not running, starting...")
+    try:
+        # Use Popen to start the server in background (doesn't wait for it to finish)
+        # Call the shell script directly; the alias only exists in an interactive shell.
+        subprocess.Popen(
+            args=["python", "-m", "uvicorn", "T18.api.api_2:api_2", "--host", "127.0.0.1", "--port", "8000"],
+            # args=["bash", "/home/mniedziolka/PP/Mat_test_repo/T18/tests/r_api.sh"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        time.sleep(4)  # Give server time to start
+        
+        # Verify it's actually running
+        if is_api_running():
+            print("✓ API started successfully")
+        else:
+            raise RuntimeError("API failed to start - port 8000 still not listening")
+    except Exception as e:
+        print(f"✗ Failed to start API: {e}")
+        raise
+
+# Usage in your test setup
+start_api_if_needed()
+
+# #################################################################
+
 
 data_auth = "username=admin&password=admin123"
 headers_auth = {"Content-Type": "application/x-www-form-urlencoded"}
@@ -591,33 +667,6 @@ for name in os.listdir(cwd):
 exit_code = os.system("echo Hello from shell")
 print("Exit code:", exit_code)
 
-print("------------------ subprocess ------------------------")  
-print("⚠️⚠️⚠️  vbox must be run first ⚠️⚠️⚠️")
-import subprocess
-
-import subprocess
-
-cmd = subprocess.run(
-    args=[
-        "sshpass",
-        "-p", "changeme1@",
-        "ssh",
-        "vboxuser1@192.168.0.152",
-        "ip a | grep 192",
-    ],
-    capture_output=True,
-    text=True,  # Returns strings, not bytes
-    check=False,  # Don't raise on non-zero exit
-)
-
-# Access both streams
-print("STDOUT:", cmd.stdout)
-print("STDERR:", cmd.stderr)
-print("Exit code:", cmd.returncode)
-
-# Common pattern: log stderr when exit code is non-zero
-if cmd.returncode != 0: # 127 != 0 -> True -> logger.error
-    logger.error(f"Command failed: {cmd.stderr}")
 
 print("------------------ re (regex) ------------------------")
 import re
@@ -749,6 +798,9 @@ print("\n=== defaultdict ===")
 test_results = defaultdict(list)
 # defaultdict(list) creates a dictionary where any missing key 
 # automatically gets an empty list [] as its default value.
+print("-------------------ℹ️-----------------------")
+print(test_results)
+print("------------------------------------------")
 
 test_results["login"].append("PASS")
 test_results["login"].append("FAIL")
@@ -803,9 +855,41 @@ print(f"Top 2 statuses: {status_count.most_common(2)}")
 # Count words in log line (useful for log analysis)
 log_text = "error warning error info error warning error"
 words = log_text.split()
+print(f"Words {words}")
 word_count = Counter(words)
 print(f"Word count: {word_count}")
 # Output: Counter({'error': 4, 'warning': 2, 'info': 1})
+print(f"Word dict: {dict(word_count)}")
 
 print("-----------------------------")
 print({"a":[]})
+
+print("------------------ json schema ------------------------")
+from jsonschema import validate, ValidationError
+
+# Define what a valid "person" object must look like
+schema = {
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "age":  {"type": "integer", "minimum": 0},
+        "email": {"type": "string", "format": "email"},
+    },
+    "required": ["name", "age"],  # these keys must always be present
+}
+
+person = {"name": "Alice", "age": 30, "email": "alice@example.com"}
+
+try:
+    validate(instance=person, schema=schema)
+    print("Valid JSON!")
+except ValidationError as e:
+    print(f"Invalid JSON: {e.message}")
+
+# Invalid example – age is a string instead of integer
+bad_person = {"name": "Bob", "age": "thirty"}
+try:
+    validate(instance=bad_person, schema=schema)
+    print("Valid JSON!")
+except ValidationError as e:
+    print(f"Invalid JSON: {e.message}")

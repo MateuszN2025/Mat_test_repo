@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorCustomizations": {
+			"contrastBorder": "#f8f8f7",
+			"activityBar.border": "#ffffff",
+			"editor.background": "#000000",
+			"editorGroup.border": "#ffffff",
+			"editorGroupHeader.tabsBackground": "#181818",
+			"panel.border": "#f8f8f7",
+			"sideBar.border": "#f8f8f7",
+			"sideBySideEditor.horizontalBorder": "#ffffff",
+			"sideBySideEditor.verticalBorder": "#ffffff",
+			"sash.hoverBorder": "#ffffff",
+			"statusBar.border": "#ffffff",
+			"tab.activeBackground": "#2df30521",
+			"tab.unfocusedActiveBackground": "#1f1f1f",
+			"titleBar.border": "#ffffff"
+		},
+		"workbench.colorTheme": "Dark Modern",
+		"editor.quickSuggestions": {
+			"comments": "on",
+			"strings": "on",
+			"other": "on"
+		},
+		"editor.suggestOnTriggerCharacters": true,
+		"editor.wordBasedSuggestions": "on",
+		"editor.inlineSuggest.enabled": true,
+		"python.analysis.inlayHints.callArgumentNames": "on",
+		"editor.parameterHints.enabled": true,
+		"editor.hover.enabled": "on",
+		"editor.renderValidationDecorations": "on",
+		"window.zoomLevel": 0.80,
+		"python.linting.enabled": true,
+		"python.analysis.diagnosticMode": "on",
+		"python.terminal.useEnvFile": true
+		
+	}
+}
