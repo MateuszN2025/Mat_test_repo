@@ -339,3 +339,33 @@ echo "8) bash shortcut: send both stdout+stderr"
 ls /path/that/does/not/exist &> /tmp/devnull || true
 
 
+echo "----- dd ------"
+# dd = low-level byte/block copy tool (disk/files/streams)
+# Syntax:
+#   dd if=<input_file> of=<output_file> [bs=<block_size>] [count=<blocks>] [skip=<in_blocks>] [seek=<out_blocks>] [status=progress]
+#
+# Most useful options:
+# if=   input source ("if" = input file)
+# of=   output target ("of" = output file)
+# bs=   block size (for example: 1K, 1M, 4M)
+# count=number of blocks to copy
+# skip= skip N blocks from input before copying
+# seek= skip N blocks on output before writing
+# conv= conversion flags (for example: conv=notrunc,noerror,sync)
+# status=progress shows live transfer progress
+#
+# Safe/basic examples:
+# 1) Create a 10 MiB zero-filled file
+#    dd if=/dev/zero of=zero_10M.bin bs=1M count=10 status=progress
+#
+# 2) Backup a disk/partition to an image file (read-only style usage)
+#    dd if=/dev/sdX of=disk_backup.img bs=4M status=progress
+#
+# 3) Restore image back to disk (DANGEROUS: overwrite target)
+#    dd if=disk_backup.img of=/dev/sdX bs=4M status=progress
+#
+# 4) Write random data for quick test file
+#    dd if=/dev/urandom of=random_5M.bin bs=1M count=5 status=progress
+#
+# ⚠️ Be very careful with of=/dev/sdX: wrong target can destroy data.
+
