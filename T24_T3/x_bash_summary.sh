@@ -36,7 +36,7 @@ for i in 1 2 3 4; do
 done
 
 echo "-----for medium-----"
-for ((i=;i<10;i++)); do
+for ((i=0;i<10;i++)); do
     echo "$i"
 done
 
