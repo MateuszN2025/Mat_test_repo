@@ -23,20 +23,20 @@
 		},
 		"workbench.colorTheme": "Dark Modern",
 		"editor.quickSuggestions": {
-			"comments": "off",
-			"strings": "off",
-			"other": "off"
+			"comments": "on",
+			"strings": "on",
+			"other": "on"
 		},
-		"editor.suggestOnTriggerCharacters": false,
-		"editor.wordBasedSuggestions": "off",
-		"editor.inlineSuggest.enabled": false,
-		"python.analysis.inlayHints.callArgumentNames": "off",
-		"editor.parameterHints.enabled": false,
-		"editor.hover.enabled": "off",
-		"editor.renderValidationDecorations": "off",
+		"editor.suggestOnTriggerCharacters": true,
+		"editor.wordBasedSuggestions": "on",
+		"editor.inlineSuggest.enabled": true,
+		"python.analysis.inlayHints.callArgumentNames": "on",
+		"editor.parameterHints.enabled": true,
+		"editor.hover.enabled": "on",
+		"editor.renderValidationDecorations": "on",
 		"window.zoomLevel": 0.80,
-		"python.linting.enabled": false,
-		"python.analysis.diagnosticMode": "off",
+		"python.linting.enabled": true,
+		"python.analysis.diagnosticMode": "on",
 		"python.terminal.useEnvFile": true
 		
 	}
