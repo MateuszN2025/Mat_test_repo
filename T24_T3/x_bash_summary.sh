@@ -369,3 +369,9 @@ echo "----- dd ------"
 #
 # ⚠️ Be very careful with of=/dev/sdX: wrong target can destroy data.
 
+echo "----- nl ------"
+# In Linux, nl -ba prints a file with line numbers, including blank lines.
+# nl = number lines in text files
+# -b = controls which lines get numbers
+# -ba = number all lines (a = all), not just non-empty ones
+nl -ba sed.log

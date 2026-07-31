@@ -1,7 +1,7 @@
 print("---------------dicts---------------------------")
 dict1 = {"a": 1, "b": 2}
 dict2 = {}
-for k,v in dict1.items():
+for k, v in dict1.items():
     dict2[v] = k
 print(dict2)
 # Reverse a dictionary
@@ -893,3 +893,6 @@ try:
     print("Valid JSON!")
 except ValidationError as e:
     print(f"Invalid JSON: {e.message}")
+    
+
+

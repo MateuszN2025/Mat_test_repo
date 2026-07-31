@@ -273,3 +273,126 @@ print(c4)
 print(c4.most_common(2))
 d5 = dict(c4)
 print(d5)
+
+print("----------------- ℹ️  gc garbage collector ℹ️ -------------------------")
+
+"""
+For 99% of Python development, you never need to manually call gc.collect(), 
+gc.disable(), or gc.enable(). Python handles memory management automatically in the background.
+"""
+
+import gc
+
+
+class Node:
+  pass
+
+
+# Create a circular reference
+a = Node()
+b = Node()
+a.peer = b
+b.peer = a
+
+# Remove external references
+del a
+del b
+
+# Manually trigger the garbage collector
+collected = gc.collect()
+# gc.collect() when you need to force Python to clean up memory right now,
+# rather than waiting for the automatic collector to trigger.
+# gc.collect() immediately frees up RAM before your script 
+# moves on to the next memory-heavy task.
+# Wrapping the loading process in gc.disable() and gc.enable()
+# can drastically speed up load times.
+print(f"Unreachable objects collected: {collected}")
+
+"""
+Method,What it does,When you use it
+gc.disable(),Turns OFF the automatic garbage collector.,
+    "To prevent random performance pauses during time-critical tasks 
+    (e.g., game loops, massive data imports)."
+gc.enable(),Turns ON the automatic garbage collector 
+    (this is the default state).,"To restore normal, automatic memory
+    management after temporarily disabling it."
+gc.collect(),Forces an immediate memory cleanup sweep.,"To instantly
+    free up RAM after deleting huge datasets, or to manually 
+    clean up memory during idle times while gc is disabled."
+        Leave it enabled and forget about it for normal scripts. 
+        Only use gc.collect() if you are dealing with massive amounts of data 
+        and can't afford to wait for the automatic sweep.
+
+import gc
+
+# 1. Turn off automatic sweeps to prevent random pauses
+gc.disable()
+
+# 2. Run your performance-critical code (e.g., a game level, a real-time process)
+# No unexpected GC pauses will happen here!
+run_heavy_simulation()
+
+# 3. Manually take out the trash when it is safe to do so (e.g., during a loading screen)
+gc.collect()
+
+"""
+
+print("----------------- ℹ️  tricky  ℹ️ -------------------------")
+a = 1
+b = 1 
+print(a is b)
+
+print("----------------- ℹ️  Path  ℹ️ -------------------------")
+
+
+from pathlib import Path
+
+path_to_file = Path(__file__)
+print(path_to_file)
+file_dir = path_to_file.parent
+print(file_dir)
+file_dir_parents = path_to_file.parents[1]
+print(file_dir_parents)
+
+try:
+    new_file = file_dir / "new_file.txt"
+    # Create the file atomically; "x" mode raises FileExistsError if it already exists.
+    with new_file.open("x", encoding="utf-8"):
+        pass
+except FileExistsError as e:
+    print(e)
+else:
+    print("File created ✅")
+
+print("----------------- ℹ️  shutil  ℹ️ -------------------------")
+
+import shutil
+new_file2 = file_dir / "new_file2.txt"
+# shutil.copy(new_file, new_file2)
+# new_file2.unlink()
+new_file_dir = file_dir / "new_folder"
+# new_file_dir.mkdir()
+
+print("----------------- ℹ️  os  ℹ️ -------------------------")
+
+import os
+import dotenv
+
+print(os.getenv("HOME"))
+cwd = os.getcwd()
+print(cwd)
+print(dotenv.load_dotenv())
+print("------------------------------------------")
+print(os.getenv("MATVAR"))          # None if missing
+print(os.environ.get("MATVAR"))     # same behavior
+print(os.getenv("MATVAR", "not set"))  # with default fallback
+print("------------------------------------------")
+report_path = os.path.join(cwd, "reports", "result.json")
+print("Report path:", report_path)
+# 1) Create reports/ if missing
+# os.makedirs(os.path.dirname(report_path), exist_ok=True)
+# 2) Create/write the file
+# data = {"status": "ok", "tests": 10}
+# with open(report_path, "w", encoding="utf-8") as f:
+# json.dump(data, f, indent=2)
+# print("File created:", os.path.exists(report_path))
