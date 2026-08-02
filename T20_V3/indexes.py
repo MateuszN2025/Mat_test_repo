@@ -1,8 +1,8 @@
-# input:  [2,7,13,17]
-# target: [0,1]
+# input:  [2,7,8]
+# target: [0,2]
 
-l1 = [2,7,13,17]
-#      0|1|2|3 
+l1 = [2,7,8]
+#      0|1|2
 
 def return_target_indexes(list1: list, target1: int) -> list:
     i, j = 0, 0
@@ -19,7 +19,7 @@ def return_target_indexes(list1: list, target1: int) -> list:
         print(f"List is too short, lenght: {ll1}")
     pass
 print("-----------------ℹ️-------------------------")
-print(return_target_indexes(list1=l1, target1=9))
+print(return_target_indexes(list1=l1, target1=10))
 
 print("-----------------ℹ️------------------------")
 
